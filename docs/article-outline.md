@@ -48,7 +48,7 @@
 ## 3. 公平に: React Router 側の履歴も並べる
 
 - 2026 年の advisory は 19 件。HIGH 10 件、CRITICAL 1 件（file session storage の path traversal）
-- 性質の違い: XSS、open redirect、`__manifest` の DoS、turbo-stream の constructor 呼び出し。**未認証 RCE は 0 件**（Next は 1 年で 4 件）
+- 性質の違い: XSS、open redirect、`__manifest` の DoS、そして turbo-stream デシリアライズ経由の未認証 RCE が 1 件（HIGH 判定）。Next は CRITICAL の RCE が 1 年で 4 件
 - ここで「どちらにも脆弱性はある。差は"攻撃面の種類と量"」と視点を切り替える
 
 ## 4. 実験: 同じアプリを両方で作って、何を抱え込むか数える
@@ -161,7 +161,7 @@
 | 総数 | 67 | 21 | 8 |
 | CRITICAL / HIGH | 5 / 26 | 1 / 11 | 1 / 6 |
 | 2026 年の CRITICAL+HIGH | 16 | 10 | 4 |
-| 直近 12 か月の未認証 RCE | 4（RSC flight, AVIF, Windows, next/og） | 0 | 1（React2Shell。Next 側で踏む） |
+| 直近 12 か月の未認証 RCE | 4（RSC flight, AVIF, Windows, next/og。全部 CRITICAL） | 1（turbo-stream デシリアライズ。HIGH 判定、7.14.2 で修正） | 1（React2Shell。Next 側で踏む） |
 | CRITICAL の中身 | RCE ×4、middleware 認可バイパス ×1 | file session storage の path traversal ×1 | RCE ×1 |
 
 数字の使い方の注意:
@@ -182,5 +182,6 @@
   - https://osv.dev/vulnerability/GHSA-fv66-9v8q-g76r (CVE-2025-55182 / react-server-dom)
   - https://osv.dev/vulnerability/GHSA-9583-h5hc-x8cw (React Router path traversal, CRITICAL)
   - https://osv.dev/vulnerability/GHSA-8x6r-g9mw-2r78 (React Router `__manifest` DoS)
+- 検証済みの事実（2026-10-05、next@16.3.8）: `next/image` を一行も使わなくても `/_next/image` は 200 を返し webp 変換も動く。`images.unoptimized: true` で 404 になる。記事の「使っていなくても抱える」の一次証拠
 - 会社ブログとして避けること: Vercel への人格攻撃、「Next は終わり」系の断定。数字と機能の対応関係だけで語る
 - 想定文字数: 6,000〜8,000 字。表は 5 つまで
