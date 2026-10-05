@@ -1,6 +1,6 @@
 /**
- * Pulls the published advisory history for each framework's packages from
- * osv.dev and writes docs/results/advisories.json.
+ * 各フレームワークのパッケージについて公開済み advisory の履歴を osv.dev から
+ * 取得し docs/results/advisories.json に書き出す。
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";

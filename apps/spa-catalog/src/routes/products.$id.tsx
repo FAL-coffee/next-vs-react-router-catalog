@@ -3,7 +3,7 @@ import { ApiError, getProduct } from "#/lib/api";
 import { ProductDetail } from "#/components/ProductDetail";
 
 export const Route = createFileRoute("/products/$id")({
-  // TanStack parses search values as JSON, so `?fail=1` arrives as the number 1.
+  // TanStack は search params を JSON として解釈するので、`?fail=1` は数値の 1 で届く。
   validateSearch: (s: Record<string, unknown>): { fail?: string } => (s.fail != null ? { fail: String(s.fail) } : {}),
   loaderDeps: ({ search }) => ({ fail: search.fail }),
   loader: async ({ params, deps }) => {

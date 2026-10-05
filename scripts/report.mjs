@@ -1,5 +1,5 @@
 /**
- * Renders docs/results/COMPARISON.md from measure.json + advisories.json.
+ * measure.json と advisories.json から docs/results/COMPARISON.md を生成する。
  */
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";

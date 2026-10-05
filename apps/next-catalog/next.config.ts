@@ -1,8 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Deliberately left at defaults otherwise: the point of this repo is to
-  // compare what "とりあえず Next.js" ships with out of the box.
+  // ここ以外はあえて既定値のまま。「とりあえず Next.js」が素の状態で何を
+  // 同梱しているかを比べるのがこのリポジトリの目的なので。
   transpilePackages: ["@catalog/data"],
   output: "standalone",
 };

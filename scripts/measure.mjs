@@ -1,7 +1,7 @@
 /**
- * Measures both apps with the same procedure and writes docs/results/measure.json.
+ * 両アプリを同じ手順で計測し docs/results/measure.json に書き出す。
  *
- *   pnpm measure            # everything
+ *   pnpm measure            # 全部
  *   pnpm measure --skip-build
  */
 import { mkdirSync, rmSync, writeFileSync, existsSync, readFileSync } from "node:fs";
@@ -27,7 +27,7 @@ const LATENCY_N = 200;
 
 const executablePath = process.env.PW_CHROMIUM_PATH ?? (existsSync("/opt/pw-browsers/chromium") ? "/opt/pw-browsers/chromium" : undefined);
 
-/** Paths that reveal what each server exposes beyond the app's own routes. */
+/** アプリ自身のルート以外に、各サーバが何を公開しているかをあぶり出すパス。 */
 const PROBES = [
   { path: "/", headers: { accept: "text/html" }, note: "app route" },
   { path: "/robots.txt", note: "not defined by either app" },
@@ -35,7 +35,7 @@ const PROBES = [
   { path: "/_next/image?url=https%3A%2F%2Fexample.com%2Fx.png&w=640&q=75", note: "Next.js image optimizer (remote src)" },
   { path: "/_next/image?url=%2Fimages%2Fuji-sencha.png&w=640&q=75", headers: { accept: "image/avif,image/webp" }, note: "image optimizer, AVIF/WebP negotiated" },
   { path: "/products/uji-sencha/opengraph-image", note: "next/og ImageResponse (OG image generated on the server)" },
-  // Next 16 answers an RSC request with a 307 to a `_rsc=<hash>` URL first, so follow redirects here.
+  // Next 16 は RSC リクエストにまず `_rsc=<hash>` 付き URL への 307 を返すので、ここだけリダイレクトを追う。
   { path: "/", headers: { RSC: "1" }, follow: true, note: "RSC flight payload request (redirects followed)" },
   { path: "/", method: "POST", headers: { "Next-Action": "0000000000000000000000000000000000000000", "Content-Type": "text/plain" }, body: "[]", note: "Server Action endpoint (bogus id)" },
   { path: "/api/products", note: "JSON API (Next: Route Handler; SPA: none, data lives in the browser)" },
@@ -48,12 +48,12 @@ async function measureApp(key) {
   const app = APPS[key];
   const r = { key, label: app.label };
 
-  // ---- versions ----
+  // ---- バージョン ----
   const dirs = [app.dir, ...(app.apiDir ? [app.apiDir] : [])];
   r.frameworkVersions = Object.fromEntries(
     app.frameworkPackages.map((name) => {
       for (const d of dirs) {
-        // read the file directly: some packages (hono) do not export ./package.json
+        // ./package.json を exports に含めないパッケージがあるので、ファイルを直接読む
         const pj = join(d, "node_modules", name, "package.json");
         if (existsSync(pj)) return [name, JSON.parse(readFileSync(pj, "utf8")).version];
       }
@@ -67,10 +67,10 @@ async function measureApp(key) {
     r.declaredDeps.devDependencies.push(...Object.keys(pkg.devDependencies ?? {}));
   }
 
-  // ---- source ----
+  // ---- ソース ----
   r.source = countLines(app.sourceGlobs.map((g) => join(app.dir, g)));
 
-  // ---- deps ----
+  // ---- 依存 ----
   const merge = (lists) => {
     const packages = [...new Set(lists.flatMap((l) => l.packages))].sort();
     return { count: packages.length, bytes: lists.reduce((a, l) => a + l.bytes, 0), packages };
@@ -79,14 +79,14 @@ async function measureApp(key) {
     prod: merge(dirs.map((d) => listDeps(d, { prod: true }))),
     all: merge(dirs.map((d) => listDeps(d, { prod: false }))),
   };
-  // Next.js vendors React + the RSC runtime under next/dist/compiled, so it never
-  // shows up as a separate package. Check both places.
+  // Next.js は React と RSC ランタイムを next/dist/compiled に同梱しているので、
+  // 独立したパッケージとしては現れない。両方の場所を見る。
   r.deps.hasRscRuntime =
     r.deps.prod.packages.some((p) => p.startsWith("react-server-dom-")) ||
     existsSync(join(app.dir, "node_modules/next/dist/compiled/react-server-dom-turbopack"));
   r.deps.hasImageLib = r.deps.prod.packages.some((p) => p.startsWith("sharp@") || p.startsWith("@img/"));
 
-  // ---- build ----
+  // ---- ビルド ----
   if (!skipBuild) {
     r.build = { runsMs: [] };
     for (let i = 0; i < BUILD_RUNS; i++) {
@@ -113,17 +113,17 @@ async function measureApp(key) {
   );
   r.deployable.note = app.deployableNote;
 
-  // ---- runtime ----
+  // ---- ランタイム ----
   const base = `http://localhost:${app.port}`;
   const server = startServer(app);
   try {
     r.coldStartMs = await waitFor(base + "/");
 
-    // response headers on /
+    // / のレスポンスヘッダ
     const head = await fetch(base + "/");
     r.responseHeaders = Object.fromEntries([...head.headers.entries()].filter(([k]) => !/^(date|etag|content-length|connection|keep-alive)$/i.test(k)));
 
-    // endpoint probes
+    // エンドポイントのプローブ
     r.probes = [];
     for (const probe of PROBES) {
       const res = await fetch(base + probe.path, { method: probe.method ?? "GET", headers: probe.headers, body: probe.body, redirect: probe.follow ? "follow" : "manual" });
@@ -132,7 +132,7 @@ async function measureApp(key) {
       r.probes.push({ ...probe, status: res.status, contentType: ct.split(";")[0], finalUrl: res.url.replace(base, "") });
     }
 
-    // page weight + time to content via a real browser
+    // 実ブラウザでのページ重量と初期表示までの時間
     const browser = await chromium.launch({ executablePath });
     r.pages = {};
     r.timeToContent = {};
@@ -177,7 +177,7 @@ async function measureApp(key) {
     }
     await browser.close();
 
-    // latency (sequential, warm)
+    // レイテンシ（ウォームアップ後、逐次）
     r.latency = {};
     for (const path of ["/", "/products/ethiopia-yirgacheffe", "/api/products"]) {
       for (let i = 0; i < 20; i++) await (await fetch(base + path)).arrayBuffer();
@@ -195,7 +195,7 @@ async function measureApp(key) {
       };
     }
 
-    // process memory (RSS of the node process tree)
+    // プロセスのメモリ（node プロセスツリーの RSS）
     try {
       const rss = sh(`ps -o rss= --ppid ${server.child.pid} -o pid= | awk '{s+=$1} END {print s}'`).trim();
       const own = sh(`ps -o rss= -p ${server.child.pid}`).trim();

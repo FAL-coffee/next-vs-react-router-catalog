@@ -1,12 +1,11 @@
-import Link from "next/link";
 import { getProduct } from "@catalog/data";
 import { ProductDetail } from "@/components/ProductDetail";
 import { Modal } from "./Modal";
 
 /**
- * Intercepting route: a client-side navigation from the list to
- * /products/[id] renders this modal on top of the list; a hard reload or a
- * direct visit renders the real page at app/products/[id]/page.tsx.
+ * Intercepting Route。一覧からのクライアント遷移で /products/[id] に行くと
+ * 一覧の上にこのモーダルを重ねて描画する。リロードや直接アクセスの場合は
+ * app/products/[id]/page.tsx の本物の詳細ページが描画される。
  */
 export default async function QuickViewModal({ params }: PageProps<"/products/[id]">) {
   const { id } = await params;
@@ -16,9 +15,12 @@ export default async function QuickViewModal({ params }: PageProps<"/products/[i
       {product ? (
         <>
           <ProductDetail product={product} />
-          <Link href={`/products/${id}`} className="mt-4 inline-block text-sm underline">
+          {/* Intercepting Route はソフトナビゲーションにしか効かず、同じ URL への
+              <Link> はモーダルのまま何も起きない。本物の詳細ページを出すには
+              素の <a> でハードナビゲーションするしかない。 */}
+          <a href={`/products/${id}`} className="mt-4 inline-block text-sm underline">
             詳細ページで開く
-          </Link>
+          </a>
         </>
       ) : (
         <p>商品が見つかりません。</p>

@@ -86,6 +86,7 @@
 ### 4.7 地味に刺さった差
 
 - Next のサーバコード分割でモジュールスコープのシングルトンが複製される → `globalThis`
+- Intercepting Route のモーダルから本物の詳細ページへは `<Link>` で行けない（ソフトナビゲーションにしか効かない）。素の `<a>` でフルリロードが要る。SPA 側は route masking の実体が別ルートなので `<Link>` で出られる
 - React 19 は Server Action 完了後にフォームをリセットする（予約エラー後に数量が初期値に戻る）
 - TanStack は search を JSON として読む（`?fail=1` が数値になる）
 - TanStack の `errorComponent` はルートに伝播しない（`defaultErrorComponent` を使う）

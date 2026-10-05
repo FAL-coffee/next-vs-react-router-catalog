@@ -1,7 +1,7 @@
-// Minimal static host for the built SPA, behaving like a plain CDN: a file is
-// served if it exists (`/products/<id>/` resolves to the index.html generated
-// at build time by static-paths.ts), anything else is a real 404.
-// Used by `pnpm start` and by scripts/measure.mjs.
+// ビルド済み SPA を配信する最小の静的サーバ。素の CDN と同じ振る舞いで、
+// ファイルがあれば返し（`/products/<id>/` は static-paths.ts がビルド時に
+// 生成した index.html に解決される）、それ以外は本物の 404 を返す。
+// `pnpm start` と scripts/measure.mjs が使う。
 import { createServer } from "node:http";
 import { existsSync, readFileSync, statSync } from "node:fs";
 import { extname, join, normalize } from "node:path";

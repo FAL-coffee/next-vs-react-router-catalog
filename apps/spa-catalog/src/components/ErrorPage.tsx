@@ -2,9 +2,9 @@ import { Link } from "@tanstack/react-router";
 import type { ErrorComponentProps } from "@tanstack/react-router";
 
 /**
- * Router-wide default. Unlike notFound(), a thrown error is caught by the
- * nearest route's errorComponent and does not bubble to the root, so this is
- * registered as `defaultErrorComponent` on the router.
+ * ルーター全体の既定エラー表示。notFound() と違い、throw されたエラーは
+ * 最も近いルートの errorComponent が受け取り、ルートまで伝播しない。
+ * そのためルーターの `defaultErrorComponent` として登録している。
  */
 export function ErrorPage({ error }: ErrorComponentProps) {
   return (

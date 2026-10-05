@@ -92,7 +92,7 @@ export function compressedSizes(buf) {
   };
 }
 
-/** Unique production (or all) packages resolved for a workspace app, via pnpm. */
+/** ワークスペースのアプリに解決された本番（または全）依存パッケージのユニーク一覧。pnpm 経由。 */
 export function listDeps(appDir, { prod = true } = {}) {
   const json = sh(`pnpm ls ${prod ? "--prod" : ""} --depth Infinity --json`, { cwd: appDir });
   const tree = JSON.parse(json)[0];

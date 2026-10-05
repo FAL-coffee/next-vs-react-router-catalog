@@ -4,12 +4,13 @@ import type { Plugin } from "vite";
 import rawProducts from "../../packages/catalog-data/src/products.json" with { type: "json" };
 
 /**
- * Static route generation: the SPA counterpart of Next's generateStaticParams.
+ * 静的ルート生成。Next の generateStaticParams に相当する SPA 側の仕組み。
  *
- * A static host only has files, so `/products/brazil-cerrado` needs one on disk
- * or a reload / direct visit is a real 404. The product ids are known at build
- * time, so emit a copy of index.html for every known route. Unknown ids keep
- * returning a genuine 404 from the host, which a catch-all rewrite could not do.
+ * 静的ホストにはファイルしか無いので、`/products/brazil-cerrado` に対応する
+ * ファイルがディスクに無いとリロードや直接アクセスは本物の 404 になる。
+ * 商品 ID はビルド時に分かっているので、既知のルートごとに index.html の
+ * コピーを吐く。未知の ID はホストが本物の 404 を返したままになる。これは
+ * 全部 index.html に回す rewrite ではできないこと。
  */
 export function staticPaths(): Plugin {
   const paths = ["about", ...rawProducts.map((p) => `products/${p.id}`)];

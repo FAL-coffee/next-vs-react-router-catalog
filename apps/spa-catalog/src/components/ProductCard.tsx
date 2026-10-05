@@ -3,9 +3,9 @@ import type { Product } from "@catalog/data";
 import { formatPrice } from "#/lib/format";
 
 /**
- * Click: opens the quick-view modal on the list route (`?quick=<id>`) while the
- * address bar shows `/products/<id>` (route masking). Reload or direct access:
- * the real detail page. Same behaviour as Next's intercepting route.
+ * クリックすると一覧ルート上でクイックビューのモーダルを開く（`?quick=<id>`）。
+ * アドレスバーには route masking で `/products/<id>` を見せる。リロードや
+ * 直接アクセスなら本物の詳細ページ。Next の Intercepting Route と同じ振る舞い。
  */
 export function ProductCard({ product, search }: { product: Product; search: { q?: string; category?: string } }) {
   return (

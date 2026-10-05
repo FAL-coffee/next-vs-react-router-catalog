@@ -22,19 +22,19 @@ export const CATEGORIES: { value: Category; label: string }[] = [
 const products: Product[] = rawProducts as Product[];
 
 /**
- * Mock data layer shared by both apps. Every call resolves after the same
- * artificial latency so that "data access" costs exactly the same whether it
- * runs on Next's server or in the SPA's browser. No database, no network.
+ * 両アプリが共有するモックのデータ層。どの呼び出しも同じ擬似レイテンシを
+ * 待ってから返すので、Next のサーバで動いても SPA のブラウザで動いても
+ * 「データアクセス」のコストは完全に同じになる。DB もネットワークも無し。
  */
 export const MOCK_LATENCY_MS = 150;
 
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
 /**
- * In-memory reservation ledger. In Next it lives in the server process (and
- * is kept on `globalThis` because Next bundles server code per route, so a
- * module-level singleton can be instantiated once per chunk). In the SPA it
- * lives in the browser tab.
+ * インメモリの予約台帳。Next ではサーバプロセス内に置かれる（Next はサーバ
+ * コードをルート単位でバンドルするためモジュールスコープのシングルトンが
+ * チャンクごとに複製されうるので、`globalThis` に逃がしている）。SPA では
+ * ブラウザのタブ内に置かれる。
  */
 const reserved: Map<string, number> = ((globalThis as any).__catalogReserved ??= new Map<string, number>());
 

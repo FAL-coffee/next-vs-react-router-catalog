@@ -286,6 +286,7 @@ JS は Next.js の方が 50 KB 多く、この規模の画面では RSC によ�
 作っている最中に踏んだ小ネタを4つ。
 
 - **Next.js はサーバコードをルート単位で分割する**ので、モジュールスコープのシングルトンがルート間で複製されます。`.next/server` を覗くと共有データのモジュールが4チャンクに現れました。結局 `globalThis` に逃がしました。Prisma のドキュメントに `globalThis` の例が載っている理由を、身をもって理解しました
+- **Intercepting Route のモーダルから「本物の詳細ページ」には `<Link>` で行けません。** 横取りはソフトナビゲーションにしか効かないので、同じ URL への `<Link>` はモーダルのまま何も起きません。素の `<a href>` でフルリロードするしかなく、Next.js のドキュメントにも「横取りを解除する」API はありません。SPA 側は route masking の実体が別ルートなので、普通の `<Link>` で出られます
 - **React 19 は Server Action の完了後にフォームをリセットします。** 予約でエラーが返ると、入力した数量が初期値に戻ります。SPA 側は `useState` なので残ります。どちらが正しいかはさておき、知らないと「なんで？」になります
 - **TanStack Router は search params を JSON として読みます。** `?fail=1` は数値の `1` で届きます。`validateSearch` で `String()` しましょう
 - **静的な SPA には「動的ルート」が存在しません。** Vercel に置いて `/products/brazil-cerrado` をリロードしたら CDN の 404 が出ました。ホスティングの rewrite で `index.html` に回せば直りますが、それはフレームワークの比較ではなくなるのでやめました。代わりに、商品 ID はビルド時に分かっているので、ID ごとに `index.html` を吐く 30 行の Vite プラグインを書きました。Next.js の `generateStaticParams` と同じ発想です。副産物として、未知の ID には CDN が本物の 404 を返すようになりました

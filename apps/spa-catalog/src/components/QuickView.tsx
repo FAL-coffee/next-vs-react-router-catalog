@@ -4,7 +4,7 @@ import type { Product } from "@catalog/data";
 import { getProduct } from "#/lib/api";
 import { ProductDetail } from "./ProductDetail";
 
-/** The SPA counterpart of Next's `@modal/(.)products/[id]` intercepting route. */
+/** Next の `@modal/(.)products/[id]`（Intercepting Route）に相当する SPA 側の実装。 */
 export function QuickView({ id, search }: { id: string; search: { q?: string; category?: string } }) {
   const navigate = useNavigate();
   const ref = useRef<HTMLDialogElement>(null);

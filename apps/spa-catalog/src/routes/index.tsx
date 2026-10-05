@@ -7,7 +7,7 @@ import { QuickView } from "#/components/QuickView";
 type Search = { q?: string; category?: string; quick?: string };
 
 export const Route = createFileRoute("/")({
-  // Every key optional so that a plain <Link to="/"> needs no `search` prop.
+  // 全キーを省略可能にして、素の <Link to="/"> に `search` を要求させない。
   validateSearch: (s: Record<string, unknown>): Search => ({
     ...(typeof s.q === "string" && s.q ? { q: s.q } : {}),
     ...(typeof s.category === "string" && s.category ? { category: s.category } : {}),

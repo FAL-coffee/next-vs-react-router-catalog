@@ -1,7 +1,7 @@
 /**
- * The SPA's "data access". In this comparison it calls the shared mock data
- * layer directly in the browser (same artificial latency as Next's server-side
- * calls). In a real product this file is where `fetch` to the BFF would live.
+ * SPA の「データアクセス」。この比較では共有のモックデータ層をブラウザで
+ * 直接呼ぶ（Next 側のサーバ呼び出しと同じ擬似レイテンシ）。実運用なら
+ * このファイルが BFF への `fetch` を置く場所になる。
  */
 import { getProduct as mockGetProduct, listProducts as mockListProducts, reserveProduct } from "@catalog/data";
 import type { Product } from "@catalog/data";

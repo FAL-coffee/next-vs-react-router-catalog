@@ -19,7 +19,7 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
             <Link href="/about" className="text-sm text-zinc-600 hover:underline">
               About
             </Link>
-            {/* eslint-disable-next-line @next/next/no-html-link-for-pages -- JSON endpoint, not a page */}
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages -- ページではなく JSON エンドポイントへのリンク */}
             <a href="/api/products" className="text-sm text-zinc-600 hover:underline">
               API
             </a>

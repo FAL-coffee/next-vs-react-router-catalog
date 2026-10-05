@@ -9,7 +9,7 @@
 | Server Actions（フォーム） | 予約 | `useState` + データ層呼び出し（実運用なら `fetch`） | 低 | **JS 無効で動かすのは無理**。それ以外は不要 |
 | Route Handlers（API） | `/api/products`, `/api/products/:id` | なし。実運用では既存の BFF / API を叩く | 低。BFF が既にある会社は最初からこれ | 不要 |
 | Middleware（proxy） | 使っていない | `beforeLoad` が同じ位置づけ。本体の認可は API の仕事 | 低 | 不要。認可を Middleware だけに置くと 2025〜2026 のバイパス 6 件がそのまま刺さる |
-| Parallel Routes + Intercepting Routes | `@modal/(.)products/[id]` のクイックビュー | `?quick=<id>` + route masking | 低。むしろ SPA の方が短い | 不要 |
+| Parallel Routes + Intercepting Routes | `@modal/(.)products/[id]` のクイックビュー。モーダルから本物のページへは `<a href>` のフルリロードが要る | `?quick=<id>` + route masking。本物のページへは普通の `<Link>` | 低。むしろ SPA の方が短い | 不要 |
 | Image Optimization | `next/image`（既定で有効） | `<img>`。最適化は CDN の仕事 | 中（CDN 側の設定が要る） | **外部画像を大量に扱うなら足りない**。それ以外は不要 |
 | Metadata API / OG 画像 | `generateMetadata` + `next/og` | `head` で title のみ。OG 画像は作れない | 高（別サービスが要る） | **SNS に貼られる公開ページがあるなら足りない** |
 | ISR / キャッシュ階層 | 使っていない（全ルート dynamic） | HTTP キャッシュ + CDN | 低 | 不要 |
