@@ -43,7 +43,7 @@ pnpm measure        # ビルド時間・依存・バンドル・起動・レイ�
 pnpm report         # docs/results/COMPARISON.md を生成
 ```
 
-Vercel にデプロイする場合、`apps/spa-catalog` をルートにすると `vercel.json` の rewrite で `/api/*` が同梱の関数（`api/index.js`、ビルド時に Hono ごとバンドル）に、それ以外が `index.html` に回る。在庫はプロセス内メモリなのでサーバレスでは呼び出しごとにリセットされうる（デモなので許容）。`apps/next-catalog` はそのまま Vercel に載る。
+Vercel にデプロイする場合、`apps/spa-catalog` をルートにすると `vercel.json` の rewrite で `/api/*` が同梱の関数（`api/index.js`）に、それ以外が `index.html` に回る。`api/index.js` は `apps/api/src/vercel.ts` を Hono ごと esbuild でバンドルした生成物だが、Vercel はビルド前のソースツリーから関数を検出するためリポジトリにコミットしてある（`pnpm --filter spa-catalog build:api` で再生成、CI が差分を検査）。在庫はプロセス内メモリなのでサーバレスでは呼び出しごとにリセットされうる（デモなので許容）。`apps/next-catalog` はそのまま Vercel に載る。
 
 開発時は `pnpm --filter api dev`（3002）と `pnpm --filter spa-catalog dev`（5173、`/api` を 3002 にプロキシ）、`pnpm --filter next-catalog dev`（3000）。
 

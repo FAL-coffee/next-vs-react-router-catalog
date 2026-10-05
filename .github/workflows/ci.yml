@@ -22,3 +22,5 @@ jobs:
       - run: pnpm build
         env:
           NEXT_TELEMETRY_DISABLED: "1"
+      # apps/spa-catalog/api/index.js is a committed build artifact (Vercel function); it must match the source
+      - run: git diff --exit-code -- apps/spa-catalog/api/index.js
