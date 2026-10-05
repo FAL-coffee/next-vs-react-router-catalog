@@ -11,9 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
-import { Route as AdminRouteImport } from './routes/admin'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as MypageRouteImport } from './routes/mypage'
 import { Route as ProductsIdRouteImport } from './routes/products.$id'
 
 const IndexRoute = IndexRouteImport.update({
@@ -26,21 +23,6 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminRoute = AdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MypageRoute = MypageRouteImport.update({
-  id: '/mypage',
-  path: '/mypage',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ProductsIdRoute = ProductsIdRouteImport.update({
   id: '/products/$id',
   path: '/products/$id',
@@ -50,49 +32,30 @@ const ProductsIdRoute = ProductsIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/admin': typeof AdminRoute
-  '/login': typeof LoginRoute
-  '/mypage': typeof MypageRoute
   '/products/$id': typeof ProductsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/admin': typeof AdminRoute
-  '/login': typeof LoginRoute
-  '/mypage': typeof MypageRoute
   '/products/$id': typeof ProductsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/admin': typeof AdminRoute
-  '/login': typeof LoginRoute
-  '/mypage': typeof MypageRoute
   '/products/$id': typeof ProductsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/admin' | '/login' | '/mypage' | '/products/$id'
+  fullPaths: '/' | '/about' | '/products/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/admin' | '/login' | '/mypage' | '/products/$id'
-  id:
-    | '__root__'
-    | '/'
-    | '/about'
-    | '/admin'
-    | '/login'
-    | '/mypage'
-    | '/products/$id'
+  to: '/' | '/about' | '/products/$id'
+  id: '__root__' | '/' | '/about' | '/products/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  AdminRoute: typeof AdminRoute
-  LoginRoute: typeof LoginRoute
-  MypageRoute: typeof MypageRoute
   ProductsIdRoute: typeof ProductsIdRoute
 }
 
@@ -112,27 +75,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin': {
-      id: '/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mypage': {
-      id: '/mypage'
-      path: '/mypage'
-      fullPath: '/mypage'
-      preLoaderRoute: typeof MypageRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/products/$id': {
       id: '/products/$id'
       path: '/products/$id'
@@ -146,9 +88,6 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  AdminRoute: AdminRoute,
-  LoginRoute: LoginRoute,
-  MypageRoute: MypageRoute,
   ProductsIdRoute: ProductsIdRoute,
 }
 export const routeTree = rootRouteImport

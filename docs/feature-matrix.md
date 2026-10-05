@@ -6,11 +6,10 @@
 | --- | --- | --- | --- | --- |
 | SSR / 初期 HTML | 全ルート dynamic | なし。空の `index.html` + JS | 0 | **未ログインの公開ページがあるなら足りない**。認証後の業務画面なら不要 |
 | RSC（クライアント JS 削減） | Server Component で一覧・詳細を描画 | ルート単位のコード分割（`autoCodeSplitting`） | 0 | 今回の規模では JS 転送量は Next の方が多い。不要 |
-| Server Actions（フォーム） | 予約・ログイン・ログアウト | `fetch` + `useState` | 低 | **JS 無効で動かすのは無理**。それ以外は不要 |
-| Route Handlers（API） | `/api/products`, `/api/me`, `/api/admin/stats` | Hono の別プロセス | 低。BFF が既にある会社は最初からこれ | 不要 |
+| Server Actions（フォーム） | 予約 | `fetch` + `useState` | 低 | **JS 無効で動かすのは無理**。それ以外は不要 |
+| Route Handlers（API） | `/api/products`, `/api/products/:id` | Hono の別プロセス（Vercel では同梱の関数） | 低。BFF が既にある会社は最初からこれ | 不要 |
+| Middleware（proxy） | 使っていない | `beforeLoad` が同じ位置づけ。本体の認可は API の仕事 | 低 | 不要。認可を Middleware だけに置くと 2025〜2026 のバイパス 6 件がそのまま刺さる |
 | Parallel Routes + Intercepting Routes | `@modal/(.)products/[id]` のクイックビュー | `?quick=<id>` + route masking | 低。むしろ SPA の方が短い | 不要 |
-| proxy（middleware）での認可 | `/mypage` `/admin` を Cookie でゲート | `beforeLoad` で `redirect`、本体は API の 401/403 | 低 | 不要。**むしろ Middleware バイパス系の口が消える** |
-| Cookie セッション | `cookies()` + Server Action | API が `Set-Cookie`、SPA は `credentials: same-origin` | 低 | 不要。認証ロジックは同じコードを共有できた |
 | Image Optimization | `next/image`（既定で有効） | `<img>`。最適化は CDN の仕事 | 中（CDN 側の設定が要る） | **外部画像を大量に扱うなら足りない**。それ以外は不要 |
 | Metadata API / OG 画像 | `generateMetadata` + `next/og` | `head` で title のみ。OG 画像は作れない | 高（別サービスが要る） | **SNS に貼られる公開ページがあるなら足りない** |
 | ISR / キャッシュ階層 | 使っていない（全ルート dynamic） | HTTP キャッシュ + CDN | 低 | 不要 |
@@ -31,6 +30,6 @@ SPA で「足りない」と判定されたのは次の 4 つだけ。
 
 ## 逆に SPA で増えたもの
 
-- API の責務（認可の本体、CSRF、レート制限）。Next でも Route Handler / Server Action を使うなら同じ責務はあるが、Next は「サーバがあること」を忘れさせる
-- 画面側で「ログイン状態をいつ取り直すか」を自分で決める（このリポジトリでは `me()` のキャッシュと `router.invalidate()`）
+- API の責務（入力検証、CSRF、レート制限、認可）。Next でも Route Handler / Server Action を使うなら同じ責務はあるが、Next は「サーバがあること」を忘れさせる
+- 画面側で「データをいつ取り直すか」を自分で決める（このリポジトリでは予約後に `router.invalidate()`）
 - サプライチェーン: 2026/5 に `@tanstack/*` の npm パッケージに悪性コードが混入した。**薄いから安全、ではない**

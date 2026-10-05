@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getSession } from "@/lib/session";
-import { logoutAction } from "@/app/login/actions";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -9,8 +7,7 @@ export const metadata: Metadata = {
   description: "Next.js vs TanStack Router SPA comparison catalog",
 };
 
-export default async function RootLayout({ children, modal }: LayoutProps<"/">) {
-  const user = await getSession();
+export default function RootLayout({ children, modal }: LayoutProps<"/">) {
   return (
     <html lang="ja" className="h-full antialiased">
       <body className="min-h-full flex flex-col bg-zinc-50 text-zinc-900">
@@ -26,28 +23,8 @@ export default async function RootLayout({ children, modal }: LayoutProps<"/">) 
             <a href="/api/products" className="text-sm text-zinc-600 hover:underline">
               API
             </a>
-            <Link href="/mypage" className="text-sm text-zinc-600 hover:underline">
-              マイページ
-            </Link>
-            <Link href="/admin" className="text-sm text-zinc-600 hover:underline">
-              管理
-            </Link>
-            <span className="ml-auto flex items-center gap-3 text-sm">
-              {user ? (
-                <>
-                  <span data-testid="current-user">{user.name}</span>
-                  <form action={logoutAction}>
-                    <button className="rounded border px-2 py-0.5 text-xs">ログアウト</button>
-                  </form>
-                </>
-              ) : (
-                <Link href="/login" className="text-zinc-600 hover:underline">
-                  ログイン
-                </Link>
-              )}
-              <span data-testid="framework" className="rounded bg-zinc-900 px-2 py-0.5 text-xs text-white">
-                Next.js
-              </span>
+            <span data-testid="framework" className="ml-auto rounded bg-zinc-900 px-2 py-0.5 text-xs text-white">
+              Next.js
             </span>
           </nav>
         </header>

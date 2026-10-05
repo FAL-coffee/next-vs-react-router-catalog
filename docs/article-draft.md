@@ -36,7 +36,7 @@ GitHub の Security Alert が毎週のように「Next.js の脆弱性が見つ�
 ## この記事を読んでわかること
 
 - この1年で Next.js に出た脆弱性が、どの機能に刺さったのか
-- Next.js の機能（Parallel Routes、Intercepting Routes、Middleware、Server Actions、next/og、next/image など）を一つずつ SPA で再現するとどうなるのか
+- Next.js の機能（Parallel Routes、Intercepting Routes、Server Actions、next/og、next/image など）を一つずつ SPA で再現するとどうなるのか
 - その結果「本当に SPA で足りないもの」として何が残るのか
 
 ## 書かないこと
@@ -84,8 +84,7 @@ Next.js を選んだ時点で、SSR + RSC + Server Actions が既定になりま
 ## 題材
 
 商品カタログです。DB は使わず、JSON とインメモリの在庫で動きます。
-一覧・検索・クイックビュー（モーダル）・詳細・予約フォーム・ログイン・マイページ・管理画面・JSON API・404・エラー境界。
-デモユーザーは2人（member と admin）で、認証と認可まで入れました。
+一覧・検索・クイックビュー（モーダル）・詳細・予約フォーム・JSON API・404・エラー境界。
 
 ルールはひとつ。**どちらも公式 CLI の既定テンプレートから始めて、設定をほぼ触らない。**
 「とりあえず」を再現するためです。
@@ -96,14 +95,11 @@ Next.js を選んだ時点で、SSR + RSC + Server Actions が既定になりま
 | クイックビュー | Parallel Route `@modal` + Intercepting Route `(.)products/[id]` | `?quick=<id>` + route masking |
 | 詳細 + メタデータ | `generateMetadata` + `notFound()` | `head` + `notFound()` |
 | OG 画像 | `next/og` の `ImageResponse` | なし |
-| 予約（要ログイン） | Server Action + `useActionState` | `fetch` → `POST /api/products/:id/reserve` |
-| 認証 | Server Action で Cookie 発行、`proxy.ts` でゲート | API が Cookie 発行、`beforeLoad` でガード |
-| 認可（admin のみ） | ページと Route Handler で検査 | API で検査、画面はその結果を写す |
+| 予約 | Server Action + `useActionState` | `fetch` → `POST /api/products/:id/reserve` |
 | 画像 | `next/image`（既定） | `<img>` |
 
 Next.js 側には、わざと「テクい機能」を盛りました。
 Parallel Routes と Intercepting Routes でクイックビューのモーダル。3年前に私が「はあ？」と言ったあれです。
-Middleware（Next 16 では `proxy.ts` に改名されました）で `/mypage` と `/admin` をゲート。
 `next/og` で OG 画像。`next/image` は既定のまま。
 
 これらを SPA 側で、**似た形で、やりすぎない程度に**再現しました。
@@ -123,8 +119,7 @@ https://github.com/FAL-coffee/next-vs-react-router-catalog
 | Server Actions | `fetch` + `useState` | 低 | **JS 無効で動かすのは無理**。それ以外は不要 |
 | Route Handlers | Hono の別プロセス | 低 | 不要。BFF が既にある会社は最初からこれ |
 | Parallel + Intercepting Routes | search param + route masking | 低。むしろ短い | 不要 |
-| Middleware（proxy）での認可 | `beforeLoad` + API の 401/403 | 低 | 不要。むしろバイパス系の口が消える |
-| Cookie セッション | API が `Set-Cookie` | 低 | 不要。認証ロジックは同じコードを共有できた |
+| Middleware（proxy） | `beforeLoad` + API 側の検査 | 低 | 不要。むしろバイパス系の口が消える |
 | Image Optimization | `<img>`。最適化は CDN の仕事 | 中 | **外部画像を大量に扱うなら足りない** |
 | Metadata / OG 画像 | title のみ。OG 画像は作れない | 高 | **SNS に貼られる公開ページがあるなら足りない** |
 | Link prefetch | `defaultPreload: "intent"` | 0 | 不要 |
@@ -174,48 +169,36 @@ TanStack Router 側。カードの `<Link>` に `mask` を付けるだけです�
 正直、こちらの方が「何が起きているか」が読めます。
 Next.js の方はファイルの置き場所が仕様なので、初見の人は `(.)` と `@` を調べるところから始まります。
 
-### Middleware vs beforeLoad
+### Server Actions vs fetch
 
-未ログインで `/mypage` に来た人を `/login` に飛ばす、というやつです。
+予約フォームです。数量を送って在庫を減らし、結果のメッセージを出します。
 
-Next.js 側。`src/proxy.ts`。
+Next.js 側。`"use server"` の関数を `useActionState` に渡します。
 
 ```ts
-export async function proxy(request: NextRequest) {
-  const user = await verifySession(request.cookies.get(SESSION_COOKIE)?.value);
-  if (!user) {
-    const url = new URL("/login", request.url);
-    url.searchParams.set("redirect", request.nextUrl.pathname);
-    return NextResponse.redirect(url);
-  }
-  return NextResponse.next();
+"use server";
+export async function reserveAction(_prev: ReserveState, formData: FormData): Promise<ReserveState> {
+  const result = reserveProduct(String(formData.get("id")), Number(formData.get("quantity")));
+  if (!result.ok) return { status: "error", message: result.error };
+  revalidatePath(`/products/${id}`);
+  return { status: "ok", message: `${result.product.name} を ${result.quantity} 点予約しました` };
 }
-export const config = { matcher: ["/mypage", "/admin"] };
 ```
 
-TanStack Router 側。ルート定義の `beforeLoad`。
+TanStack Router 側。ただの `fetch` です。
 
 ```ts
-export const Route = createFileRoute("/mypage")({
-  beforeLoad: ({ context, location }) => {
-    if (!context.user) throw redirect({ to: "/login", search: { redirect: location.href } });
-  },
-});
+const r = await reserve(product.id, quantity);   // POST /api/products/:id/reserve
+setState({ status: "ok", message: r.message });
+await router.invalidate();                        // loader を取り直す
 ```
 
-書き味は似ています。違うのは**どこで動くか**です。
-Next.js の proxy はサーバのリクエスト経路に割り込みます。だからこそ「バイパスできると認可が抜ける」わけで、2025 年から 2026 年にかけて Middleware バイパスの advisory が6件出ました。
-SPA の `beforeLoad` はブラウザで動く「案内」でしかなく、本体の認可は API の 401/403 です。
-バイパスしても API が断るので、ガードの穴がそのまま情報漏洩にはなりません。
+Server Action の方が「API を書いた覚えがないのにサーバで動く」ので魔法っぽく、短いです。
+ただし `POST /` に `Next-Action` ヘッダを付ければ外から叩ける口が生えています（後述）。
+SPA 側は API を自分で書くので行数は増えますが、口は `/api/products/:id/reserve` の1本だけで、何が公開されているかは見ればわかります。
 
-ちなみに Next.js 側でも、ページと Route Handler で `can(user, "view-admin")` を二重に検査しています。
-Next.js の公式ガイドも「Middleware を認可の唯一の場所にするな」と言っているので、結局やることは同じです。
-
-### 認証はどちらも「同じコード」で動いた
-
-ユーザー2人と HMAC 署名の Cookie セッションを `packages/catalog-data/src/auth.ts` に書いて、両方から使っています。
-Web Crypto で書いたので、Next.js の proxy（Edge でも Node でも）と Hono の両方で同じ関数がそのまま動きました。
-「認証は Next.js のエコシステムが充実しているから」という選定理由を聞くことがありますが、Cookie を発行して検証するだけなら、フレームワークはほぼ関係ありませんでした。
+そして一つ、はっきりした差があります。**Server Action は JavaScript が無効でも動きます。** SPA の `fetch` は動きません。
+これは SPA が「足りない」側に残る項目です。
 
 ## 抱え込むものは全然違う
 
@@ -223,16 +206,16 @@ Web Crypto で書いたので、Next.js の proxy（Edge でも Node でも）�
 
 | | Next.js | SPA + API | 比 |
 | --- | --- | --- | --- |
-| 書いたコード（非空行） | 679 行 | 944 行 | SPA の方が多い |
-| 本番依存パッケージ | 60 個 / 428 MB | 15 個 / 13.5 MB | 32x |
+| 書いたコード（非空行） | 473 行 | 659 行 | SPA の方が多い |
+| 本番依存パッケージ | 59 個 / 428 MB | 15 個 / 13.5 MB | 32x |
 | RSC ランタイムを同梱 | はい | いいえ | |
 | sharp / libvips を同梱 | はい | いいえ | |
-| クリーンビルド | 13.4 秒 | 2.3 秒 | 5.8x |
-| デプロイ一式 | 206 MB（standalone） | 1.8 MB（静的ファイル + API + その依存） | 117x |
-| 常駐メモリ RSS | 289 MB | 72 MB | 4x |
+| クリーンビルド | 12.6 秒 | 2.7 秒 | 4.6x |
+| デプロイ一式 | 205 MB（standalone） | 1.8 MB（静的ファイル + API + その依存） | 117x |
+| 常駐メモリ RSS | 292 MB | 72 MB | 4x |
 
 書いたコードは SPA の方が多いです。API 本体と fetch の層を自分で書いたので当然ですね。ここは隠しません。
-（ビルド時間も、Next.js は `next build` の中で `tsc` と ESLint を回しているので、そのまま 5.8 倍と受け取るのは不公平です。）
+（ビルド時間も、Next.js は `next build` の中で `tsc` と ESLint を回しているので、そのまま 4.6 倍と受け取るのは不公平です。）
 
 見てほしいのは依存とデプロイ一式です。
 Next.js の 428 MB の正体は、sharp + libvips（linux-x64 と linuxmusl の2種類）、SWC のネイティブバイナリ、そして vendored された React と RSC ランタイムです。
@@ -256,8 +239,6 @@ Next.js の 428 MB の正体は、sharp + libvips（linux-x64 と linuxmusl の2
 | `GET /products/x/opengraph-image` | `next/og` の OG 画像生成 | **200** (image/png) | 404 |
 | `GET /` + `RSC: 1` ヘッダ | RSC flight payload | **200** (text/x-component) | 404 |
 | `POST /` + `Next-Action` ヘッダ | Server Action の受け口 | **受け付けて id 不一致で 404** | 404 |
-| `GET /mypage`（未ログイン） | 認証ゲート | 307 → `/login` | 200（殻の HTML。ガードはブラウザと API） |
-| `GET /api/admin/stats`（未ログイン） | 認可 | 401 | 401 |
 
 Next.js 側を見てください。
 `/_next/image` に外から任意の `url` と `w` と `q` を渡せて、しかも `Accept` ヘッダ次第で webp への変換まで走ります。
@@ -284,10 +265,10 @@ SPA + API 側で開いている口は `/api/*` だけです。それ以外は全
 
 | | Next.js | SPA + API |
 | --- | --- | --- |
-| `/` の HTML | 25.8 KB | 0.9 KB |
-| `/` の JS（gzip） | 143 KB | 93 KB |
+| `/` の HTML | 24.6 KB | 0.8 KB |
+| `/` の JS（gzip） | 143 KB | 92 KB |
 | `/` の画像転送量 | 16 KB（webp 化） | 80 KB（PNG そのまま） |
-| `/` の p50 | 8.8 ms | 0.9 ms |
+| `/` の p50 | 8.6 ms | 0.8 ms |
 
 HTML の差は SSR の有無そのもので、これは SPA の「弱点」です。初期表示に JS の実行が要ります。
 JS は Next.js の方が 50 KB 多く、この規模の画面では RSC による「クライアント JS 削減」の恩恵は出ませんでした。
@@ -301,7 +282,7 @@ JS は Next.js の方が 50 KB 多く、この規模の画面では RSC によ�
 作っている最中に踏んだ小ネタを4つ。
 
 - **Next.js はサーバコードをルート単位で分割する**ので、モジュールスコープのシングルトンがルート間で複製されます。`.next/server` を覗くと共有データのモジュールが4チャンクに現れました。結局 `globalThis` に逃がしました。Prisma のドキュメントに `globalThis` の例が載っている理由を、身をもって理解しました
-- **React 19 は Server Action の完了後にフォームをリセットします。** ログインに失敗すると ID の入力まで消えます。SPA 側は `useState` なので消えません。どちらが正しいかはさておき、知らないと「なんで？」になります
+- **React 19 は Server Action の完了後にフォームをリセットします。** 予約でエラーが返ると、入力した数量が初期値に戻ります。SPA 側は `useState` なので残ります。どちらが正しいかはさておき、知らないと「なんで？」になります
 - **TanStack Router は search params を JSON として読みます。** `?fail=1` は数値の `1` で届きます。`validateSearch` で `String()` しましょう
 - **SPA は正しい 404 ステータスを返せません。** 静的配信は全部 `index.html` を 200 で返すので、クローラから見ると「ページがある」ことになります
 

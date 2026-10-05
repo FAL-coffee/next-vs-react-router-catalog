@@ -12,7 +12,7 @@
 apps/next-catalog     Next.js 16 (App Router, Turbopack)。create-next-app の既定構成からスタート
 apps/spa-catalog      Vite + TanStack Router の SPA。@tanstack/cli の既定構成からスタート
 apps/api              Hono の JSON API。ローカルでは SPA の静的ファイルも配信する
-packages/catalog-data 両方が共有する商品データ、インメモリ在庫、デモ認証（DB なし）
+packages/catalog-data 両方が共有する商品データとインメモリ在庫（DB なし）
 scripts/              計測 (measure) / 脆弱性履歴 (advisories) / レポート生成 (report)
 docs/                 記事骨子・下書き・計測結果・機能対応表
 ```
@@ -25,9 +25,7 @@ docs/                 記事骨子・下書き・計測結果・機能対応表
 | クイックビュー（一覧から詳細をモーダルで。URL は `/products/:id`、リロードで本物の詳細） | Parallel Route `@modal` + Intercepting Route `(.)products/[id]` | `?quick=<id>` + route masking（`unmaskOnReload`） |
 | `/products/:id` 詳細 | 動的ルート + `generateMetadata` + `notFound()` | 動的ルート + `head` + `notFound()` |
 | OG 画像 | `next/og` の `ImageResponse`（`/products/:id/opengraph-image`） | なし（SPA では作れない。CDN 側や別サービスの仕事） |
-| 予約（POST で在庫を減らす。要ログイン） | Server Action + `useActionState` | `fetch` → `POST /api/products/:id/reserve` |
-| 認証（Cookie セッション、デモユーザー `taro`/`taro`, `admin`/`admin`） | Server Action で Cookie 発行、`proxy.ts`（旧 middleware）で `/mypage` `/admin` をゲート | API が Cookie 発行、`beforeLoad` で `redirect` |
-| 認可（`admin` ロールだけ `/admin` と `/api/admin/stats`） | ページと Route Handler で `can()` | API で `can()`、画面はその結果を写す |
+| 予約（POST で在庫を減らす） | Server Action + `useActionState` | `fetch` → `POST /api/products/:id/reserve` |
 | JSON API | Route Handler | Hono |
 | 404 / エラー境界 | `not-found.tsx` / `error.tsx` | `notFoundComponent` / `defaultErrorComponent` |
 | 画像 | `next/image`（既定の最適化を有効のまま） | 素の `<img>` |
@@ -45,6 +43,8 @@ pnpm measure        # ビルド時間・依存・バンドル・起動・レイ�
 pnpm report         # docs/results/COMPARISON.md を生成
 ```
 
+Vercel にデプロイする場合、`apps/spa-catalog` をルートにすると `vercel.json` の rewrite で `/api/*` が同梱の関数（`api/index.js`、ビルド時に Hono ごとバンドル）に、それ以外が `index.html` に回る。在庫はプロセス内メモリなのでサーバレスでは呼び出しごとにリセットされうる（デモなので許容）。`apps/next-catalog` はそのまま Vercel に載る。
+
 開発時は `pnpm --filter api dev`（3002）と `pnpm --filter spa-catalog dev`（5173、`/api` を 3002 にプロキシ）、`pnpm --filter next-catalog dev`（3000）。
 
 ## フェアネスのために固定していること
@@ -52,5 +52,4 @@ pnpm report         # docs/results/COMPARISON.md を生成
 - どちらも各 CLI の既定テンプレートから始め、設定はほぼ触っていない（Next は `transpilePackages` と `output: "standalone"` のみ追加）
 - Tailwind v4、React 19、TypeScript strict は共通
 - 画面の見た目・DOM 構造・`data-testid` は同一
-- 認証ロジック（ユーザー、HMAC 署名 Cookie）は `packages/catalog-data/src/auth.ts` を両方が使う。Web Crypto なので Next の proxy でも Node でも同じコードが動く
 - 在庫状態は `globalThis` に置いている。Next はサーバコードをルート単位で分割するためモジュールスコープのシングルトンが複製される（`.next/server` 内で `@catalog/data` が複数チャンクに現れる）

@@ -25,7 +25,7 @@ lines.push("# Next.js vs TanStack Router SPA: 同一仕様カタログの計測�
 lines.push("");
 lines.push(`計測日時: ${m.measuredAt} / Node ${m.node} / pnpm ${m.pnpm}`);
 lines.push("");
-lines.push("両アプリは同じ `@catalog/data`（商品データ、インメモリ在庫、デモ認証）を使い、同じ画面・同じ振る舞い（一覧・検索・クイックビュー・詳細・予約・ログイン・マイページ・管理・API・404・エラー境界）を持つ。SPA 側の数値は `apps/spa-catalog`（静的ファイル）と `apps/api`（Hono）の合算。");
+lines.push("両アプリは同じ `@catalog/data`（商品データ、インメモリ在庫）を使い、同じ画面・同じ振る舞い（一覧・検索・クイックビュー・詳細・予約・API・404・エラー境界）を持つ。SPA 側の数値は `apps/spa-catalog`（静的ファイル）と `apps/api`（Hono）の合算。");
 lines.push("");
 lines.push("> 数値はこの環境（クラウドコンテナ）での1回の計測。絶対値よりも両者の比を見ること。`pnpm measure && pnpm report` で再現できる。");
 

@@ -1,8 +1,8 @@
 # Next.js vs TanStack Router SPA: 同一仕様カタログの計測結果
 
-計測日時: 2026-10-05T09:16:30.584Z / Node v22.22.0 / pnpm 10.28.0
+計測日時: 2026-10-05T09:35:00.004Z / Node v22.22.0 / pnpm 10.28.0
 
-両アプリは同じ `@catalog/data`（商品データ、インメモリ在庫、デモ認証）を使い、同じ画面・同じ振る舞い（一覧・検索・クイックビュー・詳細・予約・ログイン・マイページ・管理・API・404・エラー境界）を持つ。SPA 側の数値は `apps/spa-catalog`（静的ファイル）と `apps/api`（Hono）の合算。
+両アプリは同じ `@catalog/data`（商品データ、インメモリ在庫）を使い、同じ画面・同じ振る舞い（一覧・検索・クイックビュー・詳細・予約・API・404・エラー境界）を持つ。SPA 側の数値は `apps/spa-catalog`（静的ファイル）と `apps/api`（Hono）の合算。
 
 > 数値はこの環境（クラウドコンテナ）での1回の計測。絶対値よりも両者の比を見ること。`pnpm measure && pnpm report` で再現できる。
 
@@ -11,26 +11,26 @@
 |  | Next.js | TanStack Router SPA + API |
 | --- | --- | --- |
 | フレームワーク | next@16.3.8 | @tanstack/react-router@1.170.41<br>@tanstack/router-plugin@1.168.42<br>hono@4.13.13<br>@hono/node-server@2.1.3 |
-| package.json の dependencies | next, react, react-dom, server-only | @tanstack/react-router, react, react-dom, @hono/node-server, hono |
-| package.json の devDependencies | @tailwindcss/postcss, @types/node, @types/react, @types/react-dom, eslint, eslint-config-next, tailwindcss, typescript | @tailwindcss/vite, @tanstack/eslint-config, @tanstack/router-plugin, @types/react, @types/react-dom, @vitejs/plugin-react, eslint, tailwindcss, typescript, vite, @types/node, esbuild, tsx, typescript |
+| package.json の dependencies | next, react, react-dom | @tanstack/react-router, react, react-dom, @hono/node-server, hono |
+| package.json の devDependencies | @tailwindcss/postcss, @types/node, @types/react, @types/react-dom, eslint, eslint-config-next, tailwindcss, typescript | @tailwindcss/vite, @tanstack/eslint-config, @tanstack/router-plugin, @types/react, @types/react-dom, @vitejs/plugin-react, eslint, tailwindcss, typescript, vite, esbuild, hono, @types/node, esbuild, tsx, typescript |
 
 
 ## 2. 書いたコード量（アプリ側ソース）
 
 |  | Next.js | TanStack Router SPA + API |
 | --- | --- | --- |
-| ファイル数 | 31 | 23 |
-| 非空行数 | 679 | 944 |
+| ファイル数 | 22 | 22 |
+| 非空行数 | 473 | 659 |
 
 
 ## 3. 依存パッケージ（node_modules に実際に解決されたユニークな package@version）
 
 |  | Next.js | TanStack Router SPA + API | 比 |
 | --- | --- | --- | --- |
-| 本番依存 パッケージ数 | 60 | 15 | 4.0x |
+| 本番依存 パッケージ数 | 59 | 15 | 3.9x |
 | 本番依存 ディスクサイズ | 428.22 MB | 13.49 MB | 31.7x |
-| 開発依存込み パッケージ数 | 441 | 425 | 1.0x |
-| 開発依存込み ディスクサイズ | 539.29 MB | 235.70 MB | 2.3x |
+| 開発依存込み パッケージ数 | 440 | 425 | 1.0x |
+| 開発依存込み ディスクサイズ | 539.29 MB | 236.94 MB | 2.3x |
 | RSC ランタイム (react-server-dom-*) を同梱 | はい | いいえ |  |
 | 画像処理ネイティブライブラリ (sharp / libvips) を同梱 | はい | いいえ |  |
 
@@ -39,26 +39,26 @@
 
 |  | Next.js | TanStack Router SPA + API | 比 |
 | --- | --- | --- | --- |
-| 本番ビルド時間（2回中の最速、クリーンビルド） | 13403 ms | 2305 ms | 5.8x |
-| ビルド時間 各回 | 14021 ms, 13403 ms | 2324 ms, 2305 ms |  |
-| ビルド出力サイズ（キャッシュ除く） | 11.14 MB / 352 files | 406.7 KB / 23 files | 28.1x |
-| デプロイに必要な一式 | 205.56 MB<br>(.next/standalone (traced node_modules included) + .next/static) | 1.76 MB<br>(spa-catalog/dist (static) + api/dist + api production node_modules) | 116.6x |
+| 本番ビルド時間（2回中の最速、クリーンビルド） | 12587 ms | 2746 ms | 4.6x |
+| ビルド時間 各回 | 13883 ms, 12587 ms | 2936 ms, 2746 ms |  |
+| ビルド出力サイズ（キャッシュ除く） | 9.45 MB / 287 files | 396.3 KB / 19 files | 24.4x |
+| デプロイに必要な一式 | 205.15 MB<br>(.next/standalone (traced node_modules included) + .next/static) | 1.75 MB<br>(spa-catalog/dist (static) + api/dist + api production node_modules) | 117.0x |
 
 
 ## 5. ランタイム
 
 |  | Next.js | TanStack Router SPA + API | 比 |
 | --- | --- | --- | --- |
-| コールドスタート（`start` 実行から `/` が 200 を返すまで） | 1102 ms | 521 ms | 2.1x |
-| 常駐メモリ RSS（アイドル後、プロセスツリー合計） | 288.62 MB | 72.31 MB | 4.0x |
+| コールドスタート（`start` 実行から `/` が 200 を返すまで） | 973 ms | 547 ms | 1.8x |
+| 常駐メモリ RSS（アイドル後、プロセスツリー合計） | 292.35 MB | 72.00 MB | 4.1x |
 
 レイテンシ（ウォームアップ後、逐次 200 リクエスト、localhost）:
 
 | パス | Next p50 | Next p95 | SPA+API p50 | SPA+API p95 |
 | --- | --- | --- | --- | --- |
-| `/` | 8.8 ms | 14.03 ms | 0.91 ms | 1.25 ms |
-| `/products/ethiopia-yirgacheffe` | 8.28 ms | 13.84 ms | 0.79 ms | 1.24 ms |
-| `/api/products` | 2.5 ms | 4.09 ms | 0.89 ms | 1.41 ms |
+| `/` | 8.61 ms | 13.44 ms | 0.8 ms | 1.69 ms |
+| `/products/ethiopia-yirgacheffe` | 8.1 ms | 15.25 ms | 0.83 ms | 1.67 ms |
+| `/api/products` | 2.4 ms | 4.5 ms | 0.89 ms | 1.32 ms |
 
 
 ## 6. ページ重量（実ブラウザで networkidle まで読み込んだ転送内容）
@@ -67,40 +67,40 @@
 
 |  | Next.js | TanStack Router SPA + API | 比 |
 | --- | --- | --- | --- |
-| HTML | 25.2 KB | 871 B | 29.6x |
-| JS ファイル数 | 9 | 6 |  |
-| JS 合計 (raw) | 467.9 KB | 274.5 KB | 1.7x |
-| JS 合計 (gzip) | 140.2 KB | 90.5 KB | 1.5x |
-| JS 合計 (brotli) | 121.0 KB | 79.5 KB | 1.5x |
-| CSS | 11.6 KB | 11.4 KB |  |
+| HTML | 24.0 KB | 797 B | 30.9x |
+| JS ファイル数 | 8 | 5 |  |
+| JS 合計 (raw) | 467.8 KB | 271.5 KB | 1.7x |
+| JS 合計 (gzip) | 139.9 KB | 89.5 KB | 1.6x |
+| JS 合計 (brotli) | 120.1 KB | 78.6 KB | 1.5x |
+| CSS | 11.5 KB | 11.3 KB |  |
 | 画像 (枚数 / バイト) | 8 / 16.0 KB | 8 / 79.6 KB |  |
-| リクエスト総数 / 総バイト | 49 / 547.3 KB | 18 / 368.1 KB |  |
+| リクエスト総数 / 総バイト | 39 / 555.9 KB | 16 / 364.9 KB |  |
 
 ### `/products/ethiopia-yirgacheffe`
 
 |  | Next.js | TanStack Router SPA + API | 比 |
 | --- | --- | --- | --- |
-| HTML | 16.5 KB | 871 B | 19.4x |
-| JS ファイル数 | 9 | 6 |  |
-| JS 合計 (raw) | 469.3 KB | 271.1 KB | 1.7x |
-| JS 合計 (gzip) | 140.8 KB | 89.0 KB | 1.6x |
-| JS 合計 (brotli) | 121.5 KB | 78.3 KB | 1.6x |
-| CSS | 11.6 KB | 11.4 KB |  |
+| HTML | 15.8 KB | 797 B | 20.3x |
+| JS ファイル数 | 8 | 5 |  |
+| JS 合計 (raw) | 469.1 KB | 268.3 KB | 1.7x |
+| JS 合計 (gzip) | 140.5 KB | 88.1 KB | 1.6x |
+| JS 合計 (brotli) | 120.7 KB | 77.5 KB | 1.6x |
+| CSS | 11.5 KB | 11.3 KB |  |
 | 画像 (枚数 / バイト) | 1 / 2.9 KB | 1 / 12.8 KB |  |
-| リクエスト総数 / 総バイト | 29 / 525.9 KB | 11 / 296.5 KB |  |
+| リクエスト総数 / 総バイト | 19 / 531.9 KB | 9 / 293.4 KB |  |
 
 ### `/about`
 
 |  | Next.js | TanStack Router SPA + API | 比 |
 | --- | --- | --- | --- |
-| HTML | 12.2 KB | 871 B | 14.4x |
-| JS ファイル数 | 8 | 5 |  |
-| JS 合計 (raw) | 453.5 KB | 269.2 KB | 1.7x |
-| JS 合計 (gzip) | 134.7 KB | 88.2 KB | 1.5x |
-| JS 合計 (brotli) | 116.2 KB | 77.6 KB | 1.5x |
-| CSS | 11.6 KB | 11.4 KB |  |
+| HTML | 10.7 KB | 797 B | 13.7x |
+| JS ファイル数 | 7 | 4 |  |
+| JS 合計 (raw) | 453.3 KB | 266.7 KB | 1.7x |
+| JS 合計 (gzip) | 134.4 KB | 87.4 KB | 1.5x |
+| JS 合計 (brotli) | 115.3 KB | 76.9 KB | 1.5x |
+| CSS | 11.5 KB | 11.3 KB |  |
 | 画像 (枚数 / バイト) | 0 / 0 B | 0 / 0 B |  |
-| リクエスト総数 / 総バイト | 24 / 505.0 KB | 8 / 281.5 KB |  |
+| リクエスト総数 / 総バイト | 15 / 508.1 KB | 6 / 278.7 KB |  |
 
 
 ## 7. 露出しているエンドポイント（アプリが定義していないパスへの応答）
@@ -117,11 +117,7 @@
 | `GET /products/uji-sencha/opengraph-image` | next/og ImageResponse (OG image generated on the server) | 200 (image/png) | 404 (text/plain) |
 | `GET /`<br>headers: `{"RSC":"1"}`<br>(リダイレクト追従) | RSC flight payload request (redirects followed) | 200 (text/x-component) | 404 (text/plain) |
 | `POST /`<br>headers: `{"Next-Action":"0000000000000000000000000000000000000000","Content-Type":"text/plain"}` | Server Action endpoint (bogus id) | 404 (text/plain) | 404 (text/plain) |
-| `GET /mypage`<br>headers: `{"accept":"text/html"}` | auth-gated page, anonymous (Next: proxy redirects; SPA: shell is public, guard runs in the browser) | 307 | 200 (text/html) |
-| `GET /admin`<br>headers: `{"accept":"text/html"}` | role-gated page, anonymous | 307 | 200 (text/html) |
-| `GET /api/me` | session endpoint, anonymous | 401 (application/json) | 401 (application/json) |
-| `GET /api/admin/stats` | role-gated API, anonymous | 401 (application/json) | 401 (application/json) |
-| `POST /api/products/uji-sencha/reserve`<br>headers: `{"content-type":"application/json"}` | mutation endpoint, anonymous (Next mutates via Server Action instead) | 404 (text/html) | 401 (application/json) |
+| `POST /api/products/uji-sencha/reserve`<br>headers: `{"content-type":"application/json"}` | mutation endpoint (Next mutates via Server Action instead) | 404 (text/html) | 200 (application/json) |
 | `GET /__manifest?p=%2F&version=0` | React Router lazy route discovery manifest (neither app) | 404 (text/html) | 404 (text/plain) |
 | `GET /.well-known/appspecific/com.chrome.devtools.json` | Chrome DevTools workspace probe | 404 (text/html) | 404 (text/plain) |
 | `GET /_next/static/chunks/main.js` | Next.js static chunk dir | 404 (text/plain) | 404 (text/plain) |

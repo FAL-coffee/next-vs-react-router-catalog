@@ -21,6 +21,5 @@ export const Route = createFileRoute("/products/$id")({
 
 function ProductPage() {
   const product = Route.useLoaderData();
-  const { user } = Route.useRouteContext();
-  return <ProductDetail product={product} user={user} />;
+  return <ProductDetail product={product} />;
 }

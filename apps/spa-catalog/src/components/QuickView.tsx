@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import type { Product, User } from "@catalog/data";
+import type { Product } from "@catalog/data";
 import { getProduct } from "#/lib/api";
 import { ProductDetail } from "./ProductDetail";
 
 /** The SPA counterpart of Next's `@modal/(.)products/[id]` intercepting route. */
-export function QuickView({ id, user, search }: { id: string; user: User | null; search: { q?: string; category?: string } }) {
+export function QuickView({ id, search }: { id: string; search: { q?: string; category?: string } }) {
   const navigate = useNavigate();
   const ref = useRef<HTMLDialogElement>(null);
   const [product, setProduct] = useState<Product | null>(null);
@@ -39,7 +39,7 @@ export function QuickView({ id, user, search }: { id: string; user: User | null;
       </div>
       {product ? (
         <>
-          <ProductDetail product={product} user={user} onReserved={setProduct} />
+          <ProductDetail product={product} onReserved={setProduct} />
           <Link to="/products/$id" params={{ id }} className="mt-4 inline-block text-sm underline">
             詳細ページで開く
           </Link>

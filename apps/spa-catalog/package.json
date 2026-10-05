@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev --port 5173",
-    "build": "vite build",
+    "build": "vite build && pnpm build:api",
     "preview": "vite preview",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "build:api": "esbuild ../api/src/vercel.ts --bundle --platform=node --target=node22 --format=esm --outfile=api/index.js"
   },
   "dependencies": {
     "@catalog/data": "workspace:*",
@@ -26,6 +27,8 @@
     "eslint": "^9",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "vite": "^8.0.0"
+    "vite": "^8.0.0",
+    "esbuild": "^0.28.2",
+    "hono": "^4.13.13"
   }
 }

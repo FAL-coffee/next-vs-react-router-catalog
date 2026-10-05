@@ -1,26 +1,14 @@
 import { useState } from "react";
-import { Link, useRouter } from "@tanstack/react-router";
-import type { Product, User } from "@catalog/data";
+import { useRouter } from "@tanstack/react-router";
+import type { Product } from "@catalog/data";
 import { ApiError, reserve } from "#/lib/api";
 
 type State = { status: "idle" } | { status: "ok"; message: string } | { status: "error"; message: string };
 
-export function ReserveForm({ product, user, onReserved }: { product: Product; user: User | null; onReserved?: (p: Product) => void }) {
+export function ReserveForm({ product, onReserved }: { product: Product; onReserved?: (p: Product) => void }) {
   const [state, setState] = useState<State>({ status: "idle" });
   const [pending, setPending] = useState(false);
   const router = useRouter();
-
-  if (!user) {
-    return (
-      <p className="text-sm" data-testid="reserve-login-required">
-        予約には
-        <Link to="/login" search={{ redirect: `/products/${product.id}` }} className="underline">
-          ログイン
-        </Link>
-        が必要です。
-      </p>
-    );
-  }
 
   return (
     <form

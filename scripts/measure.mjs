@@ -38,11 +38,7 @@ const PROBES = [
   // Next 16 answers an RSC request with a 307 to a `_rsc=<hash>` URL first, so follow redirects here.
   { path: "/", headers: { RSC: "1" }, follow: true, note: "RSC flight payload request (redirects followed)" },
   { path: "/", method: "POST", headers: { "Next-Action": "0000000000000000000000000000000000000000", "Content-Type": "text/plain" }, body: "[]", note: "Server Action endpoint (bogus id)" },
-  { path: "/mypage", headers: { accept: "text/html" }, note: "auth-gated page, anonymous (Next: proxy redirects; SPA: shell is public, guard runs in the browser)" },
-  { path: "/admin", headers: { accept: "text/html" }, note: "role-gated page, anonymous" },
-  { path: "/api/me", note: "session endpoint, anonymous" },
-  { path: "/api/admin/stats", note: "role-gated API, anonymous" },
-  { path: "/api/products/uji-sencha/reserve", method: "POST", headers: { "content-type": "application/json" }, body: "{\"quantity\":1}", note: "mutation endpoint, anonymous (Next mutates via Server Action instead)" },
+  { path: "/api/products/uji-sencha/reserve", method: "POST", headers: { "content-type": "application/json" }, body: "{\"quantity\":1}", note: "mutation endpoint (Next mutates via Server Action instead)" },
   { path: "/__manifest?p=%2F&version=0", note: "React Router lazy route discovery manifest (neither app)" },
   { path: "/.well-known/appspecific/com.chrome.devtools.json", note: "Chrome DevTools workspace probe" },
   { path: "/_next/static/chunks/main.js", note: "Next.js static chunk dir" },

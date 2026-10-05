@@ -22,7 +22,6 @@ export const Route = createFileRoute("/")({
 function HomePage() {
   const products = Route.useLoaderData();
   const { q = "", category = "", quick } = Route.useSearch();
-  const { user } = Route.useRouteContext();
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-bold">商品カタログ</h1>
@@ -39,7 +38,7 @@ function HomePage() {
           ))}
         </ul>
       )}
-      {quick && <QuickView id={quick} user={user} search={{ q, category }} />}
+      {quick && <QuickView id={quick} search={{ q, category }} />}
     </div>
   );
 }

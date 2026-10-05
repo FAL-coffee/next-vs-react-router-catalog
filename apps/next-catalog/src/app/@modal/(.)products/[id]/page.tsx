@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { getProduct } from "@catalog/data";
-import { getSession } from "@/lib/session";
 import { ProductDetail } from "@/components/ProductDetail";
 import { Modal } from "./Modal";
 
@@ -12,12 +11,11 @@ import { Modal } from "./Modal";
 export default async function QuickViewModal({ params }: PageProps<"/products/[id]">) {
   const { id } = await params;
   const product = getProduct(id);
-  const user = await getSession();
   return (
     <Modal>
       {product ? (
         <>
-          <ProductDetail product={product} user={user} />
+          <ProductDetail product={product} />
           <Link href={`/products/${id}`} className="mt-4 inline-block text-sm underline">
             詳細ページで開く
           </Link>

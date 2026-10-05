@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CATEGORIES, formatPrice, type Product, type User } from "@catalog/data";
+import { CATEGORIES, formatPrice, type Product } from "@catalog/data";
 import { ReserveForm } from "@/app/products/[id]/ReserveForm";
 
-export function ProductDetail({ product, user, priority }: { product: Product; user: User | null; priority?: boolean }) {
+export function ProductDetail({ product, priority }: { product: Product; priority?: boolean }) {
   const categoryLabel = CATEGORIES.find((c) => c.value === product.category)?.label ?? product.category;
   return (
     <article className="grid gap-8 md:grid-cols-2">
@@ -33,17 +33,7 @@ export function ProductDetail({ product, user, priority }: { product: Product; u
         <p className="text-sm" data-testid="product-stock">
           {product.stock > 0 ? `在庫 ${product.stock}` : "在庫切れ"}
         </p>
-        {user ? (
-          <ReserveForm id={product.id} stock={product.stock} />
-        ) : (
-          <p className="text-sm" data-testid="reserve-login-required">
-            予約には
-            <Link href={`/login?redirect=/products/${product.id}`} className="underline">
-              ログイン
-            </Link>
-            が必要です。
-          </p>
-        )}
+        <ReserveForm id={product.id} stock={product.stock} />
       </div>
     </article>
   );

@@ -1,89 +1,14 @@
 /**
- * The API behind the SPA. Also serves the built SPA so that one process is
- * enough locally; in production the static files would sit on a CDN and only
- * this JSON API would run.
+ * Local host for the API. Also serves the built SPA so that one process is
+ * enough locally; in production the static files sit on a CDN and only the
+ * JSON API runs (see vercel.ts).
  */
 import { createServer } from "node:http";
 import { existsSync, readFileSync, statSync } from "node:fs";
 import { join, extname, normalize } from "node:path";
 import { fileURLToPath } from "node:url";
-import { Hono } from "hono";
 import { getRequestListener } from "@hono/node-server";
-import {
-  authenticate,
-  can,
-  getProduct,
-  listProducts,
-  readCookie,
-  reservationStats,
-  reserveProduct,
-  sessionCookieAttributes,
-  SESSION_COOKIE,
-  signSession,
-  verifySession,
-  type User,
-} from "@catalog/data";
-
-type Env = { Variables: { user: User | null } };
-
-const app = new Hono<Env>();
-
-// ---- session ----
-app.use("/api/*", async (c, next) => {
-  c.set("user", await verifySession(readCookie(c.req.header("cookie"), SESSION_COOKIE)));
-  await next();
-});
-
-const requireUser = (action: Parameters<typeof can>[1]) => async (c: any, next: any) => {
-  const user = c.get("user") as User | null;
-  if (!user) return c.json({ error: "unauthorized" }, 401);
-  if (!can(user, action)) return c.json({ error: "forbidden" }, 403);
-  await next();
-};
-
-// ---- catalog ----
-app.get("/api/products", (c) =>
-  c.json({ products: listProducts({ q: c.req.query("q"), category: c.req.query("category") }) }),
-);
-
-app.get("/api/products/:id", (c) => {
-  const product = getProduct(c.req.param("id"));
-  return product ? c.json({ product }) : c.json({ error: "not_found" }, 404);
-});
-
-app.post("/api/products/:id/reserve", requireUser("reserve"), async (c) => {
-  const body = await c.req.json<{ quantity?: number }>().catch(() => ({}) as { quantity?: number });
-  const result = reserveProduct(c.req.param("id"), Number(body.quantity ?? 0));
-  if (!result.ok) return c.json({ status: "error", message: result.error }, 400);
-  return c.json({
-    status: "ok",
-    message: `${result.product.name} を ${result.quantity} 点予約しました（残り ${result.product.stock}）`,
-    product: result.product,
-  });
-});
-
-// ---- auth ----
-app.post("/api/login", async (c) => {
-  const body = await c.req.json<{ id?: string; password?: string }>().catch(() => ({}) as { id?: string; password?: string });
-  const user = authenticate(String(body.id ?? ""), String(body.password ?? ""));
-  if (!user) return c.json({ error: "invalid_credentials", message: "ID かパスワードが違います" }, 401);
-  c.header("Set-Cookie", `${SESSION_COOKIE}=${await signSession(user)}; ${sessionCookieAttributes()}`);
-  return c.json({ user });
-});
-
-app.post("/api/logout", (c) => {
-  c.header("Set-Cookie", `${SESSION_COOKIE}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0`);
-  return c.json({ ok: true });
-});
-
-app.get("/api/me", (c) => {
-  const user = c.get("user");
-  return user ? c.json({ user }) : c.json({ error: "unauthorized" }, 401);
-});
-
-app.get("/api/admin/stats", requireUser("view-admin"), (c) => c.json({ stats: reservationStats() }));
-
-app.notFound((c) => c.json({ error: "not_found" }, 404));
+import { app } from "./app";
 
 // ---- static SPA ----
 const here = fileURLToPath(new URL(".", import.meta.url));

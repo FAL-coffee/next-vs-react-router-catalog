@@ -7,7 +7,6 @@ const router = createRouter({
   routeTree,
   defaultPreload: "intent",
   scrollRestoration: true,
-  context: { user: null },
   defaultErrorComponent: ErrorPage,
 });
 

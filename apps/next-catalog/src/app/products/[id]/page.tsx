@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProduct } from "@catalog/data";
-import { getSession } from "@/lib/session";
 import { ProductDetail } from "@/components/ProductDetail";
 
 export async function generateMetadata({ params }: PageProps<"/products/[id]">): Promise<Metadata> {
@@ -19,11 +18,10 @@ export default async function ProductPage({ params, searchParams }: PageProps<"/
   }
   const product = getProduct(id);
   if (!product) notFound();
-  const user = await getSession();
 
   return (
     <div className="space-y-6">
-      <ProductDetail product={product} user={user} priority />
+      <ProductDetail product={product} priority />
       <Link href="/" className="inline-block text-sm text-zinc-600 hover:underline">
         ← 一覧に戻る
       </Link>

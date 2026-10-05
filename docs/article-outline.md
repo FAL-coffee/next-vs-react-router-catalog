@@ -46,25 +46,24 @@
 
 ### 4.1 題材と仕様
 
-- 商品カタログ。一覧・検索・クイックビュー（モーダル）・詳細・予約・ログイン・マイページ・管理画面・JSON API・404・エラー境界
-- DB なし。インメモリ在庫、デモユーザー 2 人（member / admin）
+- 商品カタログ。一覧・検索・クイックビュー（モーダル）・詳細・予約・JSON API・404・エラー境界
+- DB なし。インメモリ在庫
 - Next は create-next-app 既定、SPA は @tanstack/cli 既定 + Hono の API。設定はほぼ触らない
-- 画面・DOM・data-testid は同一。認証ロジックは同じコードを共有
+- 画面・DOM・data-testid は同一
 
 ### 4.2 Next 側に「テクい機能」をわざと盛った
 
 - Parallel Route + Intercepting Route でクイックビュー（2023 年に「はあ？」と言ったやつ）
-- proxy（旧 middleware）で `/mypage` `/admin` をゲート
-- Server Action でログイン・予約
+- Server Action で予約
 - `next/og` で OG 画像
 - `next/image` は既定のまま
 
 ### 4.3 機能ごとに SPA で再現した結果（記事の本体。`docs/feature-matrix.md` の表）
 
-- 再現コスト 0〜低: SSR 不要なら消える / RSC → コード分割 / Server Actions → fetch / Route Handler → Hono / Parallel+Intercepting → search param + route masking / middleware → beforeLoad + API / Cookie セッション → API が発行 / prefetch / 型付きルート
+- 再現コスト 0〜低: SSR 不要なら消える / RSC → コード分割 / Server Actions → fetch / Route Handler → Hono / Parallel+Intercepting → search param + route masking / middleware → beforeLoad（本体の認可は API）/ prefetch / 型付きルート
 - 再現コスト中〜高: Image Optimization（CDN の仕事）/ OG 画像（別サービス）
 - 不可: JS 無効フォーム / 正しい 404 ステータス
-- コード比較は 2 箇所だけ載せる: (a) クイックビュー（intercepting route vs route masking）、(b) 認可ガード（proxy vs beforeLoad）
+- コード比較は 2 箇所だけ載せる: (a) クイックビュー（intercepting route vs route masking）、(b) 予約フォーム（Server Action vs fetch）
 
 ### 4.4 抱え込むもの（計測）
 
@@ -77,7 +76,6 @@
 - `/products/:id/opengraph-image`（next/og。9 月に RCE が刺さった口）
 - `POST /` + `Next-Action`
 - `RSC: 1`
-- `/mypage` `/admin`: Next は proxy が 307、SPA は殻が 200 で返り、ガードはブラウザと API（401/403）
 - SPA 側で開いている口: `/api/*` だけ。それ以外は 404
 
 ### 4.6 ランタイム・ページ重量（誤差の範囲として短く）
@@ -85,7 +83,7 @@
 ### 4.7 地味に刺さった差
 
 - Next のサーバコード分割でモジュールスコープのシングルトンが複製される → `globalThis`
-- React 19 は Server Action 完了後にフォームをリセットする（ログイン失敗後に ID が消える）
+- React 19 は Server Action 完了後にフォームをリセットする（予約エラー後に数量が初期値に戻る）
 - TanStack は search を JSON として読む（`?fail=1` が数値になる）
 - TanStack の `errorComponent` はルートに伝播しない（`defaultErrorComponent` を使う）
 - 404 の HTTP ステータスは SPA では返せない
@@ -121,19 +119,19 @@
 
 | 観点 | Next.js 16.3 | TanStack Router SPA + Hono API | 読み方 |
 | --- | --- | --- | --- |
-| 書いたコード（非空行） | 679 行 / 31 ファイル | 944 行 / 23 ファイル | SPA の方が多い。API 本体と fetch 層の分。隠さない |
-| 本番依存パッケージ数 / サイズ | 60 / 449 MB | 15 / 14 MB | 32 倍。sharp/libvips、SWC、vendored React+RSC が主因 |
+| 書いたコード（非空行） | 473 行 / 22 ファイル | 659 行 / 22 ファイル | SPA の方が多い。API 本体と fetch 層の分。隠さない |
+| 本番依存パッケージ数 / サイズ | 59 / 428 MB | 15 / 13.5 MB | 32 倍。sharp/libvips、SWC、vendored React+RSC が主因 |
 | RSC ランタイム同梱 | あり | なし | React2Shell が刺さる口 |
 | sharp / libvips 同梱 | あり | なし | AVIF RCE が刺さる口 |
-| クリーンビルド | 13.4 秒 | 2.3 秒 | Next は tsc + eslint 内蔵。注記する |
-| デプロイ一式 | 215 MB (standalone) | 1.8 MB (静的 + API + その依存) | 100 倍超。S3 に置けるサイズ |
-| コールドスタート | 1,100 ms | 520 ms | 参考値 |
-| RSS | 289 MB | 72 MB | 参考値 |
-| `/` の HTML | 25.8 KB | 0.9 KB | SSR の有無そのもの |
-| `/` の JS (gzip) | 143 KB | 93 KB | RSC で減るどころか増えている |
+| クリーンビルド | 12.6 秒 | 2.7 秒 | Next は tsc + eslint 内蔵。注記する |
+| デプロイ一式 | 205 MB (standalone) | 1.8 MB (静的 + API + その依存) | 100 倍超。S3 に置けるサイズ |
+| コールドスタート | 970 ms | 550 ms | 参考値 |
+| RSS | 292 MB | 72 MB | 参考値 |
+| `/` の HTML | 24.6 KB | 0.8 KB | SSR の有無そのもの |
+| `/` の JS (gzip) | 143 KB | 92 KB | RSC で減るどころか増えている |
 | `/` の画像 | 16 KB (webp) | 80 KB (PNG) | 画像最適化の恩恵は本物 |
-| p50 `/` | 8.8 ms | 0.9 ms | SSR と静的配信の差。公平に書く |
-| p50 `/api/products` | 2.5 ms | 0.9 ms | Hono 速い。主戦場にしない |
+| p50 `/` | 8.6 ms | 0.8 ms | SSR と静的配信の差。公平に書く |
+| p50 `/api/products` | 2.4 ms | 0.9 ms | Hono 速い。主戦場にしない |
 
 露出している口（アプリが定義していないのに 404 以外を返すパス）:
 
@@ -143,9 +141,7 @@
 | `/products/:id/opengraph-image`（next/og） | 200 | 404 |
 | `POST /` + `Next-Action` | 受け付けて 404 | 404 |
 | `RSC: 1` ヘッダ | 200 text/x-component | 404 |
-| `/mypage` `/admin`（未ログイン） | 307 → /login | 200（殻）。ガードはブラウザと API |
-| `/api/admin/stats`（未ログイン） | 401 | 401 |
-| `POST /api/products/:id/reserve`（未ログイン） | 404（Server Action 経由のみ） | 401 |
+| `POST /api/products/:id/reserve` | 404（Server Action 経由のみ） | 200 |
 
 脆弱性履歴（osv.dev、2026-10-05）:
 

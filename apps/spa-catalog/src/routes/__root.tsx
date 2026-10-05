@@ -1,20 +1,12 @@
-import { Link, Outlet, createRootRouteWithContext, useRouter } from "@tanstack/react-router";
-import type { User } from "@catalog/data";
-import { invalidateMe, logout, me } from "#/lib/api";
+import { Link, Outlet, createRootRoute } from "@tanstack/react-router";
 import "../styles.css";
 
-type RouterContext = { user: User | null };
-
-export const Route = createRootRouteWithContext<RouterContext>()({
-  // Runs before every route's beforeLoad, so child guards can read `context.user`.
-  beforeLoad: async () => ({ user: await me() }),
+export const Route = createRootRoute({
   component: RootLayout,
   notFoundComponent: NotFound,
 });
 
 function RootLayout() {
-  const { user } = Route.useRouteContext();
-  const router = useRouter();
   return (
     <>
       <header className="border-b bg-white">
@@ -28,36 +20,8 @@ function RootLayout() {
           <a href="/api/products" className="text-sm text-zinc-600 hover:underline">
             API
           </a>
-          <Link to="/mypage" className="text-sm text-zinc-600 hover:underline">
-            マイページ
-          </Link>
-          <Link to="/admin" className="text-sm text-zinc-600 hover:underline">
-            管理
-          </Link>
-          <span className="ml-auto flex items-center gap-3 text-sm">
-            {user ? (
-              <>
-                <span data-testid="current-user">{user.name}</span>
-                <button
-                  className="rounded border px-2 py-0.5 text-xs"
-                  onClick={async () => {
-                    await logout();
-                    invalidateMe();
-                    await router.invalidate();
-                    await router.navigate({ to: "/" });
-                  }}
-                >
-                  ログアウト
-                </button>
-              </>
-            ) : (
-              <Link to="/login" className="text-zinc-600 hover:underline">
-                ログイン
-              </Link>
-            )}
-            <span data-testid="framework" className="rounded bg-zinc-900 px-2 py-0.5 text-xs text-white">
-              TanStack Router
-            </span>
+          <span data-testid="framework" className="ml-auto rounded bg-zinc-900 px-2 py-0.5 text-xs text-white">
+            TanStack Router
           </span>
         </nav>
       </header>
