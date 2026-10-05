@@ -1,5 +1,5 @@
 {
-  "measuredAt": "2026-10-05T08:03:45.026Z",
+  "measuredAt": "2026-10-05T09:16:30.584Z",
   "node": "v22.22.0",
   "pnpm": "10.28.0",
   "apps": {
@@ -13,7 +13,8 @@
         "dependencies": [
           "next",
           "react",
-          "react-dom"
+          "react-dom",
+          "server-only"
         ],
         "devDependencies": [
           "@tailwindcss/postcss",
@@ -27,13 +28,13 @@
         ]
       },
       "source": {
-        "lines": 394,
-        "files": 17
+        "lines": 679,
+        "files": 31
       },
       "deps": {
         "prod": {
-          "count": 59,
-          "bytes": 449022917,
+          "count": 60,
+          "bytes": 449023528,
           "packages": [
             "@emnapi/runtime@1.11.3",
             "@img/colour@1.1.0",
@@ -89,6 +90,7 @@
             "react@19.2.8",
             "scheduler@0.27.0",
             "semver@7.8.5",
+            "server-only@0.0.1",
             "sharp@0.35.5",
             "source-map-js@1.2.2",
             "styled-jsx@5.1.6",
@@ -97,8 +99,8 @@
           ]
         },
         "all": {
-          "count": 436,
-          "bytes": 563970155,
+          "count": 441,
+          "bytes": 565491418,
           "packages": [
             "@alloc/quick-lru@5.3.0",
             "@babel/code-frame@7.29.7",
@@ -275,6 +277,7 @@
             "client-only@0.0.1",
             "color-convert@2.0.1",
             "color-name@1.1.4",
+            "comment-parser@1.4.9",
             "concat-map@0.0.1",
             "convert-source-map@2.0.0",
             "cross-spawn@7.0.6",
@@ -306,9 +309,11 @@
             "escalade@3.2.0",
             "escape-string-regexp@4.0.0",
             "eslint-config-next@16.3.8",
+            "eslint-import-context@0.1.9",
             "eslint-import-resolver-node@0.3.10",
             "eslint-import-resolver-typescript@3.10.1",
             "eslint-module-utils@2.14.0",
+            "eslint-plugin-import-x@4.17.1",
             "eslint-plugin-import@2.32.0",
             "eslint-plugin-jsx-a11y@6.10.2",
             "eslint-plugin-react-hooks@7.1.1",
@@ -483,6 +488,7 @@
             "scheduler@0.27.0",
             "semver@6.3.1",
             "semver@7.8.5",
+            "server-only@0.0.1",
             "set-function-length@1.2.2",
             "set-function-name@2.0.2",
             "set-proto@1.0.0",
@@ -494,6 +500,7 @@
             "side-channel-weakmap@1.0.2",
             "side-channel@1.1.1",
             "source-map-js@1.2.2",
+            "stable-hash-x@0.2.0",
             "stable-hash@0.0.5",
             "stop-iteration-iterator@1.1.0",
             "string.prototype.includes@2.0.1",
@@ -543,21 +550,21 @@
       },
       "build": {
         "runsMs": [
-          10831,
-          11162
+          14021,
+          13403
         ],
-        "bestMs": 10831
+        "bestMs": 13403
       },
       "output": {
-        "bytes": 8965615,
-        "files": 235
+        "bytes": 11684438,
+        "files": 352
       },
       "deployable": {
-        "bytes": 205155269,
-        "files": 3526,
+        "bytes": 215544451,
+        "files": 3631,
         "note": ".next/standalone (traced node_modules included) + .next/static"
       },
-      "coldStartMs": 950,
+      "coldStartMs": 1102,
       "responseHeaders": {
         "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
         "content-encoding": "gzip",
@@ -569,6 +576,9 @@
       "probes": [
         {
           "path": "/",
+          "headers": {
+            "accept": "text/html"
+          },
           "note": "app route",
           "status": 200,
           "contentType": "text/html",
@@ -600,10 +610,17 @@
           "headers": {
             "accept": "image/avif,image/webp"
           },
-          "note": "image optimizer, AVIF negotiated",
+          "note": "image optimizer, AVIF/WebP negotiated",
           "status": 200,
           "contentType": "image/webp",
           "finalUrl": "/_next/image?url=%2Fimages%2Fuji-sencha.png&w=640&q=75"
+        },
+        {
+          "path": "/products/uji-sencha/opengraph-image",
+          "note": "next/og ImageResponse (OG image generated on the server)",
+          "status": 200,
+          "contentType": "image/png",
+          "finalUrl": "/products/uji-sencha/opengraph-image"
         },
         {
           "path": "/",
@@ -630,25 +647,57 @@
           "finalUrl": "/"
         },
         {
+          "path": "/mypage",
+          "headers": {
+            "accept": "text/html"
+          },
+          "note": "auth-gated page, anonymous (Next: proxy redirects; SPA: shell is public, guard runs in the browser)",
+          "status": 307,
+          "contentType": "",
+          "finalUrl": "/mypage"
+        },
+        {
+          "path": "/admin",
+          "headers": {
+            "accept": "text/html"
+          },
+          "note": "role-gated page, anonymous",
+          "status": 307,
+          "contentType": "",
+          "finalUrl": "/admin"
+        },
+        {
+          "path": "/api/me",
+          "note": "session endpoint, anonymous",
+          "status": 401,
+          "contentType": "application/json",
+          "finalUrl": "/api/me"
+        },
+        {
+          "path": "/api/admin/stats",
+          "note": "role-gated API, anonymous",
+          "status": 401,
+          "contentType": "application/json",
+          "finalUrl": "/api/admin/stats"
+        },
+        {
+          "path": "/api/products/uji-sencha/reserve",
+          "method": "POST",
+          "headers": {
+            "content-type": "application/json"
+          },
+          "body": "{\"quantity\":1}",
+          "note": "mutation endpoint, anonymous (Next mutates via Server Action instead)",
+          "status": 404,
+          "contentType": "text/html",
+          "finalUrl": "/api/products/uji-sencha/reserve"
+        },
+        {
           "path": "/__manifest?p=%2F&version=0",
-          "note": "React Router lazy route discovery manifest",
+          "note": "React Router lazy route discovery manifest (neither app)",
           "status": 404,
           "contentType": "text/html",
           "finalUrl": "/__manifest?p=%2F&version=0"
-        },
-        {
-          "path": "/_root.data",
-          "note": "React Router single-fetch data request (root)",
-          "status": 404,
-          "contentType": "text/html",
-          "finalUrl": "/_root.data"
-        },
-        {
-          "path": "/products/uji-sencha.data",
-          "note": "React Router single-fetch data request",
-          "status": 404,
-          "contentType": "text/html",
-          "finalUrl": "/products/uji-sencha.data"
         },
         {
           "path": "/.well-known/appspecific/com.chrome.devtools.json",
@@ -656,13 +705,6 @@
           "status": 404,
           "contentType": "text/html",
           "finalUrl": "/.well-known/appspecific/com.chrome.devtools.json"
-        },
-        {
-          "path": "/__nextjs_original-stack-frames",
-          "note": "Next.js dev-only overlay endpoint",
-          "status": 404,
-          "contentType": "text/html",
-          "finalUrl": "/__nextjs_original-stack-frames"
         },
         {
           "path": "/_next/static/chunks/main.js",
@@ -675,21 +717,21 @@
       "pages": {
         "/": {
           "document": {
-            "raw": 22502,
-            "gzip": 3937,
-            "brotli": 3231,
+            "raw": 25810,
+            "gzip": 4235,
+            "brotli": 3499,
             "count": 1
           },
           "script": {
-            "raw": 477765,
-            "gzip": 142777,
-            "brotli": 122615,
-            "count": 8
+            "raw": 479137,
+            "gzip": 143529,
+            "brotli": 123896,
+            "count": 9
           },
           "stylesheet": {
-            "raw": 11301,
-            "gzip": 3064,
-            "brotli": 2651,
+            "raw": 11902,
+            "gzip": 3196,
+            "brotli": 2759,
             "count": 1
           },
           "image": {
@@ -699,10 +741,10 @@
             "count": 8
           },
           "total": {
-            "raw": 563075,
-            "gzip": 177266,
-            "brotli": 154398,
-            "count": 33
+            "raw": 560456,
+            "gzip": 175420,
+            "brotli": 153209,
+            "count": 49
           },
           "scripts": [
             {
@@ -716,19 +758,19 @@
               "gzip": 7667
             },
             {
-              "url": "/_next/static/chunks/turbopack-3n9iyd_nn2eje.js",
-              "raw": 9720,
-              "gzip": 3845
-            },
-            {
               "url": "/_next/static/chunks/0aovqvcnny5ax.js",
               "raw": 23133,
               "gzip": 6750
             },
             {
-              "url": "/_next/static/chunks/3cdwhhyfv_clq.js",
-              "raw": 609,
-              "gzip": 446
+              "url": "/_next/static/chunks/27mq9-5j6wvlv.js",
+              "raw": 31325,
+              "gzip": 9581
+            },
+            {
+              "url": "/_next/static/chunks/turbopack-3i3adf8k-w7o6.js",
+              "raw": 10978,
+              "gzip": 4316
             },
             {
               "url": "/_next/static/chunks/39-yoepc35gu7.js",
@@ -736,9 +778,14 @@
               "gzip": 5585
             },
             {
-              "url": "/_next/static/chunks/0a1hgbkcaukaa.js",
-              "raw": 165989,
-              "gzip": 45054
+              "url": "/_next/static/chunks/3cdwhhyfv_clq.js",
+              "raw": 609,
+              "gzip": 446
+            },
+            {
+              "url": "/_next/static/chunks/32vhog6cnnhxt.js",
+              "raw": 134778,
+              "gzip": 35754
             },
             {
               "url": "/_next/static/chunks/2emb-lzrwwsim.js",
@@ -752,6 +799,14 @@
               "raw": 1584
             },
             {
+              "url": "/_next/image?url=%2Fimages%2Fguatemala-antigua.png&w=640&q=75",
+              "raw": 2594
+            },
+            {
+              "url": "/_next/image?url=%2Fimages%2Fcolombia-huila.png&w=640&q=75",
+              "raw": 1840
+            },
+            {
               "url": "/_next/image?url=%2Fimages%2Fethiopia-yirgacheffe.png&w=640&q=75",
               "raw": 2980
             },
@@ -760,16 +815,8 @@
               "raw": 1820
             },
             {
-              "url": "/_next/image?url=%2Fimages%2Fguatemala-antigua.png&w=640&q=75",
-              "raw": 2594
-            },
-            {
               "url": "/_next/image?url=%2Fimages%2Fassam-ctc.png&w=640&q=75",
               "raw": 1740
-            },
-            {
-              "url": "/_next/image?url=%2Fimages%2Fcolombia-huila.png&w=640&q=75",
-              "raw": 1840
             },
             {
               "url": "/_next/image?url=%2Fimages%2Fhario-v60.png&w=640&q=75",
@@ -783,21 +830,21 @@
         },
         "/products/ethiopia-yirgacheffe": {
           "document": {
-            "raw": 11642,
-            "gzip": 3164,
-            "brotli": 2599,
+            "raw": 16883,
+            "gzip": 3496,
+            "brotli": 2888,
             "count": 1
           },
           "script": {
-            "raw": 479157,
-            "gzip": 143407,
-            "brotli": 123157,
-            "count": 8
+            "raw": 480529,
+            "gzip": 144158,
+            "brotli": 124462,
+            "count": 9
           },
           "stylesheet": {
-            "raw": 11301,
-            "gzip": 3064,
-            "brotli": 2651,
+            "raw": 11902,
+            "gzip": 3196,
+            "brotli": 2759,
             "count": 1
           },
           "image": {
@@ -807,10 +854,10 @@
             "count": 1
           },
           "total": {
-            "raw": 537658,
-            "gzip": 164408,
-            "brotli": 142244,
-            "count": 18
+            "raw": 538567,
+            "gzip": 163232,
+            "brotli": 141731,
+            "count": 29
           },
           "scripts": [
             {
@@ -819,9 +866,14 @@
               "gzip": 2026
             },
             {
-              "url": "/_next/static/chunks/turbopack-3n9iyd_nn2eje.js",
-              "raw": 9720,
-              "gzip": 3845
+              "url": "/_next/static/chunks/27mq9-5j6wvlv.js",
+              "raw": 31325,
+              "gzip": 9581
+            },
+            {
+              "url": "/_next/static/chunks/turbopack-3i3adf8k-w7o6.js",
+              "raw": 10978,
+              "gzip": 4316
             },
             {
               "url": "/_next/static/chunks/00e6wkxplygc2.js",
@@ -834,19 +886,19 @@
               "gzip": 446
             },
             {
-              "url": "/_next/static/chunks/1wb60vw3esny2.js",
+              "url": "/_next/static/chunks/1n-vh5-pzdz6f.js",
               "raw": 16181,
-              "gzip": 6215
+              "gzip": 6214
+            },
+            {
+              "url": "/_next/static/chunks/32vhog6cnnhxt.js",
+              "raw": 134778,
+              "gzip": 35754
             },
             {
               "url": "/_next/static/chunks/0aovqvcnny5ax.js",
               "raw": 23133,
               "gzip": 6750
-            },
-            {
-              "url": "/_next/static/chunks/0a1hgbkcaukaa.js",
-              "raw": 165989,
-              "gzip": 45054
             },
             {
               "url": "/_next/static/chunks/2emb-lzrwwsim.js",
@@ -863,21 +915,21 @@
         },
         "/about": {
           "document": {
-            "raw": 8550,
-            "gzip": 2474,
-            "brotli": 2009,
+            "raw": 12505,
+            "gzip": 2941,
+            "brotli": 2411,
             "count": 1
           },
           "script": {
-            "raw": 462976,
-            "gzip": 137192,
-            "brotli": 117663,
-            "count": 7
+            "raw": 464348,
+            "gzip": 137944,
+            "brotli": 118944,
+            "count": 8
           },
           "stylesheet": {
-            "raw": 11301,
-            "gzip": 3064,
-            "brotli": 2651,
+            "raw": 11902,
+            "gzip": 3196,
+            "brotli": 2759,
             "count": 1
           },
           "image": {
@@ -887,10 +939,10 @@
             "count": 0
           },
           "total": {
-            "raw": 514028,
-            "gzip": 154052,
-            "brotli": 132874,
-            "count": 14
+            "raw": 517094,
+            "gzip": 154717,
+            "brotli": 133940,
+            "count": 24
           },
           "scripts": [
             {
@@ -904,24 +956,29 @@
               "gzip": 7667
             },
             {
-              "url": "/_next/static/chunks/turbopack-3n9iyd_nn2eje.js",
-              "raw": 9720,
-              "gzip": 3845
+              "url": "/_next/static/chunks/27mq9-5j6wvlv.js",
+              "raw": 31325,
+              "gzip": 9581
             },
             {
-              "url": "/_next/static/chunks/0a1hgbkcaukaa.js",
-              "raw": 165989,
-              "gzip": 45054
-            },
-            {
-              "url": "/_next/static/chunks/0aovqvcnny5ax.js",
-              "raw": 23133,
-              "gzip": 6750
+              "url": "/_next/static/chunks/turbopack-3i3adf8k-w7o6.js",
+              "raw": 10978,
+              "gzip": 4316
             },
             {
               "url": "/_next/static/chunks/3cdwhhyfv_clq.js",
               "raw": 609,
               "gzip": 446
+            },
+            {
+              "url": "/_next/static/chunks/32vhog6cnnhxt.js",
+              "raw": 134778,
+              "gzip": 35754
+            },
+            {
+              "url": "/_next/static/chunks/0aovqvcnny5ax.js",
+              "raw": 23133,
+              "gzip": 6750
             },
             {
               "url": "/_next/static/chunks/2emb-lzrwwsim.js",
@@ -935,160 +992,88 @@
       "latency": {
         "/": {
           "n": 200,
-          "p50": 8.03,
-          "p95": 14.66,
-          "p99": 25.64
+          "p50": 8.8,
+          "p95": 14.03,
+          "p99": 17.88
         },
         "/products/ethiopia-yirgacheffe": {
           "n": 200,
-          "p50": 6.58,
-          "p95": 11.3,
-          "p99": 22.01
+          "p50": 8.28,
+          "p95": 13.84,
+          "p99": 17.63
         },
         "/api/products": {
           "n": 200,
-          "p50": 2.22,
-          "p95": 4.3,
-          "p99": 6.78
+          "p50": 2.5,
+          "p95": 4.09,
+          "p99": 7.21
         }
       },
-      "memoryRssKb": 249152
+      "memoryRssKb": 295544
     },
-    "rr": {
-      "key": "rr",
-      "label": "React Router",
+    "spa": {
+      "key": "spa",
+      "label": "TanStack Router SPA + Hono API",
       "frameworkVersions": {
-        "react-router": "8.4.0",
-        "@react-router/dev": "8.4.0",
-        "@react-router/node": "8.4.0",
-        "@react-router/serve": "8.4.0"
+        "@tanstack/react-router": "1.170.41",
+        "@tanstack/router-plugin": "1.168.42",
+        "hono": "4.13.13",
+        "@hono/node-server": "2.1.3"
       },
       "declaredDeps": {
         "dependencies": [
-          "@react-router/node",
-          "@react-router/serve",
-          "isbot",
+          "@tanstack/react-router",
           "react",
           "react-dom",
-          "react-router"
+          "@hono/node-server",
+          "hono"
         ],
         "devDependencies": [
-          "@react-router/dev",
           "@tailwindcss/vite",
-          "@types/node",
+          "@tanstack/eslint-config",
+          "@tanstack/router-plugin",
           "@types/react",
           "@types/react-dom",
+          "@vitejs/plugin-react",
+          "eslint",
           "tailwindcss",
           "typescript",
-          "vite"
+          "vite",
+          "@types/node",
+          "esbuild",
+          "tsx",
+          "typescript"
         ]
       },
       "source": {
-        "lines": 380,
-        "files": 14
+        "lines": 944,
+        "files": 23
       },
       "deps": {
         "prod": {
-          "count": 92,
-          "bytes": 37831255,
+          "count": 15,
+          "bytes": 14147488,
           "packages": [
-            "@react-router/express@8.4.0",
-            "@react-router/node@8.4.0",
-            "@react-router/serve@8.4.0",
-            "@remix-run/node-fetch-server@0.14.2",
-            "@remix-run/route-pattern@0.22.1",
-            "accepts@2.0.0",
-            "basic-auth@2.0.1",
-            "body-parser@2.3.0",
-            "buffer-from@1.1.2",
-            "bytes@3.1.2",
-            "call-bind-apply-helpers@1.0.2",
-            "call-bound@1.0.4",
-            "compressible@2.0.18",
-            "compression@1.8.2",
-            "content-disposition@1.1.0",
-            "content-type@1.0.5",
-            "content-type@2.1.0",
+            "@hono/node-server@2.1.3",
+            "@tanstack/history@1.162.4",
+            "@tanstack/react-router@1.170.41",
+            "@tanstack/react-store@0.11.2",
+            "@tanstack/router-core@1.171.34",
+            "@tanstack/store@0.11.2",
             "cookie-es@3.1.1",
-            "cookie-signature@1.2.2",
-            "cookie@0.7.2",
-            "debug@2.6.9",
-            "debug@4.4.3",
-            "depd@2.0.0",
-            "destroy@1.2.0",
-            "dunder-proto@1.0.1",
-            "ee-first@1.1.1",
-            "encodeurl@2.0.0",
-            "es-define-property@1.0.1",
-            "es-errors@1.3.0",
-            "es-object-atoms@1.1.2",
-            "escape-html@1.0.3",
-            "etag@1.8.1",
-            "express@5.2.1",
-            "finalhandler@2.1.1",
-            "forwarded@0.2.0",
-            "fresh@2.0.0",
-            "function-bind@1.1.2",
-            "get-intrinsic@1.3.0",
-            "get-proto@1.0.1",
-            "gopd@1.2.0",
-            "has-symbols@1.1.0",
-            "hasown@2.0.4",
-            "http-errors@2.0.1",
-            "iconv-lite@0.7.3",
-            "inherits@2.0.4",
-            "ipaddr.js@1.9.1",
-            "is-promise@4.0.0",
+            "hono@4.13.13",
             "isbot@5.2.2",
-            "math-intrinsics@1.1.0",
-            "media-typer@1.1.1",
-            "merge-descriptors@2.0.0",
-            "mime-db@1.54.0",
-            "mime-types@3.0.2",
-            "morgan@1.12.1",
-            "ms@2.0.0",
-            "ms@2.1.3",
-            "negotiator@0.6.4",
-            "negotiator@1.1.0",
-            "object-inspect@1.13.4",
-            "on-finished@2.4.1",
-            "on-headers@1.1.0",
-            "once@1.4.0",
-            "parseurl@1.3.3",
-            "path-to-regexp@8.4.2",
-            "proxy-addr@2.0.8",
-            "qs@6.16.0",
-            "range-parser@1.3.0",
-            "raw-body@3.0.2",
             "react-dom@19.2.8",
-            "react-router@8.4.0",
             "react@19.2.8",
-            "router@2.2.0",
-            "safe-buffer@5.1.2",
-            "safe-buffer@5.2.1",
-            "safer-buffer@2.1.2",
             "scheduler@0.27.0",
-            "send@1.2.1",
-            "serve-static@2.2.1",
-            "setprototypeof@1.2.0",
-            "side-channel-list@1.0.1",
-            "side-channel-map@1.0.1",
-            "side-channel-weakmap@1.0.2",
-            "side-channel@1.1.1",
-            "source-map-support@0.5.21",
-            "source-map@0.6.1",
-            "statuses@2.0.2",
-            "toidentifier@1.0.1",
-            "type-is@2.1.0",
-            "typescript@5.9.3",
-            "unpipe@1.0.0",
-            "vary@1.1.2",
-            "wrappy@1.0.2"
+            "seroval-plugins@1.6.8",
+            "seroval@1.6.8",
+            "use-sync-external-store@1.7.0"
           ]
         },
         "all": {
-          "count": 222,
-          "bytes": 151689507,
+          "count": 425,
+          "bytes": 247150183,
           "packages": [
             "@babel/code-frame@7.29.7",
             "@babel/compat-data@7.29.7",
@@ -1106,18 +1091,58 @@
             "@babel/template@7.29.7",
             "@babel/traverse@7.29.8",
             "@babel/types@7.29.8",
+            "@emnapi/core@1.10.0",
+            "@emnapi/runtime@1.10.0",
+            "@emnapi/wasi-threads@1.2.1",
+            "@esbuild/aix-ppc64@0.28.2",
+            "@esbuild/android-arm64@0.28.2",
+            "@esbuild/android-arm@0.28.2",
+            "@esbuild/android-x64@0.28.2",
+            "@esbuild/darwin-arm64@0.28.2",
+            "@esbuild/darwin-x64@0.28.2",
+            "@esbuild/freebsd-arm64@0.28.2",
+            "@esbuild/freebsd-x64@0.28.2",
+            "@esbuild/linux-arm64@0.28.2",
+            "@esbuild/linux-arm@0.28.2",
+            "@esbuild/linux-ia32@0.28.2",
+            "@esbuild/linux-loong64@0.28.2",
+            "@esbuild/linux-mips64el@0.28.2",
+            "@esbuild/linux-ppc64@0.28.2",
+            "@esbuild/linux-riscv64@0.28.2",
+            "@esbuild/linux-s390x@0.28.2",
+            "@esbuild/linux-x64@0.28.2",
+            "@esbuild/netbsd-arm64@0.28.2",
+            "@esbuild/netbsd-x64@0.28.2",
+            "@esbuild/openbsd-arm64@0.28.2",
+            "@esbuild/openbsd-x64@0.28.2",
+            "@esbuild/openharmony-arm64@0.28.2",
+            "@esbuild/sunos-x64@0.28.2",
+            "@esbuild/win32-arm64@0.28.2",
+            "@esbuild/win32-ia32@0.28.2",
+            "@esbuild/win32-x64@0.28.2",
+            "@eslint-community/eslint-utils@4.10.1",
+            "@eslint-community/regexpp@4.12.2",
+            "@eslint/config-array@0.21.2",
+            "@eslint/config-helpers@0.4.2",
+            "@eslint/core@0.17.0",
+            "@eslint/eslintrc@3.3.7",
+            "@eslint/js@10.0.1",
+            "@eslint/js@9.39.5",
+            "@eslint/object-schema@2.1.7",
+            "@eslint/plugin-kit@0.4.1",
+            "@hono/node-server@2.1.3",
+            "@humanfs/core@0.19.2",
+            "@humanfs/node@0.16.8",
+            "@humanfs/types@0.15.0",
+            "@humanwhocodes/module-importer@1.0.1",
+            "@humanwhocodes/retry@0.4.3",
             "@jridgewell/gen-mapping@0.3.13",
             "@jridgewell/remapping@2.3.5",
             "@jridgewell/resolve-uri@3.1.2",
             "@jridgewell/sourcemap-codec@1.6.0",
             "@jridgewell/trace-mapping@0.3.31",
+            "@napi-rs/wasm-runtime@1.2.4",
             "@oxc-project/types@0.152.0",
-            "@react-router/dev@8.4.0",
-            "@react-router/express@8.4.0",
-            "@react-router/node@8.4.0",
-            "@react-router/serve@8.4.0",
-            "@remix-run/node-fetch-server@0.14.2",
-            "@remix-run/route-pattern@0.22.1",
             "@rolldown/binding-android-arm-eabi@1.2.12",
             "@rolldown/binding-android-arm64@1.2.12",
             "@rolldown/binding-darwin-arm64@1.2.12",
@@ -1134,6 +1159,7 @@
             "@rolldown/binding-win32-arm64-msvc@1.2.12",
             "@rolldown/binding-win32-x64-msvc@1.2.12",
             "@rolldown/pluginutils@1.0.1",
+            "@stylistic/eslint-plugin@5.10.0",
             "@tailwindcss/node@4.3.3",
             "@tailwindcss/oxide-android-arm64@4.3.3",
             "@tailwindcss/oxide-darwin-arm64@4.3.3",
@@ -1149,76 +1175,206 @@
             "@tailwindcss/oxide-win32-x64-msvc@4.3.3",
             "@tailwindcss/oxide@4.3.3",
             "@tailwindcss/vite@4.3.3",
+            "@tanstack/eslint-config@0.4.0",
+            "@tanstack/history@1.162.4",
+            "@tanstack/react-router@1.170.41",
+            "@tanstack/react-store@0.11.2",
+            "@tanstack/router-core@1.171.34",
+            "@tanstack/router-generator@1.167.40",
+            "@tanstack/router-plugin@1.168.42",
+            "@tanstack/router-utils@1.162.3",
+            "@tanstack/store@0.11.2",
+            "@tanstack/virtual-file-routes@1.162.0",
+            "@tybys/wasm-util@0.10.4",
+            "@types/estree@1.0.9",
+            "@types/json-schema@7.0.15",
             "@types/node@22.20.5",
             "@types/react-dom@19.3.0",
             "@types/react@19.3.0",
-            "accepts@2.0.0",
+            "@typescript-eslint/eslint-plugin@8.71.0",
+            "@typescript-eslint/parser@8.71.0",
+            "@typescript-eslint/project-service@8.71.0",
+            "@typescript-eslint/scope-manager@8.71.0",
+            "@typescript-eslint/tsconfig-utils@8.71.0",
+            "@typescript-eslint/type-utils@8.71.0",
+            "@typescript-eslint/types@8.71.0",
+            "@typescript-eslint/typescript-estree@8.71.0",
+            "@typescript-eslint/utils@8.71.0",
+            "@typescript-eslint/visitor-keys@8.71.0",
+            "@unrs/resolver-binding-android-arm-eabi@1.12.2",
+            "@unrs/resolver-binding-android-arm64@1.12.2",
+            "@unrs/resolver-binding-darwin-arm64@1.12.2",
+            "@unrs/resolver-binding-darwin-x64@1.12.2",
+            "@unrs/resolver-binding-freebsd-x64@1.12.2",
+            "@unrs/resolver-binding-linux-arm-gnueabihf@1.12.2",
+            "@unrs/resolver-binding-linux-arm-musleabihf@1.12.2",
+            "@unrs/resolver-binding-linux-arm64-gnu@1.12.2",
+            "@unrs/resolver-binding-linux-arm64-musl@1.12.2",
+            "@unrs/resolver-binding-linux-loong64-gnu@1.12.2",
+            "@unrs/resolver-binding-linux-loong64-musl@1.12.2",
+            "@unrs/resolver-binding-linux-ppc64-gnu@1.12.2",
+            "@unrs/resolver-binding-linux-riscv64-gnu@1.12.2",
+            "@unrs/resolver-binding-linux-riscv64-musl@1.12.2",
+            "@unrs/resolver-binding-linux-s390x-gnu@1.12.2",
+            "@unrs/resolver-binding-linux-x64-gnu@1.12.2",
+            "@unrs/resolver-binding-linux-x64-musl@1.12.2",
+            "@unrs/resolver-binding-openharmony-arm64@1.12.2",
+            "@unrs/resolver-binding-wasm32-wasi@1.12.2",
+            "@unrs/resolver-binding-win32-arm64-msvc@1.12.2",
+            "@unrs/resolver-binding-win32-ia32-msvc@1.12.2",
+            "@unrs/resolver-binding-win32-x64-msvc@1.12.2",
+            "@vitejs/plugin-react@6.1.1",
+            "acorn-jsx@5.3.2",
+            "acorn@8.18.0",
+            "ajv@6.15.0",
+            "ansi-styles@4.3.0",
+            "ansis@4.4.0",
+            "argparse@2.0.1",
+            "array-buffer-byte-length@1.0.2",
+            "array.prototype.flatmap@1.3.3",
+            "arraybuffer.prototype.slice@1.0.4",
+            "async-function@1.0.0",
+            "available-typed-arrays@1.0.7",
             "babel-dead-code-elimination@1.0.12",
+            "balanced-match@1.0.2",
+            "balanced-match@4.0.4",
             "baseline-browser-mapping@2.11.27",
-            "basic-auth@2.0.1",
-            "body-parser@2.3.0",
+            "brace-expansion@1.1.21",
+            "brace-expansion@5.0.12",
             "browserslist@4.29.3",
-            "buffer-from@1.1.2",
-            "bytes@3.1.2",
             "call-bind-apply-helpers@1.0.2",
+            "call-bind@1.0.9",
             "call-bound@1.0.4",
+            "callsites@3.1.0",
             "caniuse-lite@1.0.30001814",
+            "chalk@4.1.2",
             "chokidar@5.0.0",
-            "compressible@2.0.18",
-            "compression@1.8.2",
-            "confbox@0.3.1",
-            "content-disposition@1.1.0",
-            "content-type@1.0.5",
-            "content-type@2.1.0",
+            "color-convert@2.0.1",
+            "color-name@1.1.4",
+            "comment-parser@1.4.9",
+            "concat-map@0.0.1",
             "convert-source-map@2.0.0",
             "cookie-es@3.1.1",
-            "cookie-signature@1.2.2",
-            "cookie@0.7.2",
+            "cross-spawn@7.0.6",
             "csstype@3.2.3",
-            "debug@2.6.9",
+            "data-view-buffer@1.0.2",
+            "data-view-byte-length@1.0.2",
+            "data-view-byte-offset@1.0.1",
+            "debug@3.2.7",
             "debug@4.4.3",
-            "dedent@1.7.2",
-            "depd@2.0.0",
-            "destroy@1.2.0",
+            "deep-is@0.1.4",
+            "define-data-property@1.1.4",
+            "define-properties@1.2.1",
             "detect-libc@2.1.2",
+            "diff@8.0.4",
             "dunder-proto@1.0.1",
-            "ee-first@1.1.1",
             "electron-to-chromium@1.5.444",
-            "encodeurl@2.0.0",
             "enhanced-resolve@5.26.0",
+            "es-abstract-get@1.0.0",
+            "es-abstract@1.24.2",
             "es-define-property@1.0.1",
             "es-errors@1.3.0",
-            "es-module-lexer@2.3.2",
             "es-object-atoms@1.1.2",
+            "es-set-tostringtag@2.1.0",
+            "es-shim-unscopables@1.1.0",
+            "es-to-primitive@1.3.4",
+            "esbuild@0.28.2",
             "escalade@3.2.0",
-            "escape-html@1.0.3",
-            "etag@1.8.1",
-            "exit-hook@5.1.0",
-            "express@5.2.1",
-            "exsolve@1.1.3",
+            "escape-string-regexp@4.0.0",
+            "eslint-compat-utils@0.5.1",
+            "eslint-import-context@0.1.9",
+            "eslint-import-resolver-node@0.3.10",
+            "eslint-plugin-es-x@7.8.0",
+            "eslint-plugin-import-x@4.17.1",
+            "eslint-plugin-n@17.24.0",
+            "eslint-scope@8.4.0",
+            "eslint-visitor-keys@3.4.3",
+            "eslint-visitor-keys@4.2.1",
+            "eslint-visitor-keys@5.0.1",
+            "eslint@9.39.5",
+            "espree@10.4.0",
+            "esquery@1.7.0",
+            "esrecurse@4.3.0",
+            "estraverse@5.3.0",
+            "esutils@2.0.3",
+            "fast-deep-equal@3.1.3",
+            "fast-json-stable-stringify@2.1.0",
+            "fast-levenshtein@2.0.6",
             "fdir@6.5.0",
-            "finalhandler@2.1.1",
-            "forwarded@0.2.0",
-            "fresh@2.0.0",
+            "file-entry-cache@8.0.0",
+            "find-up@5.0.0",
+            "flat-cache@4.0.1",
+            "flatted@3.4.4",
+            "for-each@0.3.5",
             "fsevents@2.3.3",
             "function-bind@1.1.2",
+            "function.prototype.name@1.2.0",
+            "functions-have-names@1.2.3",
+            "generator-function@2.0.1",
             "gensync@1.0.0-beta.2",
             "get-intrinsic@1.3.0",
             "get-proto@1.0.1",
+            "get-symbol-description@1.1.0",
+            "get-tsconfig@4.14.3",
+            "glob-parent@6.0.2",
+            "globals@14.0.0",
+            "globals@15.15.0",
+            "globals@17.13.0",
+            "globalthis@1.0.4",
+            "globrex@0.1.2",
             "gopd@1.2.0",
             "graceful-fs@4.2.11",
+            "has-bigints@1.1.0",
+            "has-flag@4.0.0",
+            "has-property-descriptors@1.0.2",
+            "has-proto@1.2.0",
             "has-symbols@1.1.0",
+            "has-tostringtag@1.0.2",
             "hasown@2.0.4",
-            "http-errors@2.0.1",
-            "iconv-lite@0.7.3",
-            "inherits@2.0.4",
-            "ipaddr.js@1.9.1",
-            "is-promise@4.0.0",
+            "hono@4.13.13",
+            "ignore@5.3.2",
+            "ignore@7.0.12",
+            "import-fresh@3.3.1",
+            "imurmurhash@0.1.4",
+            "internal-slot@1.1.0",
+            "is-array-buffer@3.0.5",
+            "is-async-function@2.1.1",
+            "is-bigint@1.1.0",
+            "is-boolean-object@1.2.2",
+            "is-callable@1.2.7",
+            "is-core-module@2.17.0",
+            "is-data-view@1.0.2",
+            "is-date-object@1.1.0",
+            "is-document.all@1.0.0",
+            "is-extglob@2.1.1",
+            "is-finalizationregistry@1.1.1",
+            "is-generator-function@1.1.2",
+            "is-glob@4.0.3",
+            "is-map@2.0.3",
+            "is-negative-zero@2.0.3",
+            "is-number-object@1.1.1",
+            "is-regex@1.2.1",
+            "is-set@2.0.3",
+            "is-shared-array-buffer@1.0.4",
+            "is-string@1.1.1",
+            "is-symbol@1.1.1",
+            "is-typed-array@1.1.15",
+            "is-weakmap@2.0.2",
+            "is-weakref@1.1.1",
+            "is-weakset@2.0.4",
+            "isarray@2.0.5",
             "isbot@5.2.2",
+            "isexe@2.0.0",
             "jiti@2.7.0",
             "js-tokens@4.0.0",
+            "js-yaml@4.3.2",
             "jsesc@3.1.0",
+            "json-buffer@3.0.1",
+            "json-schema-traverse@0.4.1",
+            "json-stable-stringify-without-jsonify@1.0.1",
             "json5@2.2.3",
+            "keyv@4.5.4",
+            "levn@0.4.1",
             "lightningcss-android-arm64@1.32.0",
             "lightningcss-android-arm64@1.33.0",
             "lightningcss-darwin-arm64@1.32.0",
@@ -1243,75 +1399,107 @@
             "lightningcss-win32-x64-msvc@1.33.0",
             "lightningcss@1.32.0",
             "lightningcss@1.33.0",
-            "lodash@4.18.1",
+            "locate-path@6.0.0",
+            "lodash.merge@4.6.2",
             "lru-cache@5.1.1",
             "magic-string@0.30.21",
             "math-intrinsics@1.1.0",
-            "media-typer@1.1.1",
-            "merge-descriptors@2.0.0",
-            "mime-db@1.54.0",
-            "mime-types@3.0.2",
-            "morgan@1.12.1",
-            "ms@2.0.0",
+            "minimatch@10.2.6",
+            "minimatch@3.1.5",
             "ms@2.1.3",
             "nanoid@3.3.19",
-            "negotiator@0.6.4",
-            "negotiator@1.1.0",
+            "napi-postinstall@0.3.4",
+            "natural-compare@1.4.0",
+            "node-exports-info@1.6.2",
             "node-releases@2.0.57",
             "object-inspect@1.13.4",
-            "on-finished@2.4.1",
-            "on-headers@1.1.0",
-            "once@1.4.0",
-            "p-map@7.0.8",
-            "parseurl@1.3.3",
-            "path-to-regexp@8.4.2",
+            "object-keys@1.1.1",
+            "object.assign@4.1.7",
+            "object.entries@1.1.9",
+            "optionator@0.9.4",
+            "own-keys@1.0.2",
+            "p-limit@3.1.0",
+            "p-locate@5.0.0",
+            "parent-module@1.0.1",
+            "path-exists@4.0.0",
+            "path-key@3.1.1",
+            "path-parse@1.0.7",
             "pathe@2.0.3",
             "picocolors@1.1.1",
             "picomatch@4.0.7",
-            "pkg-types@2.3.3",
+            "possible-typed-array-names@1.1.0",
             "postcss@8.5.28",
-            "proxy-addr@2.0.8",
-            "qs@6.16.0",
-            "range-parser@1.3.0",
-            "raw-body@3.0.2",
+            "prelude-ls@1.2.1",
+            "prettier@3.9.9",
+            "punycode@2.3.1",
             "react-dom@19.2.8",
-            "react-refresh@0.18.0",
-            "react-router@8.4.0",
             "react@19.2.8",
             "readdirp@5.1.1",
+            "reflect.getprototypeof@1.0.10",
+            "regexp.prototype.flags@1.5.4",
+            "resolve-from@4.0.0",
+            "resolve-pkg-maps@1.0.0",
+            "resolve@2.0.0-next.7",
             "rolldown@1.2.12",
-            "router@2.2.0",
-            "safe-buffer@5.1.2",
-            "safe-buffer@5.2.1",
-            "safer-buffer@2.1.2",
+            "safe-array-concat@1.1.4",
+            "safe-push-apply@1.0.0",
+            "safe-regex-test@1.1.0",
             "scheduler@0.27.0",
             "semver@6.3.1",
             "semver@7.8.5",
-            "send@1.2.1",
-            "serve-static@2.2.1",
-            "setprototypeof@1.2.0",
+            "seroval-plugins@1.6.8",
+            "seroval@1.6.8",
+            "set-function-length@1.2.2",
+            "set-function-name@2.0.2",
+            "set-proto@1.0.0",
+            "shebang-command@2.0.0",
+            "shebang-regex@3.0.0",
             "side-channel-list@1.0.1",
             "side-channel-map@1.0.1",
             "side-channel-weakmap@1.0.2",
             "side-channel@1.1.1",
             "source-map-js@1.2.2",
-            "source-map-support@0.5.21",
-            "source-map@0.6.1",
-            "statuses@2.0.2",
+            "stable-hash-x@0.2.0",
+            "stop-iteration-iterator@1.1.0",
+            "string.prototype.trim@1.2.11",
+            "string.prototype.trimend@1.0.10",
+            "string.prototype.trimstart@1.0.8",
+            "strip-json-comments@3.1.1",
+            "supports-color@7.2.0",
+            "supports-preserve-symlinks-flag@1.0.0",
             "tailwindcss@4.3.3",
             "tapable@2.3.3",
             "tinyglobby@0.2.17",
-            "toidentifier@1.0.1",
-            "type-is@2.1.0",
+            "ts-api-utils@2.5.0",
+            "ts-declaration-location@1.0.7",
+            "tslib@2.8.1",
+            "tsx@4.23.15",
+            "type-check@0.4.0",
+            "typed-array-buffer@1.0.3",
+            "typed-array-byte-length@1.0.3",
+            "typed-array-byte-offset@1.0.5",
+            "typed-array-length@1.0.8",
+            "typescript-eslint@8.71.0",
             "typescript@5.9.3",
+            "unbox-primitive@1.1.0",
             "undici-types@6.21.0",
-            "unpipe@1.0.0",
+            "unplugin@3.4.0",
+            "unrs-resolver@1.12.2",
             "update-browserslist-db@1.3.3",
-            "valibot@1.5.0",
-            "vary@1.1.2",
+            "uri-js@4.4.1",
+            "use-sync-external-store@1.7.0",
             "vite@8.3.2",
-            "wrappy@1.0.2",
-            "yallist@3.1.1"
+            "vue-eslint-parser@10.4.1",
+            "webpack-virtual-modules@0.6.2",
+            "which-boxed-primitive@1.1.1",
+            "which-builtin-type@1.2.1",
+            "which-collection@1.0.2",
+            "which-typed-array@1.1.24",
+            "which@2.0.2",
+            "word-wrap@1.2.5",
+            "yallist@3.1.1",
+            "yocto-queue@0.1.0",
+            "zod@4.6.5"
           ]
         },
         "hasRscRuntime": false,
@@ -1319,30 +1507,31 @@
       },
       "build": {
         "runsMs": [
-          1870,
-          1526
+          2324,
+          2305
         ],
-        "bestMs": 1526
+        "bestMs": 2305
       },
       "output": {
-        "bytes": 461246,
-        "files": 25
+        "bytes": 416471,
+        "files": 23
       },
       "deployable": {
-        "bytes": 38292501,
-        "files": 25,
-        "note": "build/ + production node_modules"
+        "bytes": 1848994,
+        "files": 23,
+        "note": "spa-catalog/dist (static) + api/dist + api production node_modules"
       },
-      "coldStartMs": 658,
+      "coldStartMs": 521,
       "responseHeaders": {
-        "content-encoding": "gzip",
-        "content-type": "text/html; charset=utf-8",
-        "transfer-encoding": "chunked",
-        "vary": "Accept-Encoding"
+        "content-type": "text/plain",
+        "transfer-encoding": "chunked"
       },
       "probes": [
         {
           "path": "/",
+          "headers": {
+            "accept": "text/html"
+          },
           "note": "app route",
           "status": 200,
           "contentType": "text/html",
@@ -1352,21 +1541,21 @@
           "path": "/robots.txt",
           "note": "not defined by either app",
           "status": 404,
-          "contentType": "text/html",
+          "contentType": "text/plain",
           "finalUrl": "/robots.txt"
         },
         {
           "path": "/_next/image?url=%2Fimages%2Fuji-sencha.png&w=640&q=75",
           "note": "Next.js image optimizer (local src)",
           "status": 404,
-          "contentType": "text/html",
+          "contentType": "text/plain",
           "finalUrl": "/_next/image?url=%2Fimages%2Fuji-sencha.png&w=640&q=75"
         },
         {
           "path": "/_next/image?url=https%3A%2F%2Fexample.com%2Fx.png&w=640&q=75",
           "note": "Next.js image optimizer (remote src)",
           "status": 404,
-          "contentType": "text/html",
+          "contentType": "text/plain",
           "finalUrl": "/_next/image?url=https%3A%2F%2Fexample.com%2Fx.png&w=640&q=75"
         },
         {
@@ -1374,10 +1563,17 @@
           "headers": {
             "accept": "image/avif,image/webp"
           },
-          "note": "image optimizer, AVIF negotiated",
+          "note": "image optimizer, AVIF/WebP negotiated",
           "status": 404,
-          "contentType": "text/html",
+          "contentType": "text/plain",
           "finalUrl": "/_next/image?url=%2Fimages%2Fuji-sencha.png&w=640&q=75"
+        },
+        {
+          "path": "/products/uji-sencha/opengraph-image",
+          "note": "next/og ImageResponse (OG image generated on the server)",
+          "status": 404,
+          "contentType": "text/plain",
+          "finalUrl": "/products/uji-sencha/opengraph-image"
         },
         {
           "path": "/",
@@ -1386,8 +1582,8 @@
           },
           "follow": true,
           "note": "RSC flight payload request (redirects followed)",
-          "status": 200,
-          "contentType": "text/html",
+          "status": 404,
+          "contentType": "text/plain",
           "finalUrl": "/"
         },
         {
@@ -1399,71 +1595,96 @@
           },
           "body": "[]",
           "note": "Server Action endpoint (bogus id)",
-          "status": 405,
-          "contentType": "text/html",
+          "status": 404,
+          "contentType": "text/plain",
           "finalUrl": "/"
         },
         {
-          "path": "/__manifest?p=%2F&version=0",
-          "note": "React Router lazy route discovery manifest",
-          "status": 204,
-          "contentType": "",
-          "finalUrl": "/__manifest?p=%2F&version=0"
-        },
-        {
-          "path": "/_root.data",
-          "note": "React Router single-fetch data request (root)",
-          "status": 404,
-          "contentType": "text/x-script",
-          "finalUrl": "/_root.data"
-        },
-        {
-          "path": "/products/uji-sencha.data",
-          "note": "React Router single-fetch data request",
+          "path": "/mypage",
+          "headers": {
+            "accept": "text/html"
+          },
+          "note": "auth-gated page, anonymous (Next: proxy redirects; SPA: shell is public, guard runs in the browser)",
           "status": 200,
-          "contentType": "text/x-script",
-          "finalUrl": "/products/uji-sencha.data"
+          "contentType": "text/html",
+          "finalUrl": "/mypage"
+        },
+        {
+          "path": "/admin",
+          "headers": {
+            "accept": "text/html"
+          },
+          "note": "role-gated page, anonymous",
+          "status": 200,
+          "contentType": "text/html",
+          "finalUrl": "/admin"
+        },
+        {
+          "path": "/api/me",
+          "note": "session endpoint, anonymous",
+          "status": 401,
+          "contentType": "application/json",
+          "finalUrl": "/api/me"
+        },
+        {
+          "path": "/api/admin/stats",
+          "note": "role-gated API, anonymous",
+          "status": 401,
+          "contentType": "application/json",
+          "finalUrl": "/api/admin/stats"
+        },
+        {
+          "path": "/api/products/uji-sencha/reserve",
+          "method": "POST",
+          "headers": {
+            "content-type": "application/json"
+          },
+          "body": "{\"quantity\":1}",
+          "note": "mutation endpoint, anonymous (Next mutates via Server Action instead)",
+          "status": 401,
+          "contentType": "application/json",
+          "finalUrl": "/api/products/uji-sencha/reserve"
+        },
+        {
+          "path": "/__manifest?p=%2F&version=0",
+          "note": "React Router lazy route discovery manifest (neither app)",
+          "status": 404,
+          "contentType": "text/plain",
+          "finalUrl": "/__manifest?p=%2F&version=0"
         },
         {
           "path": "/.well-known/appspecific/com.chrome.devtools.json",
           "note": "Chrome DevTools workspace probe",
           "status": 404,
-          "contentType": "text/html",
+          "contentType": "text/plain",
           "finalUrl": "/.well-known/appspecific/com.chrome.devtools.json"
-        },
-        {
-          "path": "/__nextjs_original-stack-frames",
-          "note": "Next.js dev-only overlay endpoint",
-          "status": 404,
-          "contentType": "text/html",
-          "finalUrl": "/__nextjs_original-stack-frames"
         },
         {
           "path": "/_next/static/chunks/main.js",
           "note": "Next.js static chunk dir",
           "status": 404,
-          "contentType": "text/html",
+          "contentType": "text/plain",
           "finalUrl": "/_next/static/chunks/main.js"
         }
       ],
       "pages": {
         "/": {
           "document": {
-            "raw": 12083,
-            "gzip": 3498,
-            "brotli": 2781,
+            "raw": 871,
+            "gzip": 437,
+            "brotli": 307,
             "count": 1
           },
           "script": {
-            "raw": 321158,
-            "gzip": 104377,
-            "brotli": 91582,
-            "count": 8
+            "raw": 281039,
+            "gzip": 92636,
+            "brotli": 81451,
+            "count": 6
           },
           "stylesheet": {
-            "raw": 11363,
-            "gzip": 3024,
-            "brotli": 2603,
+            "raw": 11692,
+            "gzip": 3117,
+            "brotli": 2680,
             "count": 1
           },
           "image": {
@@ -1473,51 +1694,41 @@
             "count": 8
           },
           "total": {
-            "raw": 428153,
-            "gzip": 174438,
-            "brotli": 160150,
-            "count": 19
+            "raw": 376915,
+            "gzip": 160153,
+            "brotli": 147953,
+            "count": 18
           },
           "scripts": [
             {
-              "url": "/assets/root-L-PWVYoe.js",
-              "raw": 2269,
-              "gzip": 987
+              "url": "/assets/jsx-runtime-BkSabwWG.js",
+              "raw": 961,
+              "gzip": 556
             },
             {
-              "url": "/assets/jsx-runtime-Bd2qf42M.js",
-              "raw": 385,
-              "gzip": 286
+              "url": "/assets/api-ffXKxjN_.js",
+              "raw": 1082,
+              "gzip": 586
             },
             {
-              "url": "/assets/errorBoundaries-BDhMd_I7.js",
-              "raw": 33522,
-              "gzip": 11672
+              "url": "/assets/preload-helper-Ct6AC2Ky.js",
+              "raw": 24300,
+              "gzip": 9341
             },
             {
-              "url": "/assets/src-Citlp9c9.js",
-              "raw": 227,
-              "gzip": 217
+              "url": "/assets/index-hgA-KVJg.js",
+              "raw": 248316,
+              "gzip": 79146
             },
             {
-              "url": "/assets/components-3YPZmLiv.js",
-              "raw": 86500,
-              "gzip": 28287
+              "url": "/assets/routes-cOXZlL-A.js",
+              "raw": 3648,
+              "gzip": 1672
             },
             {
-              "url": "/assets/lib-DZr6Xr7C.js",
-              "raw": 9977,
-              "gzip": 3957
-            },
-            {
-              "url": "/assets/home-_60qF9Aq.js",
-              "raw": 2322,
-              "gzip": 1104
-            },
-            {
-              "url": "/assets/entry.client-BwWDXGDV.js",
-              "raw": 185956,
-              "gzip": 57867
+              "url": "/assets/ProductDetail-Du3CBlS2.js",
+              "raw": 2732,
+              "gzip": 1335
             }
           ],
           "images": [
@@ -1538,12 +1749,12 @@
               "raw": 10005
             },
             {
-              "url": "/images/uji-sencha.png",
-              "raw": 9284
-            },
-            {
               "url": "/images/assam-ctc.png",
               "raw": 7921
+            },
+            {
+              "url": "/images/uji-sencha.png",
+              "raw": 9284
             },
             {
               "url": "/images/hario-v60.png",
@@ -1557,21 +1768,21 @@
         },
         "/products/ethiopia-yirgacheffe": {
           "document": {
-            "raw": 7334,
-            "gzip": 2401,
-            "brotli": 1928,
+            "raw": 871,
+            "gzip": 437,
+            "brotli": 307,
             "count": 1
           },
           "script": {
-            "raw": 320943,
-            "gzip": 104299,
-            "brotli": 91527,
-            "count": 8
+            "raw": 277657,
+            "gzip": 91178,
+            "brotli": 80215,
+            "count": 6
           },
           "stylesheet": {
-            "raw": 11363,
-            "gzip": 3024,
-            "brotli": 2603,
+            "raw": 11692,
+            "gzip": 3117,
+            "brotli": 2680,
             "count": 1
           },
           "image": {
@@ -1581,51 +1792,41 @@
             "count": 1
           },
           "total": {
-            "raw": 354758,
-            "gzip": 120909,
-            "brotli": 107145,
-            "count": 12
+            "raw": 303616,
+            "gzip": 105762,
+            "brotli": 94115,
+            "count": 11
           },
           "scripts": [
             {
-              "url": "/assets/jsx-runtime-Bd2qf42M.js",
-              "raw": 385,
-              "gzip": 286
+              "url": "/assets/jsx-runtime-BkSabwWG.js",
+              "raw": 961,
+              "gzip": 556
             },
             {
-              "url": "/assets/components-3YPZmLiv.js",
-              "raw": 86500,
-              "gzip": 28287
+              "url": "/assets/api-ffXKxjN_.js",
+              "raw": 1082,
+              "gzip": 586
             },
             {
-              "url": "/assets/errorBoundaries-BDhMd_I7.js",
-              "raw": 33522,
-              "gzip": 11672
+              "url": "/assets/preload-helper-Ct6AC2Ky.js",
+              "raw": 24300,
+              "gzip": 9341
             },
             {
-              "url": "/assets/root-L-PWVYoe.js",
-              "raw": 2269,
-              "gzip": 987
+              "url": "/assets/index-hgA-KVJg.js",
+              "raw": 248316,
+              "gzip": 79146
             },
             {
-              "url": "/assets/lib-DZr6Xr7C.js",
-              "raw": 9977,
-              "gzip": 3957
+              "url": "/assets/products._id-CLl4IvNg.js",
+              "raw": 266,
+              "gzip": 214
             },
             {
-              "url": "/assets/src-Citlp9c9.js",
-              "raw": 227,
-              "gzip": 217
-            },
-            {
-              "url": "/assets/product-CYPLHHM-.js",
-              "raw": 2107,
-              "gzip": 1026
-            },
-            {
-              "url": "/assets/entry.client-BwWDXGDV.js",
-              "raw": 185956,
-              "gzip": 57867
+              "url": "/assets/ProductDetail-Du3CBlS2.js",
+              "raw": 2732,
+              "gzip": 1335
             }
           ],
           "images": [
@@ -1637,21 +1838,21 @@
         },
         "/about": {
           "document": {
-            "raw": 5495,
-            "gzip": 2035,
-            "brotli": 1617,
+            "raw": 871,
+            "gzip": 437,
+            "brotli": 307,
             "count": 1
           },
           "script": {
-            "raw": 319588,
-            "gzip": 103673,
-            "brotli": 90983,
-            "count": 7
+            "raw": 275684,
+            "gzip": 90299,
+            "brotli": 79481,
+            "count": 5
           },
           "stylesheet": {
-            "raw": 11363,
-            "gzip": 3024,
-            "brotli": 2603,
+            "raw": 11692,
+            "gzip": 3117,
+            "brotli": 2680,
             "count": 1
           },
           "image": {
@@ -1661,46 +1862,36 @@
             "count": 0
           },
           "total": {
-            "raw": 337649,
-            "gzip": 109095,
-            "brotli": 95521,
-            "count": 10
+            "raw": 288271,
+            "gzip": 93897,
+            "brotli": 82496,
+            "count": 8
           },
           "scripts": [
             {
-              "url": "/assets/jsx-runtime-Bd2qf42M.js",
-              "raw": 385,
-              "gzip": 286
+              "url": "/assets/jsx-runtime-BkSabwWG.js",
+              "raw": 961,
+              "gzip": 556
             },
             {
-              "url": "/assets/root-L-PWVYoe.js",
-              "raw": 2269,
-              "gzip": 987
+              "url": "/assets/api-ffXKxjN_.js",
+              "raw": 1082,
+              "gzip": 586
             },
             {
-              "url": "/assets/errorBoundaries-BDhMd_I7.js",
-              "raw": 33522,
-              "gzip": 11672
+              "url": "/assets/preload-helper-Ct6AC2Ky.js",
+              "raw": 24300,
+              "gzip": 9341
             },
             {
-              "url": "/assets/components-3YPZmLiv.js",
-              "raw": 86500,
-              "gzip": 28287
+              "url": "/assets/index-hgA-KVJg.js",
+              "raw": 248316,
+              "gzip": 79146
             },
             {
-              "url": "/assets/about-WJzMfpW1.js",
-              "raw": 979,
-              "gzip": 617
-            },
-            {
-              "url": "/assets/lib-DZr6Xr7C.js",
-              "raw": 9977,
-              "gzip": 3957
-            },
-            {
-              "url": "/assets/entry.client-BwWDXGDV.js",
-              "raw": 185956,
-              "gzip": 57867
+              "url": "/assets/about-DgcOskiM.js",
+              "raw": 1025,
+              "gzip": 670
             }
           ],
           "images": []
@@ -1709,24 +1900,24 @@
       "latency": {
         "/": {
           "n": 200,
-          "p50": 5.02,
-          "p95": 8.71,
-          "p99": 16.76
+          "p50": 0.91,
+          "p95": 1.25,
+          "p99": 2.21
         },
         "/products/ethiopia-yirgacheffe": {
           "n": 200,
-          "p50": 3.96,
-          "p95": 6.92,
-          "p99": 9.61
+          "p50": 0.79,
+          "p95": 1.24,
+          "p99": 1.73
         },
         "/api/products": {
           "n": 200,
-          "p50": 2.74,
-          "p95": 4.92,
-          "p99": 13.95
+          "p50": 0.89,
+          "p95": 1.41,
+          "p99": 4.27
         }
       },
-      "memoryRssKb": 162028
+      "memoryRssKb": 74048
     }
   }
 }

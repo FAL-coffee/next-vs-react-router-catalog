@@ -5,13 +5,14 @@
   "scripts": {
     "build": "pnpm -r --filter ./apps/* build",
     "typecheck": "pnpm -r --filter ./apps/* typecheck",
-    "e2e": "playwright test",
+    "lint": "pnpm -r --filter ./apps/* lint",
     "measure": "node scripts/measure.mjs",
     "advisories": "node scripts/advisories.mjs",
-    "report": "node scripts/report.mjs"
+    "report": "node scripts/report.mjs",
+    "smoke": "node scripts/smoke.mjs"
   },
   "devDependencies": {
-    "@playwright/test": "1.63.0",
+    "playwright": "1.63.0",
     "typescript": "^5"
   }
 }

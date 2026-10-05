@@ -1,0 +1,36 @@
+# Next.js の機能を SPA（TanStack Router + API）で再現するとどうなるか
+
+「とりあえず Next.js」が同梱している機能を一つずつ、このリポジトリで実際に SPA 側に移植した結果。**再現コスト**はこのリポジトリで実装したときの体感、**本当に足りない？**は「SPA で済ませられないか」の判定。
+
+| Next.js の機能 | このリポジトリでの Next 側実装 | SPA 側の再現 | 再現コスト | 本当に足りない？ |
+| --- | --- | --- | --- | --- |
+| SSR / 初期 HTML | 全ルート dynamic | なし。空の `index.html` + JS | 0 | **未ログインの公開ページがあるなら足りない**。認証後の業務画面なら不要 |
+| RSC（クライアント JS 削減） | Server Component で一覧・詳細を描画 | ルート単位のコード分割（`autoCodeSplitting`） | 0 | 今回の規模では JS 転送量は Next の方が多い。不要 |
+| Server Actions（フォーム） | 予約・ログイン・ログアウト | `fetch` + `useState` | 低 | **JS 無効で動かすのは無理**。それ以外は不要 |
+| Route Handlers（API） | `/api/products`, `/api/me`, `/api/admin/stats` | Hono の別プロセス | 低。BFF が既にある会社は最初からこれ | 不要 |
+| Parallel Routes + Intercepting Routes | `@modal/(.)products/[id]` のクイックビュー | `?quick=<id>` + route masking | 低。むしろ SPA の方が短い | 不要 |
+| proxy（middleware）での認可 | `/mypage` `/admin` を Cookie でゲート | `beforeLoad` で `redirect`、本体は API の 401/403 | 低 | 不要。**むしろ Middleware バイパス系の口が消える** |
+| Cookie セッション | `cookies()` + Server Action | API が `Set-Cookie`、SPA は `credentials: same-origin` | 低 | 不要。認証ロジックは同じコードを共有できた |
+| Image Optimization | `next/image`（既定で有効） | `<img>`。最適化は CDN の仕事 | 中（CDN 側の設定が要る） | **外部画像を大量に扱うなら足りない**。それ以外は不要 |
+| Metadata API / OG 画像 | `generateMetadata` + `next/og` | `head` で title のみ。OG 画像は作れない | 高（別サービスが要る） | **SNS に貼られる公開ページがあるなら足りない** |
+| ISR / キャッシュ階層 | 使っていない（全ルート dynamic） | HTTP キャッシュ + CDN | 低 | 不要 |
+| Link prefetch | `next/link` の既定 | `defaultPreload: "intent"` | 0 | 不要 |
+| 型付きルート | `PageProps<"/products/[id]">`（Next 16） | TanStack Router の `createFileRoute` | 0 | 不要。SPA 側の方が search params まで型が付く |
+| 404 ステータス | `notFound()` → 404 | 画面は 404 だが HTTP は 200（静的配信のため） | 不可 | クローラ向けの正しい 404 が要るなら足りない |
+
+## 残ったもの
+
+SPA で「足りない」と判定されたのは次の 4 つだけ。
+
+1. 未ログインで見られる公開ページの初期 HTML（SEO、初期表示）
+2. SNS シェア用の OG 画像
+3. JavaScript 無効でも動くフォーム
+4. クローラに返す正しい 404 ステータス
+
+これらが**無い**プロダクトは、Next.js の機能を全部「過剰」として抱えている。
+
+## 逆に SPA で増えたもの
+
+- API の責務（認可の本体、CSRF、レート制限）。Next でも Route Handler / Server Action を使うなら同じ責務はあるが、Next は「サーバがあること」を忘れさせる
+- 画面側で「ログイン状態をいつ取り直すか」を自分で決める（このリポジトリでは `me()` のキャッシュと `router.invalidate()`）
+- サプライチェーン: 2026/5 に `@tanstack/*` の npm パッケージに悪性コードが混入した。**薄いから安全、ではない**

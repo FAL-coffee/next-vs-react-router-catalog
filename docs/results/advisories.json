@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-05T07:57:03.296Z",
+  "fetchedAt": "2026-10-05T09:14:48.753Z",
   "source": "https://api.osv.dev/v1/query",
   "groups": {
     "next": {
@@ -35,6 +35,7 @@
         "2026": 16
       },
       "rceCount": 5,
+      "supplyChainCount": 0,
       "advisories": [
         {
           "id": "GHSA-vcvr-r3jv-pc5j",
@@ -52,7 +53,8 @@
               "16.3.6"
             ]
           },
-          "rce": true
+          "rce": true,
+          "supplyChain": false
         },
         {
           "id": "GHSA-2xp9-vwfh-vxw4",
@@ -71,7 +73,8 @@
               "16.3.3"
             ]
           },
-          "rce": true
+          "rce": true,
+          "supplyChain": false
         },
         {
           "id": "GHSA-p293-qw3h-jr36",
@@ -92,7 +95,8 @@
               "16.3.3"
             ]
           },
-          "rce": true
+          "rce": true,
+          "supplyChain": false
         },
         {
           "id": "GHSA-89xv-2m56-2m9x",
@@ -113,7 +117,8 @@
               "16.2.11"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-68g3-v927-f742",
@@ -134,7 +139,8 @@
               "16.2.11"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-4633-3j49-mh5q",
@@ -155,7 +161,8 @@
               "16.2.11"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-4c39-4ccg-62r3",
@@ -176,7 +183,8 @@
               "16.2.11"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-p9j2-gv94-2wf4",
@@ -197,7 +205,8 @@
               "16.2.11"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-q8wf-6r8g-63ch",
@@ -218,7 +227,8 @@
               "16.2.11"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-955p-x3mx-jcvp",
@@ -239,7 +249,8 @@
               "16.2.11"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-6gpp-xcg3-4w24",
@@ -259,7 +270,8 @@
               "16.2.11"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-m99w-x7hq-7vfj",
@@ -280,7 +292,8 @@
               "16.2.11"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-26hh-7cqf-hhc6",
@@ -301,7 +314,8 @@
               "16.2.6"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-3g8h-86w9-wvmq",
@@ -322,7 +336,8 @@
               "16.2.5"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-ffhc-5mcf-pf4q",
@@ -343,7 +358,8 @@
               "16.2.5"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-vfv6-92ff-j949",
@@ -364,7 +380,8 @@
               "16.2.5"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-gx5p-jg67-6x7h",
@@ -385,7 +402,8 @@
               "16.2.5"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-mg66-mrh9-m8jx",
@@ -406,7 +424,8 @@
               "16.2.5"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-h64f-5h5j-jqjh",
@@ -427,7 +446,8 @@
               "16.2.5"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-c4j6-fc7j-m34r",
@@ -448,7 +468,8 @@
               "16.2.5"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-wfc6-r584-vfw7",
@@ -469,7 +490,8 @@
               "16.2.5"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-267c-6grr-h53f",
@@ -490,7 +512,8 @@
               "16.2.5"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-492v-c6pp-mqqv",
@@ -511,7 +534,8 @@
               "16.2.5"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-36qx-fr4f-26g5",
@@ -532,7 +556,8 @@
               "16.2.5"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-8h8q-6873-q5fj",
@@ -551,7 +576,8 @@
               "16.2.5"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-q4gf-8mx6-v5v3",
@@ -570,7 +596,8 @@
               "16.2.3"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-ggv3-7p47-pfv8",
@@ -591,7 +618,8 @@
               "15.5.13"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-3x4c-7xq6-9pq8",
@@ -612,7 +640,8 @@
               "15.5.14"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-h27x-g6w4-24gq",
@@ -632,7 +661,8 @@
               "16.1.7"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-mq59-m269-xvcx",
@@ -652,7 +682,8 @@
               "16.1.7"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-jcc7-9wpm-mj36",
@@ -672,7 +703,8 @@
               "16.1.7"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-h25m-26qc-wcjf",
@@ -698,7 +730,8 @@
               "16.1.5"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-5f7q-jpqc-wp7h",
@@ -719,7 +752,8 @@
               "15.6.0-canary.61"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-9g9p-9gw9-jx7f",
@@ -740,7 +774,8 @@
               "16.1.5"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-5j59-xgg2-r9c4",
@@ -767,7 +802,8 @@
               "16.1.0-canary.19"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-w37m-7fhw-fmv9",
@@ -793,7 +829,8 @@
               "16.1.0-canary.17"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-mwv6-3258-q52c",
@@ -820,7 +857,8 @@
               "16.1.0-canary.17"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-9qr9-h5gf-34mp",
@@ -844,7 +882,8 @@
               "16.0.7"
             ]
           },
-          "rce": true
+          "rce": true,
+          "supplyChain": false
         },
         {
           "id": "GHSA-g5qg-72qw-gw5v",
@@ -865,7 +904,8 @@
               "15.4.5"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-xv57-4mr9-wg8v",
@@ -886,7 +926,8 @@
               "15.4.5"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-4342-x723-ch2f",
@@ -907,7 +948,8 @@
               "15.4.7"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-67rr-84xm-4c7r",
@@ -927,7 +969,8 @@
               "15.1.8"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-r2fc-ccr8-96c4",
@@ -947,7 +990,8 @@
               "15.3.3"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-3h52-269p-cp9r",
@@ -968,7 +1012,8 @@
               "14.2.30"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-qpjv-v59x-3qc4",
@@ -989,7 +1034,8 @@
               "15.1.6"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-223j-4rm8-mrmf",
@@ -1012,7 +1058,8 @@
               "15.2.4"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-f82v-jwr5-mffw",
@@ -1035,7 +1082,8 @@
               "12.3.5"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-7m27-7ghc-44w9",
@@ -1057,7 +1105,8 @@
               "15.1.2"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-7gfc-8cq8-jh5f",
@@ -1077,7 +1126,8 @@
               "14.2.15"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-g77x-44xx-532m",
@@ -1097,7 +1147,8 @@
               "14.2.7"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-gp8f-8m3g-qvj9",
@@ -1118,7 +1169,8 @@
               "14.2.10"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-fq54-2j52-jc42",
@@ -1138,7 +1190,8 @@
               "13.5.0"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-fr5h-rqp8-mj6g",
@@ -1158,7 +1211,8 @@
               "14.1.1"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-77r5-gw3j-2mpf",
@@ -1178,7 +1232,8 @@
               "13.5.1"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-c59h-r6p8-q9wc",
@@ -1198,7 +1253,8 @@
               "13.4.20-canary.13"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-wff4-fpwg-qqv3",
@@ -1219,7 +1275,8 @@
               "12.2.4"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-fmvm-x8mv-47mj",
@@ -1239,7 +1296,8 @@
               "12.1.0"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-wr66-vrwm-5g5x",
@@ -1259,7 +1317,8 @@
               "12.0.9"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-25mp-g6fv-mqxx",
@@ -1280,7 +1339,8 @@
               "11.1.3"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-9gr3-7897-pp7m",
@@ -1300,7 +1360,8 @@
               "11.1.1"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-vxf5-wxwp-m7g9",
@@ -1320,7 +1381,8 @@
               "11.1.0"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-x56p-c8cg-q435",
@@ -1340,7 +1402,8 @@
               "9.5.4"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-5vj8-3v2h-h38v",
@@ -1358,7 +1421,8 @@
               "5.1.0"
             ]
           },
-          "rce": true
+          "rce": true,
+          "supplyChain": false
         },
         {
           "id": "GHSA-fq77-7p7r-83rj",
@@ -1378,7 +1442,8 @@
               "9.3.2"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-qw96-mm2g-c8m7",
@@ -1398,7 +1463,8 @@
               "7.0.2"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-m34x-wgrh-g897",
@@ -1418,7 +1484,8 @@
               "4.2.3"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-3f5c-4qxj-vmpf",
@@ -1438,610 +1505,1372 @@
               "2.4.1"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         }
       ]
     },
-    "rr": {
-      "label": "React Router",
+    "tanstack": {
+      "label": "TanStack Router (SPA 側)",
       "packages": [
-        "react-router",
-        "react-router-dom",
-        "@react-router/dev",
-        "@react-router/node",
-        "@react-router/serve"
+        "@tanstack/react-router",
+        "@tanstack/router-core",
+        "@tanstack/history",
+        "@tanstack/router-plugin"
       ],
-      "total": 21,
+      "total": 5,
       "bySeverity": {
-        "HIGH": 11,
-        "MODERATE": 8,
-        "LOW": 1,
-        "CRITICAL": 1
+        "CRITICAL": 1,
+        "UNKNOWN": 4
       },
       "byYear": {
-        "2025": 2,
-        "2026": 19
+        "2026": 5
       },
       "criticalOrHighByYear": {
-        "2025": 2,
-        "2026": 10
+        "2026": 1
       },
-      "rceCount": 1,
+      "rceCount": 0,
+      "supplyChainCount": 5,
       "advisories": [
         {
-          "id": "GHSA-qwww-vcr4-c8h2",
-          "aliases": [],
-          "summary": "React Router: RSC Mode CSRF Bypass Allows Action Execution Before 400 Response",
-          "published": "2026-07-24T16:44:43Z",
-          "year": "2026",
-          "severity": "HIGH",
-          "cvss": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N",
-          "packages": [
-            "react-router"
-          ],
-          "fixed": {
-            "react-router": [
-              "7.18.2",
-              "8.3.0"
-            ]
-          },
-          "rce": false
-        },
-        {
-          "id": "GHSA-chx6-hx7r-mcp5",
+          "id": "GHSA-g7cv-rxg3-hmpx",
           "aliases": [
-            "CVE-2026-55685"
+            "CVE-2026-45321"
           ],
-          "summary": "React Router: Unauthenticated Denial of Service via Inefficient Route Matching",
-          "published": "2026-07-24T14:06:57Z",
+          "summary": "Malware in @tanstack/* packages exfiltrates cloud credentials, GitHub tokens, and SSH keys",
+          "published": "2026-05-12T00:12:49Z",
           "year": "2026",
-          "severity": "HIGH",
-          "cvss": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+          "severity": "CRITICAL",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:H",
           "packages": [
-            "react-router"
+            "@tanstack/react-router",
+            "@tanstack/router-core",
+            "@tanstack/history",
+            "@tanstack/router-plugin"
           ],
           "fixed": {
-            "react-router": [
-              "7.18.0"
-            ]
-          },
-          "rce": false
-        },
-        {
-          "id": "GHSA-wrjc-x8rr-h8h6",
-          "aliases": [
-            "CVE-2026-53669"
-          ],
-          "summary": "React Router: Open redirect via backslash in <Link> and useNavigate (CVE-2025-68470 bypass)",
-          "published": "2026-07-23T19:38:28Z",
-          "year": "2026",
-          "severity": "MODERATE",
-          "cvss": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:A/VC:N/VI:L/VA:N/SC:L/SI:L/SA:N",
-          "packages": [
-            "react-router"
-          ],
-          "fixed": {
-            "react-router": [
-              "7.18.0"
-            ]
-          },
-          "rce": false
-        },
-        {
-          "id": "GHSA-jjmj-jmhj-qwj2",
-          "aliases": [
-            "CVE-2026-53668"
-          ],
-          "summary": "React Router: Open redirect leading to XSS",
-          "published": "2026-07-23T19:36:31Z",
-          "year": "2026",
-          "severity": "MODERATE",
-          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:H/I:L/A:N",
-          "packages": [
-            "react-router",
-            "react-router-dom"
-          ],
-          "fixed": {
-            "react-router": [
-              "7.13.0"
+            "@tanstack/react-router": [
+              "1.169.9"
             ],
-            "react-router-dom": [
-              "6.30.6"
+            "@tanstack/router-core": [
+              "1.169.9"
+            ],
+            "@tanstack/history": [
+              "1.161.13"
+            ],
+            "@tanstack/router-plugin": [
+              "1.167.42"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": true
         },
         {
-          "id": "GHSA-h8fp-f39c-q6mh",
+          "id": "MAL-2026-3477",
           "aliases": [
-            "CVE-2026-53667"
+            "GHSA-wp6c-87p2-r5xw"
           ],
-          "summary": "React Router: RSCErrorHandler Missing Protocol Validation (XSS)",
-          "published": "2026-07-23T19:35:57Z",
+          "summary": "Malicious code in @tanstack/router-plugin (npm)",
+          "published": "2026-05-11T23:59:42Z",
           "year": "2026",
-          "severity": "MODERATE",
-          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:H/I:L/A:N",
+          "severity": "UNKNOWN",
+          "cvss": null,
           "packages": [
-            "react-router"
+            "@tanstack/router-plugin"
           ],
           "fixed": {
-            "react-router": [
-              "7.18.0"
-            ]
+            "@tanstack/router-plugin": []
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": true
         },
         {
-          "id": "GHSA-337j-9hxr-rhxg",
+          "id": "MAL-2026-3473",
           "aliases": [
-            "CVE-2026-53666"
+            "GHSA-r8f9-7pfq-w872"
           ],
-          "summary": "React Router: Arbitrary Constructor Injection via deserializeErrors() in React Router SSR Hydration",
-          "published": "2026-07-23T19:34:14Z",
+          "summary": "Malicious code in @tanstack/router-core (npm)",
+          "published": "2026-05-11T23:55:51Z",
+          "year": "2026",
+          "severity": "UNKNOWN",
+          "cvss": null,
+          "packages": [
+            "@tanstack/router-core"
+          ],
+          "fixed": {
+            "@tanstack/router-core": []
+          },
+          "rce": false,
+          "supplyChain": true
+        },
+        {
+          "id": "MAL-2026-3465",
+          "aliases": [
+            "GHSA-5q7g-gw3w-r3rh"
+          ],
+          "summary": "Malicious code in @tanstack/react-router (npm)",
+          "published": "2026-05-11T23:44:35Z",
+          "year": "2026",
+          "severity": "UNKNOWN",
+          "cvss": null,
+          "packages": [
+            "@tanstack/react-router"
+          ],
+          "fixed": {
+            "@tanstack/react-router": []
+          },
+          "rce": false,
+          "supplyChain": true
+        },
+        {
+          "id": "MAL-2026-3463",
+          "aliases": [
+            "GHSA-rmmr-r34h-pfm5"
+          ],
+          "summary": "Malicious code in @tanstack/history (npm)",
+          "published": "2026-05-11T23:39:34Z",
+          "year": "2026",
+          "severity": "UNKNOWN",
+          "cvss": null,
+          "packages": [
+            "@tanstack/history"
+          ],
+          "fixed": {
+            "@tanstack/history": [
+              "1.161.13"
+            ]
+          },
+          "rce": false,
+          "supplyChain": true
+        }
+      ]
+    },
+    "hono": {
+      "label": "Hono (API 側)",
+      "packages": [
+        "hono",
+        "@hono/node-server"
+      ],
+      "total": 57,
+      "bySeverity": {
+        "MODERATE": 44,
+        "LOW": 4,
+        "HIGH": 9
+      },
+      "byYear": {
+        "2023": 1,
+        "2024": 5,
+        "2025": 4,
+        "2026": 47
+      },
+      "criticalOrHighByYear": {
+        "2024": 1,
+        "2025": 2,
+        "2026": 6
+      },
+      "rceCount": 1,
+      "supplyChainCount": 0,
+      "advisories": [
+        {
+          "id": "GHSA-hxh3-vqpv-xpqv",
+          "aliases": [
+            "CVE-2026-93981"
+          ],
+          "summary": "hono/jsx renders plain strings unescaped in boundary components, leading to XSS",
+          "published": "2026-09-30T23:46:16Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:L/I:L/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.13.7"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-gqvv-2mrq-wpjv",
+          "aliases": [
+            "CVE-2026-84365"
+          ],
+          "summary": "Hono: Incomplete fix for CVE-2026-39408: `toSSG()` still writes files outside the output directory",
+          "published": "2026-09-08T21:23:51Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.13.5"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-g6gw-c38x-mqfc",
+          "aliases": [
+            "CVE-2026-84364"
+          ],
+          "summary": "Hono: Unbounded dot-notation nesting in `parseBody()` can cause memory exhaustion",
+          "published": "2026-09-08T21:23:02Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.13.5"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-crvj-82cr-hjcx",
+          "aliases": [
+            "CVE-2026-84363"
+          ],
+          "summary": "Hono: Query parser reads parameters after the URL fragment, causing cache-key and proxy interpretation differentials",
+          "published": "2026-09-08T21:22:50Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.13.5"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-f23p-vx2j-j53r",
+          "aliases": [
+            "CVE-2026-71850"
+          ],
+          "summary": "Hono: `memo()` retains SSR output across requests, leading to cross-user data disclosure",
+          "published": "2026-08-07T18:42:01Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:L/UI:R/S:U/C:H/I:N/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.12.34"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-79qm-7rj5-m7r9",
+          "aliases": [
+            "CVE-2026-71849"
+          ],
+          "summary": "Hono: Proxy Helper does not remove response headers listed in the `Connection` header",
+          "published": "2026-08-07T18:38:48Z",
+          "year": "2026",
+          "severity": "LOW",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.12.34"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-54fx-42gc-7vw4",
+          "aliases": [
+            "CVE-2026-71848"
+          ],
+          "summary": "Hono: Algorithmic Complexity DoS in Language Middleware",
+          "published": "2026-08-07T18:36:31Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.12.34"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-8j4g-w8fx-2239",
+          "aliases": [
+            "CVE-2026-69207"
+          ],
+          "summary": "Hono: ReDoS in CORS middleware via Access-Control-Request-Headers",
+          "published": "2026-08-03T20:23:30Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.12.34"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-9mqv-5hh9-4cgg",
+          "aliases": [
+            "CVE-2026-73565"
+          ],
+          "summary": "Node.js Adapter for Hono: Unauthenticated memory-leak DoS via aborted WebSocket handshake",
+          "published": "2026-07-21T22:04:27Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+          "packages": [
+            "@hono/node-server"
+          ],
+          "fixed": {
+            "@hono/node-server": [
+              "2.0.10"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-hvrm-45r6-mjfj",
+          "aliases": [
+            "CVE-2026-59896"
+          ],
+          "summary": "hono/jsx does not isolate context per request, leading to cross-request data disclosure",
+          "published": "2026-07-21T18:34:19Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:L/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.12.27"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-w62v-xxxg-mg59",
+          "aliases": [
+            "CVE-2026-59895"
+          ],
+          "summary": "Hono: Server-Side XSS via JSX Escaping Bypass in cx() Utility",
+          "published": "2026-07-21T18:33:50Z",
           "year": "2026",
           "severity": "MODERATE",
           "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
           "packages": [
-            "react-router"
+            "hono"
           ],
           "fixed": {
-            "react-router": [
-              "7.18.0"
+            "hono": [
+              "4.12.27"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
-          "id": "GHSA-84g9-w2xq-vcv6",
+          "id": "GHSA-xgm2-5f3f-mvvc",
           "aliases": [
-            "CVE-2026-53663"
+            "CVE-2026-59897"
           ],
-          "summary": "React Router: Potential CSRF via PUT/PATCH/DELETE document requests",
-          "published": "2026-06-15T20:06:15Z",
+          "summary": "Hono: API Gateway v1 adapter can drop a distinct repeated request header value during de-duplication",
+          "published": "2026-07-21T18:18:13Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.12.27"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-frvp-7c67-39w9",
+          "aliases": [],
+          "summary": "Node.js Adapter for Hono: Path traversal in `serve-static` on Windows via encoded backslash (`%5C`)",
+          "published": "2026-07-21T18:17:25Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+          "packages": [
+            "@hono/node-server"
+          ],
+          "fixed": {
+            "@hono/node-server": [
+              "2.0.5",
+              "1.19.15"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-rv63-4mwf-qqc2",
+          "aliases": [
+            "CVE-2026-54288"
+          ],
+          "summary": "hono: Body Limit Middleware can be bypassed on AWS Lambda by understating `Content-Length`",
+          "published": "2026-06-16T14:32:49Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.12.25"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-wgpf-jwqj-8h8p",
+          "aliases": [
+            "CVE-2026-54289"
+          ],
+          "summary": "hono: Lambda@Edge adapter keeps only the last value of a repeated request header, dropping the rest",
+          "published": "2026-06-16T14:32:31Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.12.25"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-88fw-hqm2-52qc",
+          "aliases": [
+            "CVE-2026-54290"
+          ],
+          "summary": "hono: CORS Middleware reflects any Origin with credentials when `origin` defaults to the wildcard",
+          "published": "2026-06-16T14:15:39Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:L/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.12.25"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-wwfh-h76j-fc44",
+          "aliases": [
+            "CVE-2026-54286"
+          ],
+          "summary": "hono: Path traversal in `serve-static` on Windows via encoded backslash (`%5C`)",
+          "published": "2026-06-16T14:09:03Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.12.25"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-j6c9-x7qj-28xf",
+          "aliases": [
+            "CVE-2026-54287"
+          ],
+          "summary": "hono: AWS Lambda adapter merges multiple `Set-Cookie` headers into one value, dropping cookies on ALB single-header and Lattice",
+          "published": "2026-06-16T14:08:40Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.12.25"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-2gcr-mfcq-wcc3",
+          "aliases": [
+            "CVE-2026-47676"
+          ],
+          "summary": "Hono: app.mount() strips mount prefix using undecoded path, causing incorrect routing for percent-encoded paths",
+          "published": "2026-06-04T18:01:00Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.12.21"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-xrhx-7g5j-rcj5",
+          "aliases": [
+            "CVE-2026-47674"
+          ],
+          "summary": "Hono: IP Restriction bypasses static deny rules for non-canonical IPv6 ",
+          "published": "2026-06-04T18:00:22Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.12.21"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-3hrh-pfw6-9m5x",
+          "aliases": [
+            "CVE-2026-47675"
+          ],
+          "summary": "Hono: Cookie helper does not sanitize sameSite and priority, allowing Set-Cookie injection",
+          "published": "2026-06-04T17:59:25Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.12.21"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-f577-qrjj-4474",
+          "aliases": [
+            "CVE-2026-47673"
+          ],
+          "summary": "Hono: JWT middleware accepts any Authorization scheme, not only Bearer",
+          "published": "2026-06-04T17:52:04Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.12.21"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-qp7p-654g-cw7p",
+          "aliases": [
+            "CVE-2026-44458"
+          ],
+          "summary": "Hono has CSS Declaration Injection via Style Object Values in JSX SSR",
+          "published": "2026-05-09T00:46:44Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.12.18"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-hm8q-7f3q-5f36",
+          "aliases": [
+            "CVE-2026-44459"
+          ],
+          "summary": "Hono has improper validation of NumericDate claims (exp, nbf, iat) in JWT verify()",
+          "published": "2026-05-09T00:45:19Z",
           "year": "2026",
           "severity": "LOW",
-          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:N/I:L/A:N",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:L/I:L/A:N",
           "packages": [
-            "react-router"
+            "hono"
           ],
           "fixed": {
-            "react-router": [
-              "7.15.1"
+            "hono": [
+              "4.12.18"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
-          "id": "GHSA-rxv8-25v2-qmq8",
+          "id": "GHSA-p77w-8qqv-26rm",
           "aliases": [
-            "CVE-2026-34077"
+            "CVE-2026-44457"
           ],
-          "summary": "React Router vulnerable to Denial of Service via reflected user input in single-fetch",
-          "published": "2026-06-04T15:23:51Z",
-          "year": "2026",
-          "severity": "HIGH",
-          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-          "packages": [
-            "react-router"
-          ],
-          "fixed": {
-            "react-router": [
-              "7.14.0"
-            ]
-          },
-          "rce": false
-        },
-        {
-          "id": "GHSA-8x6r-g9mw-2r78",
-          "aliases": [
-            "CVE-2026-42342"
-          ],
-          "summary": "React Router vulnerable to DoS via unbounded path expansion in __manifest endpoint",
-          "published": "2026-06-03T21:05:17Z",
-          "year": "2026",
-          "severity": "HIGH",
-          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-          "packages": [
-            "react-router"
-          ],
-          "fixed": {
-            "react-router": [
-              "7.15.0"
-            ]
-          },
-          "rce": false
-        },
-        {
-          "id": "GHSA-49rj-9fvp-4h2h",
-          "aliases": [
-            "CVE-2026-42211"
-          ],
-          "summary": "React Router's vendored turbo-stream v2 allows arbitrary constructor invocation via TYPE_ERROR deserialization leading to Unauth RCE",
-          "published": "2026-06-03T21:03:32Z",
-          "year": "2026",
-          "severity": "HIGH",
-          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
-          "packages": [
-            "react-router"
-          ],
-          "fixed": {
-            "react-router": [
-              "7.14.2"
-            ]
-          },
-          "rce": true
-        },
-        {
-          "id": "GHSA-2j2x-hqr9-3h42",
-          "aliases": [
-            "CVE-2026-40181"
-          ],
-          "summary": "React Router's same-origin redirect with path starting // causes open redirect via protocol-relative URL reinterpretation",
-          "published": "2026-06-03T20:58:01Z",
+          "summary": "Hono's Cache Middleware ignores Vary: Authorization / Vary: Cookie leading to cross-user cache leakage",
+          "published": "2026-05-09T00:28:46Z",
           "year": "2026",
           "severity": "MODERATE",
-          "cvss": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N/E:U",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
           "packages": [
-            "react-router"
+            "hono"
           ],
           "fixed": {
-            "react-router": [
-              "7.14.1",
-              "6.30.4"
+            "hono": [
+              "4.12.18"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
-          "id": "GHSA-8646-j5j9-6r62",
+          "id": "GHSA-9vqf-7f2p-gf9v",
           "aliases": [
-            "CVE-2026-33245"
+            "CVE-2026-44456"
           ],
-          "summary": "React Router vulnerable to XSS in unstable RSC redirect handling via javascript: redirect targets",
-          "published": "2026-06-03T20:33:32Z",
-          "year": "2026",
-          "severity": "HIGH",
-          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:H/I:H/A:N",
-          "packages": [
-            "react-router"
-          ],
-          "fixed": {
-            "react-router": [
-              "7.13.2"
-            ]
-          },
-          "rce": false
-        },
-        {
-          "id": "GHSA-f22v-gfqf-p8f3",
-          "aliases": [
-            "CVE-2026-33244"
-          ],
-          "summary": "React Router has stored XSS via unescaped Location header in prerendered redirect HTML",
-          "published": "2026-06-03T20:33:01Z",
+          "summary": "Hono: bodyLimit() can be bypassed for chunked / unknown-length requests",
+          "published": "2026-05-06T23:50:10Z",
           "year": "2026",
           "severity": "MODERATE",
-          "cvss": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:L/I:L/A:N",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
           "packages": [
-            "react-router"
+            "hono"
           ],
           "fixed": {
-            "react-router": [
-              "7.13.2"
+            "hono": [
+              "4.12.16"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
-          "id": "GHSA-h5cw-625j-3rxh",
+          "id": "GHSA-69xw-7hcm-h432",
           "aliases": [
-            "CVE-2026-22030"
+            "CVE-2026-44455"
           ],
-          "summary": "React Router has CSRF issue in Action/Server Action Request Processing",
-          "published": "2026-01-08T20:57:09Z",
+          "summary": "hono/jsx has Unvalidated JSX Tag Names that May Allow HTML Injection",
+          "published": "2026-05-06T23:49:43Z",
           "year": "2026",
           "severity": "MODERATE",
-          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:L/I:L/A:N",
           "packages": [
-            "react-router"
+            "hono"
           ],
           "fixed": {
-            "react-router": [
-              "7.12.0"
+            "hono": [
+              "4.12.16"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
-          "id": "GHSA-2w69-qvjg-hvjx",
+          "id": "GHSA-458j-xx4x-4375",
           "aliases": [
-            "CVE-2026-22029"
+            "CVE-2026-56761"
           ],
-          "summary": "React Router vulnerable to XSS via Open Redirects",
-          "published": "2026-01-08T20:54:18Z",
-          "year": "2026",
-          "severity": "HIGH",
-          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:H/I:H/A:N",
-          "packages": [
-            "react-router"
-          ],
-          "fixed": {
-            "react-router": [
-              "7.12.0"
-            ]
-          },
-          "rce": false
-        },
-        {
-          "id": "GHSA-8v8x-cx79-35w7",
-          "aliases": [
-            "CVE-2026-21884"
-          ],
-          "summary": "React Router SSR XSS in ScrollRestoration",
-          "published": "2026-01-08T20:50:05Z",
-          "year": "2026",
-          "severity": "HIGH",
-          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:L/A:N",
-          "packages": [
-            "react-router"
-          ],
-          "fixed": {
-            "react-router": [
-              "7.12.0"
-            ]
-          },
-          "rce": false
-        },
-        {
-          "id": "GHSA-9jcx-v3wj-wh4m",
-          "aliases": [
-            "CVE-2025-68470"
-          ],
-          "summary": "React Router has unexpected external redirect via untrusted paths",
-          "published": "2026-01-08T20:48:21Z",
+          "summary": "hono Improperly Handles JSX Attribute Names Allows HTML Injection in hono/jsx SSR",
+          "published": "2026-04-16T01:02:24Z",
           "year": "2026",
           "severity": "MODERATE",
-          "cvss": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N",
           "packages": [
-            "react-router"
+            "hono"
           ],
           "fixed": {
-            "react-router": [
-              "6.30.2",
-              "7.9.6"
+            "hono": [
+              "4.12.14"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
-          "id": "GHSA-9583-h5hc-x8cw",
+          "id": "GHSA-r5rp-j6wh-rvv4",
           "aliases": [
-            "CVE-2025-61686"
+            "CVE-2026-39410"
           ],
-          "summary": "React Router has Path Traversal in File Session Storage",
-          "published": "2026-01-08T20:45:07Z",
+          "summary": "Hono: Non-breaking space prefix bypass in cookie name handling in getCookie()",
+          "published": "2026-04-08T00:17:21Z",
           "year": "2026",
-          "severity": "CRITICAL",
-          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:H",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N",
           "packages": [
-            "@react-router/node"
+            "hono"
           ],
           "fixed": {
-            "@react-router/node": [
-              "7.9.4"
+            "hono": [
+              "4.12.12"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
-          "id": "GHSA-3cgp-3xvw-98x8",
+          "id": "GHSA-xpcf-pg52-r92g",
           "aliases": [
-            "CVE-2025-59057"
+            "CVE-2026-39409"
           ],
-          "summary": "React Router has XSS Vulnerability",
-          "published": "2026-01-08T20:42:20Z",
+          "summary": "Hono has incorrect IP matching in ipRestriction() for IPv4-mapped IPv6 addresses",
+          "published": "2026-04-08T00:17:14Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.12.12"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-26pp-8wgv-hjvm",
+          "aliases": [
+            "CVE-2026-56762"
+          ],
+          "summary": "Hono missing validation of cookie name on write path in setCookie()",
+          "published": "2026-04-08T00:17:02Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.12.12"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-xf4j-xp2r-rqqx",
+          "aliases": [
+            "CVE-2026-39408"
+          ],
+          "summary": "Hono: Path traversal in toSSG() allows writing files outside the output directory",
+          "published": "2026-04-08T00:16:51Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:4.0/AV:L/AC:H/AT:P/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.12.12"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-wmmm-f939-6g9c",
+          "aliases": [
+            "CVE-2026-39407"
+          ],
+          "summary": "Hono: Middleware bypass via repeated slashes in serveStatic",
+          "published": "2026-04-08T00:16:45Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.12.12"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-92pp-h63x-v22m",
+          "aliases": [
+            "CVE-2026-39406"
+          ],
+          "summary": "@hono/node-server: Middleware bypass via repeated slashes in serveStatic",
+          "published": "2026-04-08T00:16:39Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+          "packages": [
+            "@hono/node-server"
+          ],
+          "fixed": {
+            "@hono/node-server": [
+              "1.19.13"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-v8w9-8mx6-g223",
+          "aliases": [
+            "CVE-2026-56763"
+          ],
+          "summary": "Hono vulnerable to Prototype Pollution possible through __proto__ key allowed in parseBody({ dot: true })",
+          "published": "2026-03-11T00:31:47Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.12.7"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-wc8c-qw6v-h7f6",
+          "aliases": [
+            "CVE-2026-29087"
+          ],
+          "summary": "@hono/node-server has authorization bypass for protected static paths via encoded slashes in Serve Static Middleware",
+          "published": "2026-03-04T20:05:49Z",
           "year": "2026",
           "severity": "HIGH",
-          "cvss": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:H/I:L/A:N",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
           "packages": [
-            "react-router"
+            "@hono/node-server"
           ],
           "fixed": {
-            "react-router": [
-              "7.9.0"
+            "@hono/node-server": [
+              "1.19.10"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
-          "id": "GHSA-cpj6-fhp6-mr6j",
+          "id": "GHSA-5pq2-9x2x-5p6w",
           "aliases": [
-            "CVE-2025-43865"
+            "CVE-2026-29086"
           ],
-          "summary": "React Router allows pre-render data spoofing on React-Router framework mode",
-          "published": "2025-04-24T16:31:32Z",
-          "year": "2025",
-          "severity": "HIGH",
-          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:H",
+          "summary": "Hono Vulnerable to Cookie Attribute Injection via Unsanitized domain and path in setCookie()",
+          "published": "2026-03-04T19:49:14Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:N",
           "packages": [
-            "react-router"
+            "hono"
           ],
           "fixed": {
-            "react-router": [
-              "7.5.2"
+            "hono": [
+              "4.12.4"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
-          "id": "GHSA-f46r-rw29-r322",
+          "id": "GHSA-p6xx-57qc-3wxr",
           "aliases": [
-            "CVE-2025-43864"
+            "CVE-2026-29085"
           ],
-          "summary": "React Router allows a DoS via cache poisoning by forcing SPA mode",
-          "published": "2025-04-24T16:31:16Z",
-          "year": "2025",
-          "severity": "HIGH",
-          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "summary": "Hono Vulnerable to SSE Control Field Injection via CR/LF in writeSSE()",
+          "published": "2026-03-04T19:48:41Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
           "packages": [
-            "react-router"
+            "hono"
           ],
           "fixed": {
-            "react-router": [
-              "7.5.2"
+            "hono": [
+              "4.12.4"
             ]
           },
-          "rce": false
-        }
-      ]
-    },
-    "remixLineage": {
-      "label": "Remix v2 (React Router v7 の前身。参考値)",
-      "packages": [
-        "@remix-run/react",
-        "@remix-run/node",
-        "@remix-run/server-runtime",
-        "@remix-run/dev"
-      ],
-      "total": 6,
-      "bySeverity": {
-        "LOW": 1,
-        "HIGH": 3,
-        "MODERATE": 1,
-        "CRITICAL": 1
-      },
-      "byYear": {
-        "2026": 6
-      },
-      "criticalOrHighByYear": {
-        "2026": 4
-      },
-      "rceCount": 0,
-      "advisories": [
+          "rce": false,
+          "supplyChain": false
+        },
         {
-          "id": "GHSA-84g9-w2xq-vcv6",
+          "id": "GHSA-q5qw-h33p-qvwr",
           "aliases": [
-            "CVE-2026-53663"
+            "CVE-2026-29045"
           ],
-          "summary": "React Router: Potential CSRF via PUT/PATCH/DELETE document requests",
-          "published": "2026-06-15T20:06:15Z",
+          "summary": "Hono vulnerable to arbitrary file access via serveStatic vulnerability ",
+          "published": "2026-03-04T19:48:00Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.12.4"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-xh87-mx6m-69f3",
+          "aliases": [
+            "CVE-2026-27700"
+          ],
+          "summary": "Hono is Vulnerable to Authentication Bypass by IP Spoofing in AWS Lambda ALB conninfo",
+          "published": "2026-02-25T18:02:19Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:L/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.12.2"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-gq3j-xvxp-8hrf",
+          "aliases": [
+            "CVE-2026-56764"
+          ],
+          "summary": "Hono added timing comparison hardening in basicAuth and bearerAuth",
+          "published": "2026-02-19T20:15:59Z",
           "year": "2026",
           "severity": "LOW",
-          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:N/I:L/A:N",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N",
           "packages": [
-            "@remix-run/server-runtime"
+            "hono"
           ],
           "fixed": {
-            "@remix-run/server-runtime": [
-              "2.17.5"
+            "hono": [
+              "4.11.10"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
-          "id": "GHSA-8x6r-g9mw-2r78",
+          "id": "GHSA-9r54-q6cx-xmh5",
           "aliases": [
-            "CVE-2026-42342"
+            "CVE-2026-24771"
           ],
-          "summary": "React Router vulnerable to DoS via unbounded path expansion in __manifest endpoint",
-          "published": "2026-06-03T21:05:17Z",
+          "summary": "Hono vulnerable to XSS through ErrorBoundary component ",
+          "published": "2026-01-28T16:10:22Z",
           "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:L/I:L/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.11.7"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-w332-q679-j88p",
+          "aliases": [
+            "CVE-2026-24473"
+          ],
+          "summary": "Hono has an Arbitrary Key Read in Serve static Middleware (Cloudflare Workers Adapter)",
+          "published": "2026-01-27T19:09:01Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.11.7"
+            ]
+          },
+          "rce": true,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-6wqw-2p9w-4vw4",
+          "aliases": [
+            "CVE-2026-24472"
+          ],
+          "summary": "Hono cache middleware ignores \"Cache-Control: private\" leading to Web Cache Deception",
+          "published": "2026-01-27T19:04:17Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.11.7"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-r354-f388-2fhh",
+          "aliases": [
+            "CVE-2026-24398"
+          ],
+          "summary": "Hono IPv4 address validation bypass in IP Restriction Middleware allows IP spoofing",
+          "published": "2026-01-27T19:01:43Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.11.7"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-3vhc-576x-3qv4",
+          "aliases": [
+            "CVE-2026-22818"
+          ],
+          "summary": "Hono JWK Auth Middleware has JWT algorithm confusion when JWK lacks \"alg\" (untrusted header.alg fallback)",
+          "published": "2026-01-13T21:52:03Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:H/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.11.4"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-f67f-6cw9-8mq4",
+          "aliases": [
+            "CVE-2026-22817"
+          ],
+          "summary": "Hono JWT Middleware's JWT Algorithm Confusion via Unsafe Default (HS256) Allows Token Forgery and Auth Bypass",
+          "published": "2026-01-13T21:51:44Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:H/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.11.4"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-q7jf-gf43-6x6p",
+          "aliases": [
+            "CVE-2025-71381"
+          ],
+          "summary": "Hono vulnerable to Vary Header Injection leading to potential CORS Bypass",
+          "published": "2025-10-24T19:15:13Z",
+          "year": "2025",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:L/I:L/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.10.3"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-m732-5p4w-x69g",
+          "aliases": [
+            "CVE-2025-62610"
+          ],
+          "summary": "Hono Improper Authorization vulnerability",
+          "published": "2025-10-22T15:21:18Z",
+          "year": "2025",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.10.2"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-92vj-g62v-jqhh",
+          "aliases": [
+            "CVE-2025-59139"
+          ],
+          "summary": "Hono has Body Limit Middleware Bypass",
+          "published": "2025-09-12T21:12:20Z",
+          "year": "2025",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.9.7"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-9hp6-4448-45g2",
+          "aliases": [
+            "CVE-2025-58362"
+          ],
+          "summary": "Hono's flaw in URL path parsing could cause path confusion",
+          "published": "2025-09-03T21:30:13Z",
+          "year": "2025",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.9.6"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-2234-fmw7-43wr",
+          "aliases": [
+            "CVE-2024-48913"
+          ],
+          "summary": "Hono allows bypass of CSRF Middleware by a request without Content-Type header.",
+          "published": "2024-10-15T17:43:50Z",
+          "year": "2024",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:L/I:H/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.6.5"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-rpfr-3m35-5vx5",
+          "aliases": [
+            "CVE-2024-43787"
+          ],
+          "summary": "Hono CSRF middleware can be bypassed using crafted Content-Type header",
+          "published": "2024-08-22T16:41:08Z",
+          "year": "2024",
+          "severity": "LOW",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:L/I:L/A:L",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.5.8"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-3mpf-rcc7-5347",
+          "aliases": [
+            "CVE-2024-32869"
+          ],
+          "summary": "Hono vulnerable to Restricted Directory Traversal in serveStatic with deno",
+          "published": "2024-04-23T16:20:49Z",
+          "year": "2024",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+          "packages": [
+            "hono"
+          ],
+          "fixed": {
+            "hono": [
+              "4.2.7"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-hgxw-5xg3-69jx",
+          "aliases": [
+            "CVE-2024-32652"
+          ],
+          "summary": "@hono/node-server has Denial of Service risk when receiving Host header that cannot be parsed",
+          "published": "2024-04-19T19:48:40Z",
+          "year": "2024",
           "severity": "HIGH",
           "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
           "packages": [
-            "@remix-run/server-runtime"
+            "@hono/node-server"
           ],
           "fixed": {
-            "@remix-run/server-runtime": [
-              "2.17.5"
+            "@hono/node-server": [
+              "1.10.1"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
-          "id": "GHSA-h5cw-625j-3rxh",
+          "id": "GHSA-rjq5-w47x-x359",
           "aliases": [
-            "CVE-2026-22030"
+            "CVE-2024-23340"
           ],
-          "summary": "React Router has CSRF issue in Action/Server Action Request Processing",
-          "published": "2026-01-08T20:57:09Z",
-          "year": "2026",
+          "summary": "@hono/node-server cannot handle \"double dots\" in URL",
+          "published": "2024-01-23T14:42:51Z",
+          "year": "2024",
           "severity": "MODERATE",
-          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
           "packages": [
-            "@remix-run/server-runtime"
+            "@hono/node-server"
           ],
           "fixed": {
-            "@remix-run/server-runtime": [
-              "2.17.3"
+            "@hono/node-server": [
+              "1.4.1"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
-          "id": "GHSA-8v8x-cx79-35w7",
+          "id": "GHSA-f6gv-hh8j-q8vq",
           "aliases": [
-            "CVE-2026-21884"
+            "CVE-2023-50710"
           ],
-          "summary": "React Router SSR XSS in ScrollRestoration",
-          "published": "2026-01-08T20:50:05Z",
-          "year": "2026",
-          "severity": "HIGH",
-          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:L/A:N",
+          "summary": "Named path parameters can be overridden in TrieRouter",
+          "published": "2023-12-15T02:45:54Z",
+          "year": "2023",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:N/I:L/A:L",
           "packages": [
-            "@remix-run/react"
+            "hono"
           ],
           "fixed": {
-            "@remix-run/react": [
-              "2.17.3"
+            "hono": [
+              "3.11.7"
             ]
           },
-          "rce": false
-        },
-        {
-          "id": "GHSA-9583-h5hc-x8cw",
-          "aliases": [
-            "CVE-2025-61686"
-          ],
-          "summary": "React Router has Path Traversal in File Session Storage",
-          "published": "2026-01-08T20:45:07Z",
-          "year": "2026",
-          "severity": "CRITICAL",
-          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:H",
-          "packages": [
-            "@remix-run/node"
-          ],
-          "fixed": {
-            "@remix-run/node": [
-              "2.17.2"
-            ]
-          },
-          "rce": false
-        },
-        {
-          "id": "GHSA-3cgp-3xvw-98x8",
-          "aliases": [
-            "CVE-2025-59057"
-          ],
-          "summary": "React Router has XSS Vulnerability",
-          "published": "2026-01-08T20:42:20Z",
-          "year": "2026",
-          "severity": "HIGH",
-          "cvss": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:H/I:L/A:N",
-          "packages": [
-            "@remix-run/react"
-          ],
-          "fixed": {
-            "@remix-run/react": [
-              "2.17.1"
-            ]
-          },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         }
       ]
     },
     "rsc": {
-      "label": "React Server Components runtime (Next が同梱、React Router は未使用)",
+      "label": "React Server Components runtime (Next が同梱、SPA は未使用)",
       "packages": [
         "react-server-dom-webpack",
         "react-server-dom-turbopack",
@@ -2062,6 +2891,7 @@
         "2026": 4
       },
       "rceCount": 1,
+      "supplyChainCount": 0,
       "advisories": [
         {
           "id": "GHSA-wx67-qw84-cm4g",
@@ -2094,7 +2924,8 @@
               "19.2.8"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-rv78-f8rc-xrxh",
@@ -2128,7 +2959,8 @@
               "19.2.6"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-479c-33wc-g2pg",
@@ -2162,7 +2994,8 @@
               "19.2.5"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-83fc-fqcc-2hmg",
@@ -2196,7 +3029,8 @@
               "19.2.4"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-7gmr-mq3h-m5h9",
@@ -2230,7 +3064,8 @@
               "19.2.3"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-2m3v-v2m8-q956",
@@ -2264,7 +3099,8 @@
               "19.2.2"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-925w-6v3x-g4j4",
@@ -2298,7 +3134,8 @@
               "19.2.2"
             ]
           },
-          "rce": false
+          "rce": false,
+          "supplyChain": false
         },
         {
           "id": "GHSA-fv66-9v8q-g76r",
@@ -2332,7 +3169,478 @@
               "19.2.1"
             ]
           },
-          "rce": true
+          "rce": true,
+          "supplyChain": false
+        }
+      ]
+    },
+    "reactRouter": {
+      "label": "React Router framework mode（参考値: 別の SSR 側の選択肢）",
+      "packages": [
+        "react-router",
+        "@react-router/dev",
+        "@react-router/node",
+        "@react-router/serve"
+      ],
+      "total": 21,
+      "bySeverity": {
+        "HIGH": 11,
+        "MODERATE": 8,
+        "LOW": 1,
+        "CRITICAL": 1
+      },
+      "byYear": {
+        "2025": 2,
+        "2026": 19
+      },
+      "criticalOrHighByYear": {
+        "2025": 2,
+        "2026": 10
+      },
+      "rceCount": 1,
+      "supplyChainCount": 0,
+      "advisories": [
+        {
+          "id": "GHSA-qwww-vcr4-c8h2",
+          "aliases": [],
+          "summary": "React Router: RSC Mode CSRF Bypass Allows Action Execution Before 400 Response",
+          "published": "2026-07-24T16:44:43Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.18.2",
+              "8.3.0"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-chx6-hx7r-mcp5",
+          "aliases": [
+            "CVE-2026-55685"
+          ],
+          "summary": "React Router: Unauthenticated Denial of Service via Inefficient Route Matching",
+          "published": "2026-07-24T14:06:57Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.18.0"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-wrjc-x8rr-h8h6",
+          "aliases": [
+            "CVE-2026-53669"
+          ],
+          "summary": "React Router: Open redirect via backslash in <Link> and useNavigate (CVE-2025-68470 bypass)",
+          "published": "2026-07-23T19:38:28Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:A/VC:N/VI:L/VA:N/SC:L/SI:L/SA:N",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.18.0"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-jjmj-jmhj-qwj2",
+          "aliases": [
+            "CVE-2026-53668"
+          ],
+          "summary": "React Router: Open redirect leading to XSS",
+          "published": "2026-07-23T19:36:31Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:H/I:L/A:N",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.13.0"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-h8fp-f39c-q6mh",
+          "aliases": [
+            "CVE-2026-53667"
+          ],
+          "summary": "React Router: RSCErrorHandler Missing Protocol Validation (XSS)",
+          "published": "2026-07-23T19:35:57Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:H/I:L/A:N",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.18.0"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-337j-9hxr-rhxg",
+          "aliases": [
+            "CVE-2026-53666"
+          ],
+          "summary": "React Router: Arbitrary Constructor Injection via deserializeErrors() in React Router SSR Hydration",
+          "published": "2026-07-23T19:34:14Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.18.0"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-84g9-w2xq-vcv6",
+          "aliases": [
+            "CVE-2026-53663"
+          ],
+          "summary": "React Router: Potential CSRF via PUT/PATCH/DELETE document requests",
+          "published": "2026-06-15T20:06:15Z",
+          "year": "2026",
+          "severity": "LOW",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:N/I:L/A:N",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.15.1"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-rxv8-25v2-qmq8",
+          "aliases": [
+            "CVE-2026-34077"
+          ],
+          "summary": "React Router vulnerable to Denial of Service via reflected user input in single-fetch",
+          "published": "2026-06-04T15:23:51Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.14.0"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-8x6r-g9mw-2r78",
+          "aliases": [
+            "CVE-2026-42342"
+          ],
+          "summary": "React Router vulnerable to DoS via unbounded path expansion in __manifest endpoint",
+          "published": "2026-06-03T21:05:17Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.15.0"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-49rj-9fvp-4h2h",
+          "aliases": [
+            "CVE-2026-42211"
+          ],
+          "summary": "React Router's vendored turbo-stream v2 allows arbitrary constructor invocation via TYPE_ERROR deserialization leading to Unauth RCE",
+          "published": "2026-06-03T21:03:32Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.14.2"
+            ]
+          },
+          "rce": true,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-2j2x-hqr9-3h42",
+          "aliases": [
+            "CVE-2026-40181"
+          ],
+          "summary": "React Router's same-origin redirect with path starting // causes open redirect via protocol-relative URL reinterpretation",
+          "published": "2026-06-03T20:58:01Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N/E:U",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.14.1",
+              "6.30.4"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-8646-j5j9-6r62",
+          "aliases": [
+            "CVE-2026-33245"
+          ],
+          "summary": "React Router vulnerable to XSS in unstable RSC redirect handling via javascript: redirect targets",
+          "published": "2026-06-03T20:33:32Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:H/I:H/A:N",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.13.2"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-f22v-gfqf-p8f3",
+          "aliases": [
+            "CVE-2026-33244"
+          ],
+          "summary": "React Router has stored XSS via unescaped Location header in prerendered redirect HTML",
+          "published": "2026-06-03T20:33:01Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:L/I:L/A:N",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.13.2"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-h5cw-625j-3rxh",
+          "aliases": [
+            "CVE-2026-22030"
+          ],
+          "summary": "React Router has CSRF issue in Action/Server Action Request Processing",
+          "published": "2026-01-08T20:57:09Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.12.0"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-2w69-qvjg-hvjx",
+          "aliases": [
+            "CVE-2026-22029"
+          ],
+          "summary": "React Router vulnerable to XSS via Open Redirects",
+          "published": "2026-01-08T20:54:18Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:H/I:H/A:N",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.12.0"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-8v8x-cx79-35w7",
+          "aliases": [
+            "CVE-2026-21884"
+          ],
+          "summary": "React Router SSR XSS in ScrollRestoration",
+          "published": "2026-01-08T20:50:05Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:L/A:N",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.12.0"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-9jcx-v3wj-wh4m",
+          "aliases": [
+            "CVE-2025-68470"
+          ],
+          "summary": "React Router has unexpected external redirect via untrusted paths",
+          "published": "2026-01-08T20:48:21Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "6.30.2",
+              "7.9.6"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-9583-h5hc-x8cw",
+          "aliases": [
+            "CVE-2025-61686"
+          ],
+          "summary": "React Router has Path Traversal in File Session Storage",
+          "published": "2026-01-08T20:45:07Z",
+          "year": "2026",
+          "severity": "CRITICAL",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:H",
+          "packages": [
+            "@react-router/node"
+          ],
+          "fixed": {
+            "@react-router/node": [
+              "7.9.4"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-3cgp-3xvw-98x8",
+          "aliases": [
+            "CVE-2025-59057"
+          ],
+          "summary": "React Router has XSS Vulnerability",
+          "published": "2026-01-08T20:42:20Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:H/I:L/A:N",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.9.0"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-cpj6-fhp6-mr6j",
+          "aliases": [
+            "CVE-2025-43865"
+          ],
+          "summary": "React Router allows pre-render data spoofing on React-Router framework mode",
+          "published": "2025-04-24T16:31:32Z",
+          "year": "2025",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:H",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.5.2"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
+        },
+        {
+          "id": "GHSA-f46r-rw29-r322",
+          "aliases": [
+            "CVE-2025-43864"
+          ],
+          "summary": "React Router allows a DoS via cache poisoning by forcing SPA mode",
+          "published": "2025-04-24T16:31:16Z",
+          "year": "2025",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.5.2"
+            ]
+          },
+          "rce": false,
+          "supplyChain": false
         }
       ]
     }

@@ -80,6 +80,20 @@ export function resetReservations(): void {
   reserved.clear();
 }
 
+export type ReservationStat = { productId: string; name: string; reserved: number; remaining: number };
+
+/** Admin-only view of what has been reserved in this process. */
+export function reservationStats(): ReservationStat[] {
+  return products.map((p) => ({
+    productId: p.id,
+    name: p.name,
+    reserved: reserved.get(p.id) ?? 0,
+    remaining: withStock(p).stock,
+  }));
+}
+
+export * from "./auth";
+
 export function formatPrice(price: number): string {
   return `¥${price.toLocaleString("ja-JP")}`;
 }

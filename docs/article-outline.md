@@ -1,187 +1,174 @@
-# 記事骨子: とりあえず Next.js の選択肢に鉄槌を下す
+# 記事骨子: とりあえず Next.js の選択肢に鉄槌を下す 〜SPA で足りないのはどこか、全部作って確かめた〜
 
 - 媒体: クロスマート テックブログ (hatenablog)
 - 著者: 福留
-- 前作: [Remix v3 にコントリビュート（2025/12）](https://xmart-techblog.hatenablog.com/entry/2025/12/01/122639)
-- 根拠リポジトリ: このリポジトリ（計測は `docs/results/COMPARISON.md`）
+- 前作: [Remix v3 にコントリビュート（2025/12）](https://xmart-techblog.hatenablog.com/entry/2025/12/01/122639)、[Next.js 13 app ディレクトリ敵情調査（2023, Qiita）](https://qiita.com/FAL-coffee/items/e4bcc16b065a737c9537)
+- 根拠リポジトリ: このリポジトリ（計測 `docs/results/COMPARISON.md`、機能対応表 `docs/feature-matrix.md`）
 
 ## 主張（1行）
 
-鉄槌を下すのは Next.js ではなく「とりあえず」の方。フルスタックフレームワークは「使っていない機能」まで攻撃面と運用負荷として抱え込む。それを数字で見せる。
+「とりあえず Next.js」は、SSR が要るかどうかの判断を飛ばして、Next.js が同梱する機能を全部抱え込む選び方。Next の機能を一つずつ SPA で再現してみると、本当に SPA で足りないのは 4 つしか残らない。
 
 ## 読者
 
-- B2B 業務画面を React で作っている、フレームワーク選定に関わるエンジニア
+- B2B 業務画面を React で作っていて、フレームワーク選定に関わるエンジニア
 - 「Next でいいでしょ」と言われて反論の材料が欲しい人
-- 逆に Next を選んでいて、何をメンテ対象として抱えているか自覚したい人
+- Next を選んでいて、何をメンテ対象として抱えているか自覚したい人
 
 ## トーン
 
-- 煽りはタイトルまで。本文は時系列と計測結果で淡々と殴る
-- Next が合うケースは明示する（公平さが説得力になる）
-- React Router 側の脆弱性も隠さない（2026 年だけで 19 件、HIGH 10 件。XSS・DoS・path traversal）
+- 煽りはタイトルまで。本文は時系列・実装・計測で淡々と
+- Next が合うケース（残った 4 つ）は明示する
+- SPA 側の傷も隠さない: TanStack の 2026/5 サプライチェーン事件、Hono の 2026 年 47 件（ほぼ opt-in ミドルウェア）
 
 ---
 
 ## 1. 導入: 毎月届く「またか」
 
-- 2026/9 の 1 か月で Next.js の Critical が 3 件（AVIF RCE、Windows RCE、`next/og` RCE）。times の「またRemoteCode injection系か」から入る
-- 全部「うちは使っていない」機能だった、という感覚
-  - 画像最適化は使っていない / og 画像は作っていない / Windows でホストしていない
-- それでも `npm audit` は赤くなり、パッチ追従の PR を切る。この「使っていない機能のためのアップデート」が本記事のテーマ
-- （趣味サイトを Next で作っている場合）自分も当事者、という一文
+- 2026/9 の 1 か月で Next.js の Critical が 3 件（AVIF RCE、Windows RCE、`next/og` RCE）
+- 全部「うちでは使っていない機能」に刺さった、という感覚
+- 「使っていない機能のためにアップデートする」作業はいつから当たり前になったのか
+- 立ち位置: 2023 年に app ディレクトリを酔って調査した人間。会社では Remix v2 → React Router。今回はさらに「SPA で足りるのでは」と疑ってみた
 
-## 2. 事実: この 1 年の Next.js Critical を時系列で
+## 2. 事実: この 1 年の Next.js Critical（時系列表）
 
-| 公開 | ID | 内容 | 影響する機能 |
-| --- | --- | --- | --- |
-| 2025/03 | CVE-2025-29927 | Middleware 認可バイパス | middleware |
-| 2025/12 | CVE-2025-55182 (React2Shell) | RSC flight protocol 経由の未認証 RCE | RSC ランタイム (react-server-dom-*) |
-| 2026/09/08 | GHSA-2xp9-vwfh-vxw4 | AVIF 画像最適化で未認証 RCE (libheif) | Image Optimization |
-| 2026/09/08 | CVE-2026-75604 | Windows ホストで未認証 RCE | Pages/App Router 併用 |
-| 2026/09/30 | GHSA-vcvr-r3jv-pc5j | `next/og` ImageResponse で RCE | OG 画像生成 |
+- 5 件、うち未認証 RCE 4 件。刺さった機能列を必ず付ける（middleware / RSC / Image Optimization / Pages+App 併用 / next/og）
+- 2026 年の HIGH 16 件の内訳（Middleware バイパス 5、Server Actions SSRF/DoS、RSC DoS）
+- Vercel ホストなら守られた期間がある、は書く。セルフホストに刺さるのはどれかを分ける
 
-- 加えて 2026 年は HIGH が 16 件（Middleware/Proxy バイパス 5 件、Server Actions 経由の SSRF/DoS、RSC DoS 連発）
-- Vercel にホストしていれば WAF/プラットフォーム側で守られる範囲があることは書く。**セルフホスト（うち）で刺さるのはどれか**を分けて示す
-- 出典: osv.dev 集計 → `docs/results/COMPARISON.md` §8
+## 3. 問い直し: その機能、うちは使ってる？
 
-## 3. 公平に: React Router 側の履歴も並べる
+- 「とりあえず Next」が飛ばしている判断 = **ステップ 0: そもそも SSR が要るか**
+- Next を選んだ時点で SSR + RSC + Server Actions が既定になる。プロダクト要件を見る前にレンダリング方式が決まる
+- だから Next の機能を一つずつ「SPA + API で再現したらどうなるか」試した、という実験の動機
 
-- 2026 年の advisory は 19 件。HIGH 10 件、CRITICAL 1 件（file session storage の path traversal）
-- 性質の違い: XSS、open redirect、`__manifest` の DoS、そして turbo-stream デシリアライズ経由の未認証 RCE が 1 件（HIGH 判定）。Next は CRITICAL の RCE が 1 年で 4 件
-- ここで「どちらにも脆弱性はある。差は"攻撃面の種類と量"」と視点を切り替える
+## 4. 実験: 同じカタログを Next.js と TanStack Router SPA で作る
 
-## 4. 実験: 同じアプリを両方で作って、何を抱え込むか数える
+### 4.1 題材と仕様
 
-### 4.1 題材
+- 商品カタログ。一覧・検索・クイックビュー（モーダル）・詳細・予約・ログイン・マイページ・管理画面・JSON API・404・エラー境界
+- DB なし。インメモリ在庫、デモユーザー 2 人（member / admin）
+- Next は create-next-app 既定、SPA は @tanstack/cli 既定 + Hono の API。設定はほぼ触らない
+- 画面・DOM・data-testid は同一。認証ロジックは同じコードを共有
 
-- 商品カタログ（一覧・検索・詳細・予約フォーム・JSON API・404・エラー境界）。DB なし、インメモリ
-- 両方とも公式 CLI の既定テンプレートから。設定はほぼ触らない（「とりあえず」の再現）
-- 同じ Playwright スペック 41 件が両方で通り、`/` と詳細ページの本文テキストと API の JSON が完全一致することを機械的に確認している（parity テスト）
-- リポジトリ: （URL）
+### 4.2 Next 側に「テクい機能」をわざと盛った
 
-### 4.2 書いたコードはほぼ同じ
+- Parallel Route + Intercepting Route でクイックビュー（2023 年に「はあ？」と言ったやつ）
+- proxy（旧 middleware）で `/mypage` `/admin` をゲート
+- Server Action でログイン・予約
+- `next/og` で OG 画像
+- `next/image` は既定のまま
 
-- ファイル数・行数の表（§2）
-- Server Action + `useActionState` と `action` + `<Form>` のコード比較を 1 画面分だけ載せる
-  - どちらも JS 無効で動く。「RSC がないと progressive enhancement ができない」は誤解
+### 4.3 機能ごとに SPA で再現した結果（記事の本体。`docs/feature-matrix.md` の表）
 
-### 4.3 抱え込むものは違う
+- 再現コスト 0〜低: SSR 不要なら消える / RSC → コード分割 / Server Actions → fetch / Route Handler → Hono / Parallel+Intercepting → search param + route masking / middleware → beforeLoad + API / Cookie セッション → API が発行 / prefetch / 型付きルート
+- 再現コスト中〜高: Image Optimization（CDN の仕事）/ OG 画像（別サービス）
+- 不可: JS 無効フォーム / 正しい 404 ステータス
+- コード比較は 2 箇所だけ載せる: (a) クイックビュー（intercepting route vs route masking）、(b) 認可ガード（proxy vs beforeLoad）
 
-- 本番依存パッケージ数とサイズ（§3）
-- RSC ランタイム、sharp/libvips をデフォルトで同梱するのは Next だけ
-  - React2Shell と AVIF RCE はまさにこの 2 つに刺さった
-- デプロイ一式のサイズ（standalone vs build + node_modules）（§4）
+### 4.4 抱え込むもの（計測）
 
-### 4.4 露出している口
+- 本番依存のサイズ、sharp/libvips と RSC ランタイムの同梱、デプロイ一式、ビルド時間（`COMPARISON.md` §3-4）
+- 「パッケージ数」は Hono の express 非依存で SPA 側が少ないはず。数ではなく中身で語る
 
-- アプリが定義していないパスに何が返るか（§7）
-  - `/_next/image?url=...`: 画像最適化エンドポイントは `next/image` を 1 回でも使えば生える。使っていなくてもデフォルト有効
-  - `POST /` + `Next-Action` ヘッダ: Server Action の受け口
-  - `?_rsc=` / `RSC: 1`: flight payload
-  - React Router 側: `/__manifest`、`.data` リクエスト。これも 2026 年に DoS を食らった口
-- 「表面積 = 自分が書いたルート + フレームワークが生やす口」。後者は自分でコントロールできない
+### 4.5 露出している口（計測 §7）
 
-### 4.5 ビルドと起動
+- `/_next/image`（next/image を使わなくても開く、`images.unoptimized: true` で閉じる。検証済み）
+- `/products/:id/opengraph-image`（next/og。9 月に RCE が刺さった口）
+- `POST /` + `Next-Action`
+- `RSC: 1`
+- `/mypage` `/admin`: Next は proxy が 307、SPA は殻が 200 で返り、ガードはブラウザと API（401/403）
+- SPA 側で開いている口: `/api/*` だけ。それ以外は 404
 
-- クリーンビルド時間、コールドスタート、RSS、p50/p95（§4, §5）
-- ここは差があっても「業務画面では誤差」と正直に書く。主張の中心ではない
+### 4.6 ランタイム・ページ重量（誤差の範囲として短く）
 
-### 4.6 ページ重量
+### 4.7 地味に刺さった差
 
-- `/` と詳細の JS 転送量（§6）
-- RSC の恩恵（クライアント JS 減）が出るほどの画面ではない、という結果ならそう書く
+- Next のサーバコード分割でモジュールスコープのシングルトンが複製される → `globalThis`
+- React 19 は Server Action 完了後にフォームをリセットする（ログイン失敗後に ID が消える）
+- TanStack は search を JSON として読む（`?fail=1` が数値になる）
+- TanStack の `errorComponent` はルートに伝播しない（`defaultErrorComponent` を使う）
+- 404 の HTTP ステータスは SPA では返せない
 
-### 4.7 細かいが地味に効く差
+## 5. SPA 側の傷も並べる
 
-- Next はサーバコードをルート単位で分割するので、モジュールスコープのシングルトンがルート間で複製される（`.next/server` 内に `@catalog/data` が 4 チャンク）。`globalThis` に逃がすしかない。Vite SSR は単一バンドル
-- `next build` が TypeScript と ESLint を内蔵で走らせる vs 自分で `tsc` を呼ぶ
-- `X-Powered-By: Next.js` が既定で付く（§7 ヘッダ表）
+- TanStack: 2026/5 に `@tanstack/*` へ悪性コードが混入（供給網）。「薄いから安全」ではない
+- Hono: 2026 年 47 件、HIGH 9。ただし JWT / CORS / serveStatic / JSX / SSG など **opt-in ミドルウェア**がほぼ全部。今回の API は一つも使っていない。つまり「表面積 = 使っている機能」は API 側でも成り立つ。Next との違いは「既定で有効か」
 
-## 5. 「とりあえず Next」が隠しているコスト（本論）
+## 6. 残ったもの: Next.js が本当に必要なとき
 
-1. **使っていない機能の攻撃面**: Image Optimization / og / RSC / middleware は opt-out ではなく opt-in されている
-2. **パッチ追従の運用負荷**: 2026 年は月 1 回以上のセキュリティリリース。16.x / 15.x 両系統にバックポート、`backport` dist-tag の存在
-3. **抽象の重さ**: RSC + Server Actions + キャッシュ階層は、B2B 業務画面の要件（認証付き CRUD、BFF は別にある）に対して過剰
-4. **選ぶ側の責任は薄いフレームワークにもある**: React Router 側も XSS/DoS を踏んでいる。自分たちで `sessionStorage` や `__manifest` を理解して使う必要がある。「薄いから安全」ではなく「抱えているものを把握できる」が利点
+1. 未ログインで見られる公開ページの初期 HTML（SEO、初期表示）
+2. SNS シェア用の OG 画像
+3. JS 無効でも動くフォーム
+4. クローラに返す正しい 404
 
-## 6. 判断基準（表）
+これが無いプロダクトは、Next の機能を全部「過剰」として抱えている。クロスオーダーの発注画面は 4 つとも無い
 
-| 観点 | Next が合う | React Router が合う |
-| --- | --- | --- |
-| ホスティング | Vercel 前提 | セルフホスト / コンテナ / 任意の Node ランタイム |
-| 画像 | 外部画像の最適化が本当に必要 | CDN や画像サービスに任せる |
-| レンダリング | ISR / PPR / 静的生成の混在が必要 | SSR + クライアント遷移で十分 |
-| API | Route Handler で完結させたい | BFF / API が別にある |
-| チーム | 既に App Router に習熟 | Remix / RR の loader-action モデルに慣れている |
-| 更新頻度 | 月次のセキュリティ更新を回せる体制がある | 依存を少なく保ちたい |
+## 7. 判断手順（2 段）
 
-## 7. 締め
+- ステップ 0: SSR が要るか（上の 4 つのどれかがあるか）
+- ステップ 1: 要らないなら SPA + API（TanStack Router / React Router SPA mode）。要るなら Next か React Router framework mode。Next を選ぶなら「画像最適化・og・middleware を使うか、使わないなら無効化するか、セキュリティリリースを誰が追従するか」を書き出す
+
+## 8. まとめ
 
 - 鉄槌は選択肢を消すことではなく「とりあえず」を消すこと
-- 「Next を選ぶなら、画像最適化・og・RSC・middleware それぞれを本当に使うか、使わないなら無効化できるかを選定時に書き出す」という具体的な宿題で終える
-- 12 月の Remix v3 記事への導線
+- 「うちは SSR フレームワークすら本来は要らなかった。RR を選んだのは loader/action の書き味のため」と正直に書く
+- 採用ページへ
 
 ---
 
 ## 実測値の要点（記事に載せる数字の候補。正確な値は `docs/results/COMPARISON.md`）
 
-同じ 41 件の E2E が通る同一仕様アプリ同士の比較。環境はクラウドコンテナ 1 台、絶対値より比を見る。
-
-| 観点 | Next.js 16.3 | React Router 8.4 | 読み方 |
+| 観点 | Next.js 16.3 | TanStack Router SPA + Hono API | 読み方 |
 | --- | --- | --- | --- |
-| 書いたコード（非空行） | 約 390 行 / 17 ファイル | 約 380 行 / 14 ファイル | ほぼ同じ。開発体験の差は主張しない |
-| 本番依存パッケージ数 | 59 | 92 | 数は RR の方が多い（express 系が入るため）。数で殴らない |
-| 本番依存のディスクサイズ | 約 430 MB | 約 36 MB | 約 12 倍。sharp/libvips 2 種 + swc バイナリ + vendored React が主因 |
-| RSC ランタイム同梱 | あり（`next/dist/compiled`） | なし | React2Shell が刺さる口があるかどうか |
-| sharp / libvips 同梱 | あり | なし | AVIF RCE が刺さる口があるかどうか |
-| クリーンビルド | 約 11 秒 | 約 2 秒 | Next は tsc + eslint を内蔵で回す分も含む。公平に注記 |
-| デプロイ一式 | 約 205 MB (standalone) | 約 38 MB (build + prod node_modules) | 約 5 倍 |
-| コールドスタート | 約 950 ms | 約 700 ms | 誤差の範囲と書く |
-| RSS | 約 240 MB | 約 160 MB | 参考値 |
-| `/` の JS 転送量 (gzip) | 約 140 KB | 約 100 KB | この規模では RSC によるクライアント JS 削減効果は出ない |
-| `/` の画像転送量 | 約 16 KB (webp に最適化) | 約 80 KB (PNG そのまま) | 画像最適化の恩恵は本物。だから「使うなら使う、使わないなら切る」 |
-| p50 レイテンシ `/` | 約 7.5 ms | 約 5 ms | 誤差。API は Next の方が速い（約 2.2 ms vs 2.7 ms）。正直に書く |
+| 書いたコード（非空行） | 679 行 / 31 ファイル | 944 行 / 23 ファイル | SPA の方が多い。API 本体と fetch 層の分。隠さない |
+| 本番依存パッケージ数 / サイズ | 60 / 449 MB | 15 / 14 MB | 32 倍。sharp/libvips、SWC、vendored React+RSC が主因 |
+| RSC ランタイム同梱 | あり | なし | React2Shell が刺さる口 |
+| sharp / libvips 同梱 | あり | なし | AVIF RCE が刺さる口 |
+| クリーンビルド | 13.4 秒 | 2.3 秒 | Next は tsc + eslint 内蔵。注記する |
+| デプロイ一式 | 215 MB (standalone) | 1.8 MB (静的 + API + その依存) | 100 倍超。S3 に置けるサイズ |
+| コールドスタート | 1,100 ms | 520 ms | 参考値 |
+| RSS | 289 MB | 72 MB | 参考値 |
+| `/` の HTML | 25.8 KB | 0.9 KB | SSR の有無そのもの |
+| `/` の JS (gzip) | 143 KB | 93 KB | RSC で減るどころか増えている |
+| `/` の画像 | 16 KB (webp) | 80 KB (PNG) | 画像最適化の恩恵は本物 |
+| p50 `/` | 8.8 ms | 0.9 ms | SSR と静的配信の差。公平に書く |
+| p50 `/api/products` | 2.5 ms | 0.9 ms | Hono 速い。主戦場にしない |
 
 露出している口（アプリが定義していないのに 404 以外を返すパス）:
 
-| 口 | Next.js | React Router |
+| 口 | Next.js | SPA + API |
 | --- | --- | --- |
-| `/_next/image?url=...` 画像最適化（AVIF/WebP 変換まで動く） | 200 | 404 |
-| `POST /` + `Next-Action` ヘッダ（Server Action 受け口） | 受け付けて id 不一致で 404 | 405 |
-| `RSC: 1` ヘッダ（flight payload） | `_rsc=<hash>` へ 307 → payload | 通常 HTML |
-| `/__manifest?p=...`（lazy route discovery。2026 年に DoS） | 404 | 204 |
-| `/products/:id.data`（single-fetch。2026 年に DoS） | 404 | 200 |
-| `X-Powered-By: Next.js` ヘッダ | 付く | 付かない |
+| `/_next/image`（WebP 変換まで動く） | 200 | 404 |
+| `/products/:id/opengraph-image`（next/og） | 200 | 404 |
+| `POST /` + `Next-Action` | 受け付けて 404 | 404 |
+| `RSC: 1` ヘッダ | 200 text/x-component | 404 |
+| `/mypage` `/admin`（未ログイン） | 307 → /login | 200（殻）。ガードはブラウザと API |
+| `/api/admin/stats`（未ログイン） | 401 | 401 |
+| `POST /api/products/:id/reserve`（未ログイン） | 404（Server Action 経由のみ） | 401 |
 
-脆弱性履歴（osv.dev、2026-10-05 取得）:
+脆弱性履歴（osv.dev、2026-10-05）:
 
-| | Next.js (`next`) | React Router (5 パッケージ) | RSC runtime (`react-server-dom-*`) |
-| --- | --- | --- | --- |
-| 総数 | 67 | 21 | 8 |
-| CRITICAL / HIGH | 5 / 26 | 1 / 11 | 1 / 6 |
-| 2026 年の CRITICAL+HIGH | 16 | 10 | 4 |
-| 直近 12 か月の未認証 RCE | 4（RSC flight, AVIF, Windows, next/og。全部 CRITICAL） | 1（turbo-stream デシリアライズ。HIGH 判定、7.14.2 で修正） | 1（React2Shell。Next 側で踏む） |
-| CRITICAL の中身 | RCE ×4、middleware 認可バイパス ×1 | file session storage の path traversal ×1 | RCE ×1 |
-
-数字の使い方の注意:
-
-- 「依存パッケージ数」は RR の方が多い。数で殴ると自分に返ってくるので、サイズと中身（ネイティブバイナリ、vendored runtime）で語る
-- 「React Router は 2026 年に 19 件」は必ず書く。隠すと信頼を失う
-- レイテンシ・コールドスタートは「差はあるが業務画面では誤差」で片付ける。主戦場にしない
+| | Next.js | TanStack Router | Hono | RSC runtime |
+| --- | --- | --- | --- | --- |
+| 総数 | 67 | 5 | 57 | 8 |
+| CRITICAL / HIGH | 5 / 26 | 1 / 0 | 0 / 9 | 1 / 6 |
+| 2026 年 | 34 | 5（全部 5 月の供給網事件） | 47（ほぼ opt-in ミドルウェア） | 4 |
+| 未認証 RCE（直近 12 か月） | 4 | 0（供給網はコード脆弱性と別枠） | 0 | 1 |
 
 ## 執筆メモ
 
-- 数字は `pnpm advisories && pnpm measure && pnpm report` で再生成できる。記事の表はすべて `docs/results/COMPARISON.md` から転記する
-- 脆弱性の一次情報リンク
+- 数字は `pnpm advisories && pnpm measure && pnpm report` で再生成できる
+- 検証済みの事実（2026-10-05、next@16.3.8）: `next/image` を一行も使わなくても `/_next/image` は 200 を返し webp 変換も動く。`images.unoptimized: true` で 404 になる
+- 一次情報リンク
   - https://nextjs.org/blog/august-2026-security-release
   - https://osv.dev/vulnerability/GHSA-vcvr-r3jv-pc5j (next/og RCE)
   - https://osv.dev/vulnerability/GHSA-2xp9-vwfh-vxw4 (AVIF RCE)
   - https://osv.dev/vulnerability/GHSA-p293-qw3h-jr36 (Windows RCE)
   - https://osv.dev/vulnerability/GHSA-9qr9-h5gf-34mp (React2Shell / Next)
   - https://osv.dev/vulnerability/GHSA-fv66-9v8q-g76r (CVE-2025-55182 / react-server-dom)
-  - https://osv.dev/vulnerability/GHSA-9583-h5hc-x8cw (React Router path traversal, CRITICAL)
-  - https://osv.dev/vulnerability/GHSA-8x6r-g9mw-2r78 (React Router `__manifest` DoS)
-- 検証済みの事実（2026-10-05、next@16.3.8）: `next/image` を一行も使わなくても `/_next/image` は 200 を返し webp 変換も動く。`images.unoptimized: true` で 404 になる。記事の「使っていなくても抱える」の一次証拠
+  - https://osv.dev/vulnerability/GHSA-g7cv-rxg3-hmpx (@tanstack/* malware)
+  - https://osv.dev/vulnerability/GHSA-88fw-hqm2-52qc (Hono CORS)
+  - https://osv.dev/vulnerability/GHSA-q5qw-h33p-qvwr (Hono serveStatic)
 - 会社ブログとして避けること: Vercel への人格攻撃、「Next は終わり」系の断定。数字と機能の対応関係だけで語る
-- 想定文字数: 6,000〜8,000 字。表は 5 つまで
+- 想定文字数: 7,000〜9,000 字。表は 5 つまで

@@ -8,17 +8,18 @@ import { ROOT } from "./lib.mjs";
 
 const GROUPS = {
   next: { label: "Next.js", packages: ["next"] },
-  rr: {
-    label: "React Router",
-    packages: ["react-router", "react-router-dom", "@react-router/dev", "@react-router/node", "@react-router/serve"],
+  tanstack: {
+    label: "TanStack Router (SPA 側)",
+    packages: ["@tanstack/react-router", "@tanstack/router-core", "@tanstack/history", "@tanstack/router-plugin"],
   },
-  remixLineage: {
-    label: "Remix v2 (React Router v7 の前身。参考値)",
-    packages: ["@remix-run/react", "@remix-run/node", "@remix-run/server-runtime", "@remix-run/dev"],
-  },
+  hono: { label: "Hono (API 側)", packages: ["hono", "@hono/node-server"] },
   rsc: {
-    label: "React Server Components runtime (Next が同梱、React Router は未使用)",
+    label: "React Server Components runtime (Next が同梱、SPA は未使用)",
     packages: ["react-server-dom-webpack", "react-server-dom-turbopack", "react-server-dom-parcel"],
+  },
+  reactRouter: {
+    label: "React Router framework mode（参考値: 別の SSR 側の選択肢）",
+    packages: ["react-router", "@react-router/dev", "@react-router/node", "@react-router/serve"],
   },
 };
 
@@ -71,6 +72,7 @@ for (const [key, g] of Object.entries(GROUPS)) {
         packages: [],
         fixed: {},
         rce: /remote code execution|\bRCE\b|arbitrary code/i.test(`${v.summary} ${v.details ?? ""}`),
+        supplyChain: /malware|malicious code|compromised/i.test(`${v.summary}`),
       };
       entry.packages.push(name);
       entry.fixed[name] = fixedVersions(v, name);
@@ -87,6 +89,7 @@ for (const [key, g] of Object.entries(GROUPS)) {
     byYear: countBy((v) => v.year),
     criticalOrHighByYear: list.filter((v) => ["CRITICAL", "HIGH"].includes(v.severity)).reduce((acc, v) => ((acc[v.year] = (acc[v.year] ?? 0) + 1), acc), {}),
     rceCount: list.filter((v) => v.rce).length,
+    supplyChainCount: list.filter((v) => v.supplyChain).length,
     advisories: list,
   };
   console.log(`${g.label}: ${list.length} advisories`);

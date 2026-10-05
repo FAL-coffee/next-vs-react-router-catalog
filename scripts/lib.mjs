@@ -9,26 +9,31 @@ export const APPS = {
   next: {
     label: "Next.js",
     dir: join(ROOT, "apps/next-catalog"),
-    pkg: "next-catalog",
+    pkgs: ["next-catalog"],
+    startPkg: "next-catalog",
     port: 3001,
     cleanDirs: [".next"],
     outputDirs: [".next"],
     outputExclude: [".next/cache", ".next/standalone"],
     deployable: [".next/standalone", ".next/static"],
+    deployableNote: ".next/standalone (traced node_modules included) + .next/static",
     sourceGlobs: ["src", "next.config.ts", "postcss.config.mjs", "eslint.config.mjs", "tsconfig.json"],
     frameworkPackages: ["next"],
   },
-  rr: {
-    label: "React Router",
-    dir: join(ROOT, "apps/rr-catalog"),
-    pkg: "rr-catalog",
+  spa: {
+    label: "TanStack Router SPA + Hono API",
+    dir: join(ROOT, "apps/spa-catalog"),
+    apiDir: join(ROOT, "apps/api"),
+    pkgs: ["spa-catalog", "api"],
+    startPkg: "api",
     port: 3002,
-    cleanDirs: ["build", ".react-router"],
-    outputDirs: ["build"],
+    cleanDirs: ["dist", "../api/dist"],
+    outputDirs: ["dist", "../api/dist"],
     outputExclude: [],
-    deployable: ["build"],
-    sourceGlobs: ["app", "react-router.config.ts", "vite.config.ts", "tsconfig.json"],
-    frameworkPackages: ["react-router", "@react-router/dev", "@react-router/node", "@react-router/serve"],
+    deployable: ["dist", "../api/dist"],
+    deployableNote: "spa-catalog/dist (static) + api/dist + api production node_modules",
+    sourceGlobs: ["src", "index.html", "vite.config.ts", "tsconfig.json", "eslint.config.js", "../api/src", "../api/tsconfig.json"],
+    frameworkPackages: ["@tanstack/react-router", "@tanstack/router-plugin", "hono", "@hono/node-server"],
   },
 };
 
@@ -133,7 +138,7 @@ export async function waitFor(url, { timeoutMs = 60_000 } = {}) {
 }
 
 export function startServer(app) {
-  const child = spawn("pnpm", ["--filter", app.pkg, "start"], {
+  const child = spawn("pnpm", ["--filter", app.startPkg, "start"], {
     cwd: ROOT,
     stdio: ["ignore", "pipe", "pipe"],
     env: { ...process.env, NODE_ENV: "production" },

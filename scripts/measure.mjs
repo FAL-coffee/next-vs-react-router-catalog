@@ -7,7 +7,7 @@
 import { mkdirSync, rmSync, writeFileSync, existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { performance } from "node:perf_hooks";
-import { chromium } from "@playwright/test";
+import { chromium } from "playwright";
 import {
   APPS,
   ROOT,
@@ -29,19 +29,22 @@ const executablePath = process.env.PW_CHROMIUM_PATH ?? (existsSync("/opt/pw-brow
 
 /** Paths that reveal what each server exposes beyond the app's own routes. */
 const PROBES = [
-  { path: "/", note: "app route" },
+  { path: "/", headers: { accept: "text/html" }, note: "app route" },
   { path: "/robots.txt", note: "not defined by either app" },
   { path: "/_next/image?url=%2Fimages%2Fuji-sencha.png&w=640&q=75", note: "Next.js image optimizer (local src)" },
   { path: "/_next/image?url=https%3A%2F%2Fexample.com%2Fx.png&w=640&q=75", note: "Next.js image optimizer (remote src)" },
-  { path: "/_next/image?url=%2Fimages%2Fuji-sencha.png&w=640&q=75", headers: { accept: "image/avif,image/webp" }, note: "image optimizer, AVIF negotiated" },
+  { path: "/_next/image?url=%2Fimages%2Fuji-sencha.png&w=640&q=75", headers: { accept: "image/avif,image/webp" }, note: "image optimizer, AVIF/WebP negotiated" },
+  { path: "/products/uji-sencha/opengraph-image", note: "next/og ImageResponse (OG image generated on the server)" },
   // Next 16 answers an RSC request with a 307 to a `_rsc=<hash>` URL first, so follow redirects here.
   { path: "/", headers: { RSC: "1" }, follow: true, note: "RSC flight payload request (redirects followed)" },
   { path: "/", method: "POST", headers: { "Next-Action": "0000000000000000000000000000000000000000", "Content-Type": "text/plain" }, body: "[]", note: "Server Action endpoint (bogus id)" },
-  { path: "/__manifest?p=%2F&version=0", note: "React Router lazy route discovery manifest" },
-  { path: "/_root.data", note: "React Router single-fetch data request (root)" },
-  { path: "/products/uji-sencha.data", note: "React Router single-fetch data request" },
+  { path: "/mypage", headers: { accept: "text/html" }, note: "auth-gated page, anonymous (Next: proxy redirects; SPA: shell is public, guard runs in the browser)" },
+  { path: "/admin", headers: { accept: "text/html" }, note: "role-gated page, anonymous" },
+  { path: "/api/me", note: "session endpoint, anonymous" },
+  { path: "/api/admin/stats", note: "role-gated API, anonymous" },
+  { path: "/api/products/uji-sencha/reserve", method: "POST", headers: { "content-type": "application/json" }, body: "{\"quantity\":1}", note: "mutation endpoint, anonymous (Next mutates via Server Action instead)" },
+  { path: "/__manifest?p=%2F&version=0", note: "React Router lazy route discovery manifest (neither app)" },
   { path: "/.well-known/appspecific/com.chrome.devtools.json", note: "Chrome DevTools workspace probe" },
-  { path: "/__nextjs_original-stack-frames", note: "Next.js dev-only overlay endpoint" },
   { path: "/_next/static/chunks/main.js", note: "Next.js static chunk dir" },
 ];
 
@@ -50,23 +53,36 @@ async function measureApp(key) {
   const r = { key, label: app.label };
 
   // ---- versions ----
-  const pkg = JSON.parse(readFileSync(join(app.dir, "package.json"), "utf8"));
+  const dirs = [app.dir, ...(app.apiDir ? [app.apiDir] : [])];
   r.frameworkVersions = Object.fromEntries(
     app.frameworkPackages.map((name) => {
-      const v = sh(`node -p "require('${name}/package.json').version"`, { cwd: app.dir }).trim();
-      return [name, v];
+      for (const d of dirs) {
+        // read the file directly: some packages (hono) do not export ./package.json
+        const pj = join(d, "node_modules", name, "package.json");
+        if (existsSync(pj)) return [name, JSON.parse(readFileSync(pj, "utf8")).version];
+      }
+      return [name, "?"];
     }),
   );
-  r.declaredDeps = {
-    dependencies: Object.keys(pkg.dependencies ?? {}).filter((d) => d !== "@catalog/data"),
-    devDependencies: Object.keys(pkg.devDependencies ?? {}),
-  };
+  r.declaredDeps = { dependencies: [], devDependencies: [] };
+  for (const d of dirs) {
+    const pkg = JSON.parse(readFileSync(join(d, "package.json"), "utf8"));
+    r.declaredDeps.dependencies.push(...Object.keys(pkg.dependencies ?? {}).filter((x) => x !== "@catalog/data"));
+    r.declaredDeps.devDependencies.push(...Object.keys(pkg.devDependencies ?? {}));
+  }
 
   // ---- source ----
   r.source = countLines(app.sourceGlobs.map((g) => join(app.dir, g)));
 
   // ---- deps ----
-  r.deps = { prod: listDeps(app.dir, { prod: true }), all: listDeps(app.dir, { prod: false }) };
+  const merge = (lists) => {
+    const packages = [...new Set(lists.flatMap((l) => l.packages))].sort();
+    return { count: packages.length, bytes: lists.reduce((a, l) => a + l.bytes, 0), packages };
+  };
+  r.deps = {
+    prod: merge(dirs.map((d) => listDeps(d, { prod: true }))),
+    all: merge(dirs.map((d) => listDeps(d, { prod: false }))),
+  };
   // Next.js vendors React + the RSC runtime under next/dist/compiled, so it never
   // shows up as a separate package. Check both places.
   r.deps.hasRscRuntime =
@@ -80,12 +96,18 @@ async function measureApp(key) {
     for (let i = 0; i < BUILD_RUNS; i++) {
       for (const d of app.cleanDirs) rmSync(join(app.dir, d), { recursive: true, force: true });
       const t0 = performance.now();
-      sh("pnpm build", { cwd: app.dir, env: { ...process.env, NEXT_TELEMETRY_DISABLED: "1" } });
+      for (const pkg of app.pkgs) sh(`pnpm --filter ${pkg} build`, { cwd: ROOT, env: { ...process.env, NEXT_TELEMETRY_DISABLED: "1" } });
       r.build.runsMs.push(Math.round(performance.now() - t0));
     }
     r.build.bestMs = Math.min(...r.build.runsMs);
   }
-  r.output = dirSize(join(app.dir, app.outputDirs[0]), { exclude: app.outputExclude.map((e) => join(app.dir, e)) });
+  r.output = app.outputDirs.reduce(
+    (acc, d) => {
+      const x = dirSize(join(app.dir, d), { exclude: app.outputExclude.map((e) => join(app.dir, e)) });
+      return { bytes: acc.bytes + x.bytes, files: acc.files + x.files };
+    },
+    { bytes: 0, files: 0 },
+  );
   r.deployable = app.deployable.reduce(
     (acc, d) => {
       const s = dirSize(join(app.dir, d));
@@ -93,17 +115,12 @@ async function measureApp(key) {
     },
     { bytes: 0, files: 0 },
   );
-  if (key === "rr") {
-    // React Router ships build/ + production node_modules; add the latter so the
+  if (key === "spa") {
+    // The API ships dist/ + its production node_modules; add the latter so the
     // number is comparable with Next's self-contained standalone directory.
-    r.deployable = {
-      bytes: r.deployable.bytes + r.deps.prod.bytes,
-      files: r.deployable.files,
-      note: "build/ + production node_modules",
-    };
-  } else {
-    r.deployable.note = ".next/standalone (traced node_modules included) + .next/static";
+    r.deployable = { bytes: r.deployable.bytes + listDeps(app.apiDir, { prod: true }).bytes, files: r.deployable.files };
   }
+  r.deployable.note = app.deployableNote;
 
   // ---- runtime ----
   const base = `http://localhost:${app.port}`;
