@@ -12,7 +12,6 @@ const GROUPS = {
     label: "TanStack Router (SPA 側)",
     packages: ["@tanstack/react-router", "@tanstack/router-core", "@tanstack/history", "@tanstack/router-plugin"],
   },
-  hono: { label: "Hono (API 側)", packages: ["hono", "@hono/node-server"] },
   rsc: {
     label: "React Server Components runtime (Next が同梱、SPA は未使用)",
     packages: ["react-server-dom-webpack", "react-server-dom-turbopack", "react-server-dom-parcel"],

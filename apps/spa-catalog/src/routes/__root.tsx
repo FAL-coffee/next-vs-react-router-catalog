@@ -17,9 +17,6 @@ function RootLayout() {
           <Link to="/about" className="text-sm text-zinc-600 hover:underline">
             About
           </Link>
-          <a href="/api/products" className="text-sm text-zinc-600 hover:underline">
-            API
-          </a>
           <span data-testid="framework" className="ml-auto rounded bg-zinc-900 px-2 py-0.5 text-xs text-white">
             TanStack Router
           </span>

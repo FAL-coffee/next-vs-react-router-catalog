@@ -21,20 +21,20 @@ export const APPS = {
     frameworkPackages: ["next"],
   },
   spa: {
-    label: "TanStack Router SPA + Hono API",
+    label: "TanStack Router SPA",
     dir: join(ROOT, "apps/spa-catalog"),
-    apiDir: join(ROOT, "apps/api"),
-    pkgs: ["spa-catalog", "api"],
-    startPkg: "api",
+    pkgs: ["spa-catalog"],
+    startPkg: "spa-catalog",
     port: 3002,
-    cleanDirs: ["dist", "../api/dist"],
-    outputDirs: ["dist", "../api/dist"],
+    cleanDirs: ["dist"],
+    outputDirs: ["dist"],
     outputExclude: [],
-    deployable: ["dist", "../api/dist"],
-    deployableNote: "spa-catalog/dist (static) + api/dist + api production node_modules",
-    sourceGlobs: ["src", "index.html", "vite.config.ts", "tsconfig.json", "eslint.config.js", "../api/src", "../api/tsconfig.json"],
-    frameworkPackages: ["@tanstack/react-router", "@tanstack/router-plugin", "hono", "@hono/node-server"],
+    deployable: ["dist"],
+    deployableNote: "spa-catalog/dist (static files only)",
+    sourceGlobs: ["src", "index.html", "vite.config.ts", "tsconfig.json", "eslint.config.js", "serve.mjs"],
+    frameworkPackages: ["@tanstack/react-router", "@tanstack/router-plugin"],
   },
+
 };
 
 export function sh(cmd, opts = {}) {

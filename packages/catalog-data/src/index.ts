@@ -22,16 +22,21 @@ export const CATEGORIES: { value: Category; label: string }[] = [
 const products: Product[] = rawProducts as Product[];
 
 /**
- * In-memory reservation ledger. No database on purpose: both apps share this
- * module and keep state per server process, which is enough for a demo and
- * keeps the comparison about the framework, not about data access.
+ * Mock data layer shared by both apps. Every call resolves after the same
+ * artificial latency so that "data access" costs exactly the same whether it
+ * runs on Next's server or in the SPA's browser. No database, no network.
  */
-const reserved: Map<string, number> = ((globalThis as any).__catalogReserved ??=
-  new Map<string, number>());
-// `globalThis` rather than a plain module-level Map: Next.js bundles server
-// code per route, so a module-level singleton can be instantiated once per
-// route chunk. Vite SSR builds produce a single server bundle, so React Router
-// would be fine with a plain Map. Same trick people use for Prisma clients.
+export const MOCK_LATENCY_MS = 150;
+
+const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
+
+/**
+ * In-memory reservation ledger. In Next it lives in the server process (and
+ * is kept on `globalThis` because Next bundles server code per route, so a
+ * module-level singleton can be instantiated once per chunk). In the SPA it
+ * lives in the browser tab.
+ */
+const reserved: Map<string, number> = ((globalThis as any).__catalogReserved ??= new Map<string, number>());
 
 function withStock(p: Product): Product {
   return { ...p, stock: Math.max(0, p.stock - (reserved.get(p.id) ?? 0)) };
@@ -39,22 +44,20 @@ function withStock(p: Product): Product {
 
 export type ListQuery = { q?: string | null; category?: string | null };
 
-export function listProducts(query: ListQuery = {}): Product[] {
+export async function listProducts(query: ListQuery = {}): Promise<Product[]> {
+  await sleep(MOCK_LATENCY_MS);
   const q = (query.q ?? "").trim().toLowerCase();
   const category = query.category ?? "";
   return products
     .filter((p) => (category ? p.category === category : true))
     .filter((p) =>
-      q
-        ? [p.name, p.origin, p.description, p.id].some((s) =>
-            s.toLowerCase().includes(q),
-          )
-        : true,
+      q ? [p.name, p.origin, p.description, p.id].some((s) => s.toLowerCase().includes(q)) : true,
     )
     .map(withStock);
 }
 
-export function getProduct(id: string): Product | undefined {
+export async function getProduct(id: string): Promise<Product | undefined> {
+  await sleep(MOCK_LATENCY_MS);
   const p = products.find((p) => p.id === id);
   return p ? withStock(p) : undefined;
 }
@@ -63,9 +66,11 @@ export type ReserveResult =
   | { ok: true; product: Product; quantity: number }
   | { ok: false; error: string };
 
-export function reserveProduct(id: string, quantity: number): ReserveResult {
-  const product = getProduct(id);
-  if (!product) return { ok: false, error: "商品が見つかりません" };
+export async function reserveProduct(id: string, quantity: number): Promise<ReserveResult> {
+  await sleep(MOCK_LATENCY_MS);
+  const p = products.find((p) => p.id === id);
+  if (!p) return { ok: false, error: "商品が見つかりません" };
+  const product = withStock(p);
   if (!Number.isInteger(quantity) || quantity < 1) {
     return { ok: false, error: "数量は1以上の整数で指定してください" };
   }
@@ -73,7 +78,7 @@ export function reserveProduct(id: string, quantity: number): ReserveResult {
     return { ok: false, error: `在庫が足りません（残り ${product.stock}）` };
   }
   reserved.set(id, (reserved.get(id) ?? 0) + quantity);
-  return { ok: true, product: getProduct(id)!, quantity };
+  return { ok: true, product: withStock(p), quantity };
 }
 
 export function resetReservations(): void {

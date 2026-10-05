@@ -1,5 +1,5 @@
 {
-  "measuredAt": "2026-10-05T09:35:00.004Z",
+  "measuredAt": "2026-10-05T11:22:18.168Z",
   "node": "v22.22.0",
   "pnpm": "10.28.0",
   "apps": {
@@ -547,25 +547,26 @@
       },
       "build": {
         "runsMs": [
-          13883,
-          12587
+          14121,
+          12878
         ],
-        "bestMs": 12587
+        "bestMs": 12878
       },
       "output": {
-        "bytes": 9907843,
+        "bytes": 9911104,
         "files": 287
       },
       "deployable": {
-        "bytes": 215110850,
+        "bytes": 215111555,
         "files": 3585,
         "note": ".next/standalone (traced node_modules included) + .next/static"
       },
-      "coldStartMs": 973,
+      "coldStartMs": 1168,
       "responseHeaders": {
         "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
         "content-encoding": "gzip",
         "content-type": "text/html; charset=utf-8",
+        "link": "</_next/static/chunks/3prps37s8an8n.css>; rel=preload; as=\"style\"",
         "transfer-encoding": "chunked",
         "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, Accept-Encoding",
         "x-powered-by": "Next.js"
@@ -644,16 +645,11 @@
           "finalUrl": "/"
         },
         {
-          "path": "/api/products/uji-sencha/reserve",
-          "method": "POST",
-          "headers": {
-            "content-type": "application/json"
-          },
-          "body": "{\"quantity\":1}",
-          "note": "mutation endpoint (Next mutates via Server Action instead)",
-          "status": 404,
-          "contentType": "text/html",
-          "finalUrl": "/api/products/uji-sencha/reserve"
+          "path": "/api/products",
+          "note": "JSON API (Next: Route Handler; SPA: none, data lives in the browser)",
+          "status": 200,
+          "contentType": "application/json",
+          "finalUrl": "/api/products"
         },
         {
           "path": "/__manifest?p=%2F&version=0",
@@ -681,8 +677,8 @@
         "/": {
           "document": {
             "raw": 24606,
-            "gzip": 4108,
-            "brotli": 3365,
+            "gzip": 4097,
+            "brotli": 3378,
             "count": 1
           },
           "script": {
@@ -704,9 +700,9 @@
             "count": 8
           },
           "total": {
-            "raw": 569227,
-            "gzip": 178463,
-            "brotli": 155363,
+            "raw": 566968,
+            "gzip": 177427,
+            "brotli": 154496,
             "count": 39
           },
           "scripts": [
@@ -721,9 +717,9 @@
               "gzip": 7667
             },
             {
-              "url": "/_next/static/chunks/0aovqvcnny5ax.js",
-              "raw": 23133,
-              "gzip": 6750
+              "url": "/_next/static/chunks/turbopack-1zvfgahcuwiwt.js",
+              "raw": 10945,
+              "gzip": 4299
             },
             {
               "url": "/_next/static/chunks/39-yoepc35gu7.js",
@@ -731,50 +727,50 @@
               "gzip": 5585
             },
             {
-              "url": "/_next/static/chunks/turbopack-1zvfgahcuwiwt.js",
-              "raw": 10945,
-              "gzip": 4299
-            },
-            {
               "url": "/_next/static/chunks/3cdwhhyfv_clq.js",
               "raw": 609,
               "gzip": 446
             },
             {
-              "url": "/_next/static/chunks/0a1hgbkcaukaa.js",
-              "raw": 165989,
-              "gzip": 45054
+              "url": "/_next/static/chunks/0aovqvcnny5ax.js",
+              "raw": 23133,
+              "gzip": 6750
             },
             {
               "url": "/_next/static/chunks/2emb-lzrwwsim.js",
               "raw": 228904,
               "gzip": 71404
+            },
+            {
+              "url": "/_next/static/chunks/0a1hgbkcaukaa.js",
+              "raw": 165989,
+              "gzip": 45054
             }
           ],
           "images": [
             {
-              "url": "/_next/image?url=%2Fimages%2Fuji-sencha.png&w=640&q=75",
-              "raw": 1584
-            },
-            {
               "url": "/_next/image?url=%2Fimages%2Fethiopia-yirgacheffe.png&w=640&q=75",
               "raw": 2980
+            },
+            {
+              "url": "/_next/image?url=%2Fimages%2Fcolombia-huila.png&w=640&q=75",
+              "raw": 1840
             },
             {
               "url": "/_next/image?url=%2Fimages%2Fbrazil-cerrado.png&w=640&q=75",
               "raw": 1820
             },
             {
-              "url": "/_next/image?url=%2Fimages%2Fassam-ctc.png&w=640&q=75",
-              "raw": 1740
-            },
-            {
               "url": "/_next/image?url=%2Fimages%2Fguatemala-antigua.png&w=640&q=75",
               "raw": 2594
             },
             {
-              "url": "/_next/image?url=%2Fimages%2Fcolombia-huila.png&w=640&q=75",
-              "raw": 1840
+              "url": "/_next/image?url=%2Fimages%2Fuji-sencha.png&w=640&q=75",
+              "raw": 1584
+            },
+            {
+              "url": "/_next/image?url=%2Fimages%2Fassam-ctc.png&w=640&q=75",
+              "raw": 1740
             },
             {
               "url": "/_next/image?url=%2Fimages%2Fhario-v60.png&w=640&q=75",
@@ -789,14 +785,14 @@
         "/products/ethiopia-yirgacheffe": {
           "document": {
             "raw": 16188,
-            "gzip": 3628,
-            "brotli": 2990,
+            "gzip": 3633,
+            "brotli": 2988,
             "count": 1
           },
           "script": {
             "raw": 480382,
             "gzip": 143862,
-            "brotli": 123570,
+            "brotli": 123573,
             "count": 8
           },
           "stylesheet": {
@@ -812,9 +808,9 @@
             "count": 1
           },
           "total": {
-            "raw": 544710,
-            "gzip": 165154,
-            "brotli": 142879,
+            "raw": 545883,
+            "gzip": 165741,
+            "brotli": 143380,
             "count": 19
           },
           "scripts": [
@@ -829,29 +825,29 @@
               "gzip": 7667
             },
             {
-              "url": "/_next/static/chunks/turbopack-1zvfgahcuwiwt.js",
-              "raw": 10945,
-              "gzip": 4299
-            },
-            {
-              "url": "/_next/static/chunks/21ed2bacroz-p.js",
-              "raw": 16181,
-              "gzip": 6216
-            },
-            {
               "url": "/_next/static/chunks/0aovqvcnny5ax.js",
               "raw": 23133,
               "gzip": 6750
             },
             {
-              "url": "/_next/static/chunks/3cdwhhyfv_clq.js",
-              "raw": 609,
-              "gzip": 446
+              "url": "/_next/static/chunks/turbopack-1zvfgahcuwiwt.js",
+              "raw": 10945,
+              "gzip": 4299
+            },
+            {
+              "url": "/_next/static/chunks/25r5lj8yvnb2u.js",
+              "raw": 16181,
+              "gzip": 6216
             },
             {
               "url": "/_next/static/chunks/0a1hgbkcaukaa.js",
               "raw": 165989,
               "gzip": 45054
+            },
+            {
+              "url": "/_next/static/chunks/3cdwhhyfv_clq.js",
+              "raw": 609,
+              "gzip": 446
             },
             {
               "url": "/_next/static/chunks/2emb-lzrwwsim.js",
@@ -870,7 +866,7 @@
           "document": {
             "raw": 10935,
             "gzip": 2717,
-            "brotli": 2207,
+            "brotli": 2214,
             "count": 1
           },
           "script": {
@@ -892,9 +888,9 @@
             "count": 0
           },
           "total": {
-            "raw": 520296,
-            "gzip": 155309,
-            "brotli": 133963,
+            "raw": 521469,
+            "gzip": 155890,
+            "brotli": 134472,
             "count": 15
           },
           "scripts": [
@@ -904,9 +900,9 @@
               "gzip": 2026
             },
             {
-              "url": "/_next/static/chunks/turbopack-1zvfgahcuwiwt.js",
-              "raw": 10945,
-              "gzip": 4299
+              "url": "/_next/static/chunks/0aovqvcnny5ax.js",
+              "raw": 23133,
+              "gzip": 6750
             },
             {
               "url": "/_next/static/chunks/00e6wkxplygc2.js",
@@ -914,14 +910,14 @@
               "gzip": 7667
             },
             {
-              "url": "/_next/static/chunks/0aovqvcnny5ax.js",
-              "raw": 23133,
-              "gzip": 6750
-            },
-            {
               "url": "/_next/static/chunks/3cdwhhyfv_clq.js",
               "raw": 609,
               "gzip": 446
+            },
+            {
+              "url": "/_next/static/chunks/turbopack-1zvfgahcuwiwt.js",
+              "raw": 10945,
+              "gzip": 4299
             },
             {
               "url": "/_next/static/chunks/0a1hgbkcaukaa.js",
@@ -937,44 +933,52 @@
           "images": []
         }
       },
+      "timeToContent": {
+        "/": {
+          "n": 7,
+          "p50": 379,
+          "min": 354
+        },
+        "/products/ethiopia-yirgacheffe": {
+          "n": 7,
+          "p50": 362,
+          "min": 353
+        }
+      },
       "latency": {
         "/": {
           "n": 200,
-          "p50": 8.61,
-          "p95": 13.44,
-          "p99": 15.08
+          "p50": 161.57,
+          "p95": 168.46,
+          "p99": 175.22
         },
         "/products/ethiopia-yirgacheffe": {
           "n": 200,
-          "p50": 8.1,
-          "p95": 15.25,
-          "p99": 21.71
+          "p50": 160.94,
+          "p95": 166.57,
+          "p99": 169.53
         },
         "/api/products": {
           "n": 200,
-          "p50": 2.4,
-          "p95": 4.5,
-          "p99": 6.26
+          "p50": 155.23,
+          "p95": 158.14,
+          "p99": 164.22
         }
       },
-      "memoryRssKb": 299364
+      "memoryRssKb": 227200
     },
     "spa": {
       "key": "spa",
-      "label": "TanStack Router SPA + Hono API",
+      "label": "TanStack Router SPA",
       "frameworkVersions": {
         "@tanstack/react-router": "1.170.41",
-        "@tanstack/router-plugin": "1.168.42",
-        "hono": "4.13.13",
-        "@hono/node-server": "2.1.3"
+        "@tanstack/router-plugin": "1.168.42"
       },
       "declaredDeps": {
         "dependencies": [
           "@tanstack/react-router",
           "react",
-          "react-dom",
-          "@hono/node-server",
-          "hono"
+          "react-dom"
         ],
         "devDependencies": [
           "@tailwindcss/vite",
@@ -986,32 +990,24 @@
           "eslint",
           "tailwindcss",
           "typescript",
-          "vite",
-          "esbuild",
-          "hono",
-          "@types/node",
-          "esbuild",
-          "tsx",
-          "typescript"
+          "vite"
         ]
       },
       "source": {
-        "lines": 659,
-        "files": 22
+        "lines": 582,
+        "files": 19
       },
       "deps": {
         "prod": {
-          "count": 15,
-          "bytes": 14147488,
+          "count": 13,
+          "bytes": 12714965,
           "packages": [
-            "@hono/node-server@2.1.3",
             "@tanstack/history@1.162.4",
             "@tanstack/react-router@1.170.41",
             "@tanstack/react-store@0.11.2",
             "@tanstack/router-core@1.171.34",
             "@tanstack/store@0.11.2",
             "cookie-es@3.1.1",
-            "hono@4.13.13",
             "isbot@5.2.2",
             "react-dom@19.2.8",
             "react@19.2.8",
@@ -1022,8 +1018,8 @@
           ]
         },
         "all": {
-          "count": 425,
-          "bytes": 248444709,
+          "count": 423,
+          "bytes": 207597847,
           "packages": [
             "@babel/code-frame@7.29.7",
             "@babel/compat-data@7.29.7",
@@ -1080,7 +1076,6 @@
             "@eslint/js@9.39.5",
             "@eslint/object-schema@2.1.7",
             "@eslint/plugin-kit@0.4.1",
-            "@hono/node-server@2.1.3",
             "@humanfs/core@0.19.2",
             "@humanfs/node@0.16.8",
             "@humanfs/types@0.15.0",
@@ -1281,7 +1276,6 @@
             "has-symbols@1.1.0",
             "has-tostringtag@1.0.2",
             "hasown@2.0.4",
-            "hono@4.13.13",
             "ignore@5.3.2",
             "ignore@7.0.12",
             "import-fresh@3.3.1",
@@ -1457,21 +1451,21 @@
       },
       "build": {
         "runsMs": [
-          2936,
-          2746
+          1955,
+          1421
         ],
-        "bestMs": 2746
+        "bestMs": 1421
       },
       "output": {
-        "bytes": 405825,
-        "files": 19
+        "bytes": 401358,
+        "files": 18
       },
       "deployable": {
-        "bytes": 1838348,
-        "files": 19,
-        "note": "spa-catalog/dist (static) + api/dist + api production node_modules"
+        "bytes": 401358,
+        "files": 18,
+        "note": "spa-catalog/dist (static files only)"
       },
-      "coldStartMs": 547,
+      "coldStartMs": 531,
       "responseHeaders": {
         "content-type": "text/plain",
         "transfer-encoding": "chunked"
@@ -1550,16 +1544,11 @@
           "finalUrl": "/"
         },
         {
-          "path": "/api/products/uji-sencha/reserve",
-          "method": "POST",
-          "headers": {
-            "content-type": "application/json"
-          },
-          "body": "{\"quantity\":1}",
-          "note": "mutation endpoint (Next mutates via Server Action instead)",
-          "status": 200,
-          "contentType": "application/json",
-          "finalUrl": "/api/products/uji-sencha/reserve"
+          "path": "/api/products",
+          "note": "JSON API (Next: Route Handler; SPA: none, data lives in the browser)",
+          "status": 404,
+          "contentType": "text/plain",
+          "finalUrl": "/api/products"
         },
         {
           "path": "/__manifest?p=%2F&version=0",
@@ -1587,20 +1576,20 @@
         "/": {
           "document": {
             "raw": 797,
-            "gzip": 419,
-            "brotli": 294,
+            "gzip": 421,
+            "brotli": 293,
             "count": 1
           },
           "script": {
-            "raw": 278060,
-            "gzip": 91630,
-            "brotli": 80536,
+            "raw": 280089,
+            "gzip": 92837,
+            "brotli": 81401,
             "count": 5
           },
           "stylesheet": {
-            "raw": 11536,
-            "gzip": 3086,
-            "brotli": 2660,
+            "raw": 11560,
+            "gzip": 3096,
+            "brotli": 2659,
             "count": 1
           },
           "image": {
@@ -1610,10 +1599,10 @@
             "count": 8
           },
           "total": {
-            "raw": 373682,
-            "gzip": 159054,
-            "brotli": 146977,
-            "count": 16
+            "raw": 374006,
+            "gzip": 159460,
+            "brotli": 147152,
+            "count": 15
           },
           "scripts": [
             {
@@ -1622,24 +1611,24 @@
               "gzip": 556
             },
             {
-              "url": "/assets/preload-helper-CrVrdm6F.js",
-              "raw": 24969,
-              "gzip": 9640
+              "url": "/assets/preload-helper-COams2j5.js",
+              "raw": 27276,
+              "gzip": 10949
             },
             {
-              "url": "/assets/index-Co-iu3dU.js",
-              "raw": 246121,
-              "gzip": 78581
+              "url": "/assets/index-pvnGWOCz.js",
+              "raw": 246014,
+              "gzip": 78578
             },
             {
-              "url": "/assets/routes-Njn6wLeA.js",
-              "raw": 3567,
-              "gzip": 1627
+              "url": "/assets/routes-BXX-shl8.js",
+              "raw": 3562,
+              "gzip": 1628
             },
             {
-              "url": "/assets/ProductDetail-tAk4UKOV.js",
-              "raw": 2442,
-              "gzip": 1226
+              "url": "/assets/ProductDetail-DaUu0XtO.js",
+              "raw": 2276,
+              "gzip": 1126
             }
           ],
           "images": [
@@ -1664,12 +1653,12 @@
               "raw": 9284
             },
             {
-              "url": "/images/assam-ctc.png",
-              "raw": 7921
-            },
-            {
               "url": "/images/hario-v60.png",
               "raw": 10245
+            },
+            {
+              "url": "/images/assam-ctc.png",
+              "raw": 7921
             },
             {
               "url": "/images/paper-filter-02.png",
@@ -1680,20 +1669,20 @@
         "/products/ethiopia-yirgacheffe": {
           "document": {
             "raw": 797,
-            "gzip": 419,
-            "brotli": 294,
+            "gzip": 421,
+            "brotli": 293,
             "count": 1
           },
           "script": {
-            "raw": 274723,
-            "gzip": 90192,
-            "brotli": 79347,
+            "raw": 276757,
+            "gzip": 91397,
+            "brotli": 80192,
             "count": 5
           },
           "stylesheet": {
-            "raw": 11536,
-            "gzip": 3086,
-            "brotli": 2660,
+            "raw": 11560,
+            "gzip": 3096,
+            "brotli": 2659,
             "count": 1
           },
           "image": {
@@ -1703,10 +1692,10 @@
             "count": 1
           },
           "total": {
-            "raw": 300428,
-            "gzip": 104683,
-            "brotli": 93186,
-            "count": 9
+            "raw": 302243,
+            "gzip": 105666,
+            "brotli": 93846,
+            "count": 8
           },
           "scripts": [
             {
@@ -1715,24 +1704,24 @@
               "gzip": 556
             },
             {
-              "url": "/assets/preload-helper-CrVrdm6F.js",
-              "raw": 24969,
-              "gzip": 9640
+              "url": "/assets/preload-helper-COams2j5.js",
+              "raw": 27276,
+              "gzip": 10949
             },
             {
-              "url": "/assets/index-Co-iu3dU.js",
-              "raw": 246121,
-              "gzip": 78581
+              "url": "/assets/index-pvnGWOCz.js",
+              "raw": 246014,
+              "gzip": 78578
             },
             {
-              "url": "/assets/products._id-BGnIXOUW.js",
+              "url": "/assets/products._id-DnHV72Zf.js",
               "raw": 230,
-              "gzip": 189
+              "gzip": 188
             },
             {
-              "url": "/assets/ProductDetail-tAk4UKOV.js",
-              "raw": 2442,
-              "gzip": 1226
+              "url": "/assets/ProductDetail-DaUu0XtO.js",
+              "raw": 2276,
+              "gzip": 1126
             }
           ],
           "images": [
@@ -1745,20 +1734,20 @@
         "/about": {
           "document": {
             "raw": 797,
-            "gzip": 419,
-            "brotli": 294,
+            "gzip": 421,
+            "brotli": 293,
             "count": 1
           },
           "script": {
-            "raw": 273076,
-            "gzip": 89447,
-            "brotli": 78701,
+            "raw": 275442,
+            "gzip": 90838,
+            "brotli": 79713,
             "count": 4
           },
           "stylesheet": {
-            "raw": 11536,
-            "gzip": 3086,
-            "brotli": 2660,
+            "raw": 11560,
+            "gzip": 3096,
+            "brotli": 2659,
             "count": 1
           },
           "image": {
@@ -1768,9 +1757,9 @@
             "count": 0
           },
           "total": {
-            "raw": 285409,
-            "gzip": 92952,
-            "brotli": 81655,
+            "raw": 287799,
+            "gzip": 94355,
+            "brotli": 82665,
             "count": 6
           },
           "scripts": [
@@ -1780,45 +1769,57 @@
               "gzip": 556
             },
             {
-              "url": "/assets/preload-helper-CrVrdm6F.js",
-              "raw": 24969,
-              "gzip": 9640
+              "url": "/assets/preload-helper-COams2j5.js",
+              "raw": 27276,
+              "gzip": 10949
             },
             {
-              "url": "/assets/index-Co-iu3dU.js",
-              "raw": 246121,
-              "gzip": 78581
+              "url": "/assets/index-pvnGWOCz.js",
+              "raw": 246014,
+              "gzip": 78578
             },
             {
-              "url": "/assets/about-DgcOskiM.js",
-              "raw": 1025,
-              "gzip": 670
+              "url": "/assets/about-Dr8eTl12.js",
+              "raw": 1191,
+              "gzip": 755
             }
           ],
           "images": []
         }
       },
+      "timeToContent": {
+        "/": {
+          "n": 7,
+          "p50": 319,
+          "min": 307
+        },
+        "/products/ethiopia-yirgacheffe": {
+          "n": 7,
+          "p50": 291,
+          "min": 286
+        }
+      },
       "latency": {
         "/": {
           "n": 200,
-          "p50": 0.8,
-          "p95": 1.69,
-          "p99": 3.28
+          "p50": 0.97,
+          "p95": 3.32,
+          "p99": 7.18
         },
         "/products/ethiopia-yirgacheffe": {
           "n": 200,
-          "p50": 0.83,
-          "p95": 1.67,
-          "p99": 4.77
+          "p50": 0.92,
+          "p95": 2.19,
+          "p99": 3.66
         },
         "/api/products": {
           "n": 200,
-          "p50": 0.89,
-          "p95": 1.32,
-          "p99": 2.53
+          "p50": 0.75,
+          "p95": 1.19,
+          "p99": 1.66
         }
       },
-      "memoryRssKb": 73724
+      "memoryRssKb": 67424
     }
   }
 }

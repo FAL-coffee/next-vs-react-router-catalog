@@ -1,36 +1,33 @@
+/**
+ * The SPA's "data access". In this comparison it calls the shared mock data
+ * layer directly in the browser (same artificial latency as Next's server-side
+ * calls). In a real product this file is where `fetch` to the BFF would live.
+ */
+import { getProduct as mockGetProduct, listProducts as mockListProducts, reserveProduct } from "@catalog/data";
 import type { Product } from "@catalog/data";
 
 export class ApiError extends Error {
   constructor(
     public status: number,
-    public body: { error?: string; message?: string },
+    message: string,
   ) {
-    super(body.message ?? body.error ?? `HTTP ${status}`);
+    super(message);
   }
 }
 
-async function api<T>(path: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(path, {
-    ...init,
-    headers: { accept: "application/json", ...(init?.body ? { "content-type": "application/json" } : {}), ...init?.headers },
-  });
-  const body = await res.json().catch(() => ({}));
-  if (!res.ok) throw new ApiError(res.status, body);
-  return body as T;
-}
+export const listProducts = (q: { q?: string; category?: string }): Promise<Product[]> => mockListProducts(q);
 
-export const listProducts = (q: { q?: string; category?: string }) => {
-  const sp = new URLSearchParams();
-  if (q.q) sp.set("q", q.q);
-  if (q.category) sp.set("category", q.category);
-  const qs = sp.toString();
-  return api<{ products: Product[] }>(`/api/products${qs ? `?${qs}` : ""}`).then((r) => r.products);
+export const getProduct = async (id: string): Promise<Product> => {
+  const product = await mockGetProduct(id);
+  if (!product) throw new ApiError(404, "not_found");
+  return product;
 };
 
-export const getProduct = (id: string) => api<{ product: Product }>(`/api/products/${id}`).then((r) => r.product);
-
-export const reserve = (id: string, quantity: number) =>
-  api<{ status: "ok"; message: string; product: Product }>(`/api/products/${id}/reserve`, {
-    method: "POST",
-    body: JSON.stringify({ quantity }),
-  });
+export const reserve = async (id: string, quantity: number): Promise<{ message: string; product: Product }> => {
+  const result = await reserveProduct(id, quantity);
+  if (!result.ok) throw new ApiError(400, result.error);
+  return {
+    message: `${result.product.name} を ${result.quantity} 点予約しました（残り ${result.product.stock}）`,
+    product: result.product,
+  };
+};

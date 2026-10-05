@@ -6,7 +6,7 @@ import { ProductDetail } from "@/components/ProductDetail";
 
 export async function generateMetadata({ params }: PageProps<"/products/[id]">): Promise<Metadata> {
   const { id } = await params;
-  const product = getProduct(id);
+  const product = await getProduct(id);
   return { title: product ? product.name : "Not Found" };
 }
 
@@ -16,7 +16,7 @@ export default async function ProductPage({ params, searchParams }: PageProps<"/
   if (sp.fail === "1") {
     throw new Error("Intentional failure for error-boundary comparison");
   }
-  const product = getProduct(id);
+  const product = await getProduct(id);
   if (!product) notFound();
 
   return (

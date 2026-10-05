@@ -10,7 +10,7 @@ import { Modal } from "./Modal";
  */
 export default async function QuickViewModal({ params }: PageProps<"/products/[id]">) {
   const { id } = await params;
-  const product = getProduct(id);
+  const product = await getProduct(id);
   return (
     <Modal>
       {product ? (

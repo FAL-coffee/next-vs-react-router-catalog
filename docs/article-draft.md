@@ -86,16 +86,18 @@ Next.js を選んだ時点で、SSR + RSC + Server Actions が既定になりま
 商品カタログです。DB は使わず、JSON とインメモリの在庫で動きます。
 一覧・検索・クイックビュー（モーダル）・詳細・予約フォーム・JSON API・404・エラー境界。
 
+データ層は共有のモック関数で、どの呼び出しも固定で 150 ms 待ってから返します。Next.js はそれをサーバで、SPA はブラウザで呼びます。SPA 側に本物の API を立てると「Next.js vs SPA + API サーバ」の 2 対 1 になって数字の帰属が曖昧になるので、**データ取得のコストが完全に同じ**状態で比べることにしました。
+
 ルールはひとつ。**どちらも公式 CLI の既定テンプレートから始めて、設定をほぼ触らない。**
 「とりあえず」を再現するためです。
 
-| | Next.js 16（App Router） | TanStack Router SPA + Hono API |
+| | Next.js 16（App Router） | TanStack Router SPA |
 | --- | --- | --- |
-| 一覧・検索 | Server Component + `searchParams` | `loader` + `validateSearch`、データは `/api/products` |
+| 一覧・検索 | Server Component + `searchParams` | `loader` + `validateSearch` |
 | クイックビュー | Parallel Route `@modal` + Intercepting Route `(.)products/[id]` | `?quick=<id>` + route masking |
 | 詳細 + メタデータ | `generateMetadata` + `notFound()` | `head` + `notFound()` |
 | OG 画像 | `next/og` の `ImageResponse` | なし |
-| 予約 | Server Action + `useActionState` | `fetch` → `POST /api/products/:id/reserve` |
+| 予約 | Server Action + `useActionState` | `useState` + データ層呼び出し（実運用なら `fetch`） |
 | 画像 | `next/image`（既定） | `<img>` |
 
 Next.js 側には、わざと「テクい機能」を盛りました。
@@ -116,8 +118,8 @@ https://github.com/FAL-coffee/next-vs-react-router-catalog
 | --- | --- | --- | --- |
 | SSR / 初期 HTML | なし。空の `index.html` + JS | 0 | **未ログインの公開ページがあるなら足りない** |
 | RSC（クライアント JS 削減） | ルート単位のコード分割 | 0 | 今回の規模では JS 量は Next の方が多かった。不要 |
-| Server Actions | `fetch` + `useState` | 低 | **JS 無効で動かすのは無理**。それ以外は不要 |
-| Route Handlers | Hono の別プロセス | 低 | 不要。BFF が既にある会社は最初からこれ |
+| Server Actions | `useState` + データ層呼び出し | 低 | **JS 無効で動かすのは無理**。それ以外は不要 |
+| Route Handlers | なし。実運用では既存の BFF | 低 | 不要。BFF が既にある会社は最初からこれ |
 | Parallel + Intercepting Routes | search param + route masking | 低。むしろ短い | 不要 |
 | Middleware（proxy） | `beforeLoad` + API 側の検査 | 低 | 不要。むしろバイパス系の口が消える |
 | Image Optimization | `<img>`。最適化は CDN の仕事 | 中 | **外部画像を大量に扱うなら足りない** |
@@ -169,7 +171,7 @@ TanStack Router 側。カードの `<Link>` に `mask` を付けるだけです�
 正直、こちらの方が「何が起きているか」が読めます。
 Next.js の方はファイルの置き場所が仕様なので、初見の人は `(.)` と `@` を調べるところから始まります。
 
-### Server Actions vs fetch
+### Server Actions vs ブラウザから呼ぶ
 
 予約フォームです。数量を送って在庫を減らし、結果のメッセージを出します。
 
@@ -185,17 +187,17 @@ export async function reserveAction(_prev: ReserveState, formData: FormData): Pr
 }
 ```
 
-TanStack Router 側。ただの `fetch` です。
+TanStack Router 側。ただの関数呼び出しです（実運用ならここが BFF への `fetch` になります）。
 
 ```ts
-const r = await reserve(product.id, quantity);   // POST /api/products/:id/reserve
+const r = await reserve(product.id, quantity);   // モックのデータ層。実運用なら fetch
 setState({ status: "ok", message: r.message });
 await router.invalidate();                        // loader を取り直す
 ```
 
-Server Action の方が「API を書いた覚えがないのにサーバで動く」ので魔法っぽく、短いです。
+Server Action の方が「API を書いた覚えがないのにサーバで動く」ので魔法っぽいです。
 ただし `POST /` に `Next-Action` ヘッダを付ければ外から叩ける口が生えています（後述）。
-SPA 側は API を自分で書くので行数は増えますが、口は `/api/products/:id/reserve` の1本だけで、何が公開されているかは見ればわかります。
+SPA 側は BFF を自分で持つ前提なので、何が公開されているかは BFF を見ればわかります。
 
 そして一つ、はっきりした差があります。**Server Action は JavaScript が無効でも動きます。** SPA の `fetch` は動きません。
 これは SPA が「足りない」側に残る項目です。
@@ -206,16 +208,16 @@ SPA 側は API を自分で書くので行数は増えますが、口は `/api/p
 
 | | Next.js | SPA + API | 比 |
 | --- | --- | --- | --- |
-| 書いたコード（非空行） | 473 行 | 659 行 | SPA の方が多い |
-| 本番依存パッケージ | 59 個 / 428 MB | 15 個 / 13.5 MB | 32x |
+| 書いたコード（非空行） | 473 行 | 582 行 | SPA の方が多い |
+| 本番依存パッケージ | 59 個 / 428 MB | 13 個 / 12 MB | 35x |
 | RSC ランタイムを同梱 | はい | いいえ | |
 | sharp / libvips を同梱 | はい | いいえ | |
-| クリーンビルド | 12.6 秒 | 2.7 秒 | 4.6x |
-| デプロイ一式 | 205 MB（standalone） | 1.8 MB（静的ファイル + API + その依存） | 117x |
-| 常駐メモリ RSS | 292 MB | 72 MB | 4x |
+| クリーンビルド | 12.9 秒 | 1.4 秒 | 9x |
+| デプロイ一式 | 205 MB（standalone） | 0.4 MB（静的ファイルのみ） | 540x |
+| 常駐メモリ RSS | 222 MB | 66 MB | 3.4x |
 
-書いたコードは SPA の方が多いです。API 本体と fetch の層を自分で書いたので当然ですね。ここは隠しません。
-（ビルド時間も、Next.js は `next build` の中で `tsc` と ESLint を回しているので、そのまま 4.6 倍と受け取るのは不公平です。）
+書いたコードは SPA の方が多いです。検索条件の型定義、モーダルの状態、データ層の薄いラッパ、静的配信用の 40 行のサーバを自分で書いたので当然ですね。ここは隠しません。
+（ビルド時間は、Next.js は `next build` の中で `tsc` と ESLint を回しているので、そのまま 9x と受け取るのは不公平です。）
 
 見てほしいのは依存とデプロイ一式です。
 Next.js の 428 MB の正体は、sharp + libvips（linux-x64 と linuxmusl の2種類）、SWC のネイティブバイナリ、そして vendored された React と RSC ランタイムです。
@@ -223,7 +225,7 @@ Next.js の 428 MB の正体は、sharp + libvips（linux-x64 と linuxmusl の2
 **この中の sharp/libvips と RSC ランタイムが、まさに AVIF RCE と React2Shell が刺さった場所です。**
 使う・使わないに関わらず、`create-next-app` した時点で node_modules に入っています。
 
-一方の SPA は、静的ファイルと 4 KB の API サーバと、Hono 一式。合わせて 1.8 MB。S3 に置けるサイズです。
+一方の SPA は、静的ファイルだけで 0.4 MB。S3 に置いて終わりです。
 
 ## 露出している口を数える
 
@@ -232,7 +234,7 @@ Next.js の 428 MB の正体は、sharp + libvips（linux-x64 と linuxmusl の2
 アプリが定義していないパスに対して、両サーバが何を返すかを調べました。
 `404` 以外が返るものは、自分のコードとは無関係にフレームワークが生やしている口です。
 
-| リクエスト | 意味 | Next.js | SPA + API |
+| リクエスト | 意味 | Next.js | SPA |
 | --- | --- | --- | --- |
 | `GET /_next/image?url=/images/x.png&w=640&q=75` | 画像最適化 | **200** (image/png) | 404 |
 | 同上 + `Accept: image/webp` | フォーマット変換まで動く | **200** (image/webp) | 404 |
@@ -258,21 +260,23 @@ Next.js 側を見てください。
 `next/image` を使っていなくても、`next start` した時点でこの口は開いています。
 閉じるには `images.unoptimized: true` を**自分で書く**必要があります。
 
-SPA + API 側で開いている口は `/api/*` だけです。それ以外は全部 404。
-「表面積 = 自分が書いたルート + フレームワークが生やす口」で、後者がゼロなのが SPA です。
+SPA 側で開いている口はゼロです。静的ファイル以外は全部 404。
+「表面積 = 自分が書いたルート + フレームワークが生やす口」で、両方ゼロなのが静的な SPA です（その代わり、口は全部 BFF 側に移ります）。
 
-## ランタイムとページ重量（誤差の範囲）
+## 初期表示とページ重量
 
-| | Next.js | SPA + API |
+| | Next.js | SPA |
 | --- | --- | --- |
-| `/` の HTML | 24.6 KB | 0.8 KB |
-| `/` の JS（gzip） | 143 KB | 92 KB |
+| `/` の HTML | 24.0 KB | 0.8 KB |
+| `/` の JS（gzip） | 140 KB | 91 KB |
 | `/` の画像転送量 | 16 KB（webp 化） | 80 KB（PNG そのまま） |
-| `/` の p50 | 8.6 ms | 0.8 ms |
+| `/` を開いて最初の商品カードが出るまで（p50） | 379 ms | 319 ms |
 
-HTML の差は SSR の有無そのもので、これは SPA の「弱点」です。初期表示に JS の実行が要ります。
+最後の行が、ユーザーが体感する差です。両方ともデータ層の 150 ms を含んでいます。
+localhost では SPA の方が 60 ms ほど速く出ました。Next.js はサーバで 150 ms 待ってから HTML を作り始めるのに対し、SPA は空の HTML と JS を先に出してブラウザで 150 ms 待つので、待ち時間の置き場所が違うだけで総量は同じです。
+ただしこれは JS の転送がタダの localhost の話です。遅い回線では、SPA は 91 KB の JS を落とし終えるまで何も出せません。SSR の価値はそこにあります。
+HTML の差は SSR の有無そのもので、SPA は初期表示に JS の実行が要ります。
 JS は Next.js の方が 50 KB 多く、この規模の画面では RSC による「クライアント JS 削減」の恩恵は出ませんでした。
-レイテンシは SSR と静的配信を比べているので、差があって当然です。主戦場にはしません。
 
 そして画像。Next.js の画像最適化は本物です。16 KB と 80 KB は大きな差です。
 だからこそ「使うなら使う、使わないなら切る」と選定時に決めるべきで、「とりあえず入っているから有効」が一番良くないんです。
@@ -291,21 +295,18 @@ JS は Next.js の方が 50 KB 多く、この規模の画面では RSC によ�
 「じゃあ SPA は安全なのか」と言われると、そんなことはありません。
 ここを隠すと記事の信頼性が死ぬので、ちゃんと書きます。
 
-| | Next.js | TanStack Router | Hono | RSC runtime |
-| --- | --- | --- | --- | --- |
-| 総数 | 67 | 5 | 57 | 8 |
-| CRITICAL / HIGH | 5 / 26 | 1 / 0 | 0 / 9 | 1 / 6 |
-| 2026 年 | 34 | 5 | 47 | 4 |
+| | Next.js | TanStack Router | RSC runtime |
+| --- | --- | --- | --- |
+| 総数 | 67 | 5 | 8 |
+| CRITICAL / HIGH | 5 / 26 | 1 / 0 | 1 / 6 |
+| 2026 年 | 34 | 5 | 4 |
 
 TanStack Router の5件は、全部 **2026年5月の npm サプライチェーン攻撃**です。`@tanstack/*` の複数パッケージに、クラウド認証情報や SSH 鍵を盗む悪性コードが混入しました。
 コードの脆弱性ではなく供給網の話なので、本記事の軸とは別物です。でも「薄いから安全」と言った瞬間に、これが返ってきます。lockfile と provenance の確認は、フレームワークが薄くても要ります。
 
-Hono の 57 件は、2026 年だけで 47 件。数だけ見ると Next.js より酷い。
-ただし中身を見ると、JWT ミドルウェア、CORS ミドルウェア、`serveStatic`、JSX、SSG……**ほぼ全部が opt-in のミドルウェアに刺さったもの**です。
-今回の API は、そのどれも使っていません。`new Hono()` して JSON を返しているだけなので、47 件のうち当たるものは数えるほどでした。
-
-つまり「表面積 = 使っている機能」は、API 側でも成り立ちます。
-Next.js との違いは、**その機能が既定で有効になっているかどうか**です。
+もうひとつ、SPA にしたことで消えたのではなく**移動した**ものがあります。
+在庫のような共有状態は、SPA ではブラウザのタブに閉じます。今回はモックなので許容しましたが、本番では結局 BFF が要ります。
+「SPA で済む」は「BFF が既にある」とセットの話で、API 側の責務（入力検証、CSRF、レート制限、認可）は消えていません。Next.js はそれを `"use server"` の裏に隠しているだけで、どちらにせよ誰かが持ちます。
 
 # 残ったもの: Next.js が本当に必要なとき
 
@@ -331,7 +332,7 @@ Remix v2 を選んだのは loader / action の書き味とフォームの扱い
 
 **ステップ0: SSR が要るか**
 
-上の4つのどれかがプロダクトにあるか。無いなら SPA + API で済みます。TanStack Router でも React Router の SPA mode でも。
+上の4つのどれかがプロダクトにあるか。無いなら SPA + 既存の BFF で済みます。TanStack Router でも React Router の SPA mode でも。
 
 **ステップ1: SSR が要るなら、どのフレームワークか**
 
@@ -375,7 +376,5 @@ https://xorder.notion.site
 - [GHSA-9qr9-h5gf-34mp: React2Shell (Next.js)](https://osv.dev/vulnerability/GHSA-9qr9-h5gf-34mp)
 - [GHSA-fv66-9v8q-g76r: CVE-2025-55182 (react-server-dom)](https://osv.dev/vulnerability/GHSA-fv66-9v8q-g76r)
 - [GHSA-g7cv-rxg3-hmpx: Malware in @tanstack/* packages](https://osv.dev/vulnerability/GHSA-g7cv-rxg3-hmpx)
-- [GHSA-88fw-hqm2-52qc: Hono CORS middleware](https://osv.dev/vulnerability/GHSA-88fw-hqm2-52qc)
-- [GHSA-q5qw-h33p-qvwr: Hono serveStatic](https://osv.dev/vulnerability/GHSA-q5qw-h33p-qvwr)
 - [Remix v3 にコントリビュート（前回記事）](https://xmart-techblog.hatenablog.com/entry/2025/12/01/122639)
 - [Next.js ver13のappディレクトリをなんとなく批判したいので、酔った勢いで敵情を調査してみた（2023）](https://qiita.com/FAL-coffee/items/e4bcc16b065a737c9537)

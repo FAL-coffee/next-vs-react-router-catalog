@@ -1,113 +1,120 @@
 # Next.js vs TanStack Router SPA: 同一仕様カタログの計測結果
 
-計測日時: 2026-10-05T09:35:00.004Z / Node v22.22.0 / pnpm 10.28.0
+計測日時: 2026-10-05T11:22:18.168Z / Node v22.22.0 / pnpm 10.28.0
 
-両アプリは同じ `@catalog/data`（商品データ、インメモリ在庫）を使い、同じ画面・同じ振る舞い（一覧・検索・クイックビュー・詳細・予約・API・404・エラー境界）を持つ。SPA 側の数値は `apps/spa-catalog`（静的ファイル）と `apps/api`（Hono）の合算。
+両アプリは同じ `@catalog/data`（商品データ、インメモリ在庫）を使い、同じ画面・同じ振る舞い（一覧・検索・クイックビュー・詳細・予約・API・404・エラー境界）を持つ。データ層は共有のモック関数（固定 150 ms の擬似レイテンシ）で、Next はサーバ側、SPA はブラウザ側で同じ関数を呼ぶ。
 
 > 数値はこの環境（クラウドコンテナ）での1回の計測。絶対値よりも両者の比を見ること。`pnpm measure && pnpm report` で再現できる。
 
 ## 1. バージョン
 
-|  | Next.js | TanStack Router SPA + API |
+|  | Next.js | TanStack Router SPA |
 | --- | --- | --- |
-| フレームワーク | next@16.3.8 | @tanstack/react-router@1.170.41<br>@tanstack/router-plugin@1.168.42<br>hono@4.13.13<br>@hono/node-server@2.1.3 |
-| package.json の dependencies | next, react, react-dom | @tanstack/react-router, react, react-dom, @hono/node-server, hono |
-| package.json の devDependencies | @tailwindcss/postcss, @types/node, @types/react, @types/react-dom, eslint, eslint-config-next, tailwindcss, typescript | @tailwindcss/vite, @tanstack/eslint-config, @tanstack/router-plugin, @types/react, @types/react-dom, @vitejs/plugin-react, eslint, tailwindcss, typescript, vite, esbuild, hono, @types/node, esbuild, tsx, typescript |
+| フレームワーク | next@16.3.8 | @tanstack/react-router@1.170.41<br>@tanstack/router-plugin@1.168.42 |
+| package.json の dependencies | next, react, react-dom | @tanstack/react-router, react, react-dom |
+| package.json の devDependencies | @tailwindcss/postcss, @types/node, @types/react, @types/react-dom, eslint, eslint-config-next, tailwindcss, typescript | @tailwindcss/vite, @tanstack/eslint-config, @tanstack/router-plugin, @types/react, @types/react-dom, @vitejs/plugin-react, eslint, tailwindcss, typescript, vite |
 
 
 ## 2. 書いたコード量（アプリ側ソース）
 
-|  | Next.js | TanStack Router SPA + API |
+|  | Next.js | TanStack Router SPA |
 | --- | --- | --- |
-| ファイル数 | 22 | 22 |
-| 非空行数 | 473 | 659 |
+| ファイル数 | 22 | 19 |
+| 非空行数 | 473 | 582 |
 
 
 ## 3. 依存パッケージ（node_modules に実際に解決されたユニークな package@version）
 
-|  | Next.js | TanStack Router SPA + API | 比 |
+|  | Next.js | TanStack Router SPA | 比 |
 | --- | --- | --- | --- |
-| 本番依存 パッケージ数 | 59 | 15 | 3.9x |
-| 本番依存 ディスクサイズ | 428.22 MB | 13.49 MB | 31.7x |
-| 開発依存込み パッケージ数 | 440 | 425 | 1.0x |
-| 開発依存込み ディスクサイズ | 539.29 MB | 236.94 MB | 2.3x |
+| 本番依存 パッケージ数 | 59 | 13 | 4.5x |
+| 本番依存 ディスクサイズ | 428.22 MB | 12.13 MB | 35.3x |
+| 開発依存込み パッケージ数 | 440 | 423 | 1.0x |
+| 開発依存込み ディスクサイズ | 539.29 MB | 197.98 MB | 2.7x |
 | RSC ランタイム (react-server-dom-*) を同梱 | はい | いいえ |  |
 | 画像処理ネイティブライブラリ (sharp / libvips) を同梱 | はい | いいえ |  |
 
 
 ## 4. ビルド
 
-|  | Next.js | TanStack Router SPA + API | 比 |
+|  | Next.js | TanStack Router SPA | 比 |
 | --- | --- | --- | --- |
-| 本番ビルド時間（2回中の最速、クリーンビルド） | 12587 ms | 2746 ms | 4.6x |
-| ビルド時間 各回 | 13883 ms, 12587 ms | 2936 ms, 2746 ms |  |
-| ビルド出力サイズ（キャッシュ除く） | 9.45 MB / 287 files | 396.3 KB / 19 files | 24.4x |
-| デプロイに必要な一式 | 205.15 MB<br>(.next/standalone (traced node_modules included) + .next/static) | 1.75 MB<br>(spa-catalog/dist (static) + api/dist + api production node_modules) | 117.0x |
+| 本番ビルド時間（2回中の最速、クリーンビルド） | 12878 ms | 1421 ms | 9.1x |
+| ビルド時間 各回 | 14121 ms, 12878 ms | 1955 ms, 1421 ms |  |
+| ビルド出力サイズ（キャッシュ除く） | 9.45 MB / 287 files | 392.0 KB / 18 files | 24.7x |
+| デプロイに必要な一式 | 205.15 MB<br>(.next/standalone (traced node_modules included) + .next/static) | 392.0 KB<br>(spa-catalog/dist (static files only)) | 536.0x |
 
 
 ## 5. ランタイム
 
-|  | Next.js | TanStack Router SPA + API | 比 |
+|  | Next.js | TanStack Router SPA | 比 |
 | --- | --- | --- | --- |
-| コールドスタート（`start` 実行から `/` が 200 を返すまで） | 973 ms | 547 ms | 1.8x |
-| 常駐メモリ RSS（アイドル後、プロセスツリー合計） | 292.35 MB | 72.00 MB | 4.1x |
+| コールドスタート（`start` 実行から `/` が 200 を返すまで） | 1168 ms | 531 ms | 2.2x |
+| 常駐メモリ RSS（アイドル後、プロセスツリー合計） | 221.88 MB | 65.84 MB | 3.4x |
 
-レイテンシ（ウォームアップ後、逐次 200 リクエスト、localhost）:
+初期表示までの時間（実ブラウザ、新規コンテキストで `goto` してから最初の商品カード / 商品名が DOM に現れるまで。モックの 150 ms を含む。7 回の中央値）:
 
-| パス | Next p50 | Next p95 | SPA+API p50 | SPA+API p95 |
+| パス | Next p50 | Next min | SPA p50 | SPA min |
 | --- | --- | --- | --- | --- |
-| `/` | 8.61 ms | 13.44 ms | 0.8 ms | 1.69 ms |
-| `/products/ethiopia-yirgacheffe` | 8.1 ms | 15.25 ms | 0.83 ms | 1.67 ms |
-| `/api/products` | 2.4 ms | 4.5 ms | 0.89 ms | 1.32 ms |
+| `/` | 379 ms | 354 ms | 319 ms | 307 ms |
+| `/products/ethiopia-yirgacheffe` | 362 ms | 353 ms | 291 ms | 286 ms |
+
+サーバのレイテンシ（HTTP 1 リクエストの往復。Next は SSR なのでモックの 150 ms を含む。SPA は静的ファイルを返すだけ。ウォームアップ後、逐次 200 リクエスト、localhost）:
+
+| パス | Next p50 | Next p95 | SPA p50 | SPA p95 |
+| --- | --- | --- | --- | --- |
+| `/` | 161.57 ms | 168.46 ms | 0.97 ms | 3.32 ms |
+| `/products/ethiopia-yirgacheffe` | 160.94 ms | 166.57 ms | 0.92 ms | 2.19 ms |
+| `/api/products` | 155.23 ms | 158.14 ms | 0.75 ms | 1.19 ms |
 
 
 ## 6. ページ重量（実ブラウザで networkidle まで読み込んだ転送内容）
 
 ### `/`
 
-|  | Next.js | TanStack Router SPA + API | 比 |
+|  | Next.js | TanStack Router SPA | 比 |
 | --- | --- | --- | --- |
 | HTML | 24.0 KB | 797 B | 30.9x |
 | JS ファイル数 | 8 | 5 |  |
-| JS 合計 (raw) | 467.8 KB | 271.5 KB | 1.7x |
-| JS 合計 (gzip) | 139.9 KB | 89.5 KB | 1.6x |
-| JS 合計 (brotli) | 120.1 KB | 78.6 KB | 1.5x |
+| JS 合計 (raw) | 467.8 KB | 273.5 KB | 1.7x |
+| JS 合計 (gzip) | 139.9 KB | 90.7 KB | 1.5x |
+| JS 合計 (brotli) | 120.1 KB | 79.5 KB | 1.5x |
 | CSS | 11.5 KB | 11.3 KB |  |
 | 画像 (枚数 / バイト) | 8 / 16.0 KB | 8 / 79.6 KB |  |
-| リクエスト総数 / 総バイト | 39 / 555.9 KB | 16 / 364.9 KB |  |
+| リクエスト総数 / 総バイト | 39 / 553.7 KB | 15 / 365.2 KB |  |
 
 ### `/products/ethiopia-yirgacheffe`
 
-|  | Next.js | TanStack Router SPA + API | 比 |
+|  | Next.js | TanStack Router SPA | 比 |
 | --- | --- | --- | --- |
 | HTML | 15.8 KB | 797 B | 20.3x |
 | JS ファイル数 | 8 | 5 |  |
-| JS 合計 (raw) | 469.1 KB | 268.3 KB | 1.7x |
-| JS 合計 (gzip) | 140.5 KB | 88.1 KB | 1.6x |
-| JS 合計 (brotli) | 120.7 KB | 77.5 KB | 1.6x |
+| JS 合計 (raw) | 469.1 KB | 270.3 KB | 1.7x |
+| JS 合計 (gzip) | 140.5 KB | 89.3 KB | 1.6x |
+| JS 合計 (brotli) | 120.7 KB | 78.3 KB | 1.5x |
 | CSS | 11.5 KB | 11.3 KB |  |
 | 画像 (枚数 / バイト) | 1 / 2.9 KB | 1 / 12.8 KB |  |
-| リクエスト総数 / 総バイト | 19 / 531.9 KB | 9 / 293.4 KB |  |
+| リクエスト総数 / 総バイト | 19 / 533.1 KB | 8 / 295.2 KB |  |
 
 ### `/about`
 
-|  | Next.js | TanStack Router SPA + API | 比 |
+|  | Next.js | TanStack Router SPA | 比 |
 | --- | --- | --- | --- |
 | HTML | 10.7 KB | 797 B | 13.7x |
 | JS ファイル数 | 7 | 4 |  |
-| JS 合計 (raw) | 453.3 KB | 266.7 KB | 1.7x |
-| JS 合計 (gzip) | 134.4 KB | 87.4 KB | 1.5x |
-| JS 合計 (brotli) | 115.3 KB | 76.9 KB | 1.5x |
+| JS 合計 (raw) | 453.3 KB | 269.0 KB | 1.7x |
+| JS 合計 (gzip) | 134.4 KB | 88.7 KB | 1.5x |
+| JS 合計 (brotli) | 115.3 KB | 77.8 KB | 1.5x |
 | CSS | 11.5 KB | 11.3 KB |  |
 | 画像 (枚数 / バイト) | 0 / 0 B | 0 / 0 B |  |
-| リクエスト総数 / 総バイト | 15 / 508.1 KB | 6 / 278.7 KB |  |
+| リクエスト総数 / 総バイト | 15 / 509.2 KB | 6 / 281.1 KB |  |
 
 
 ## 7. 露出しているエンドポイント（アプリが定義していないパスへの応答）
 
 同じリクエストを両サーバに投げたときのステータス。`404` 以外が返るものは、アプリのコードとは無関係にフレームワークが生やしている口。SPA 側は `Accept: text/html` のリクエストにだけ `index.html` を返す（CDN の 404 → index.html ルールと同じ）。
 
-| リクエスト | 意味 | Next.js | TanStack Router SPA + API |
+| リクエスト | 意味 | Next.js | TanStack Router SPA |
 | --- | --- | --- | --- |
 | `GET /`<br>headers: `{"accept":"text/html"}` | app route | 200 (text/html) | 200 (text/html) |
 | `GET /robots.txt` | not defined by either app | 404 (text/html) | 404 (text/plain) |
@@ -117,18 +124,19 @@
 | `GET /products/uji-sencha/opengraph-image` | next/og ImageResponse (OG image generated on the server) | 200 (image/png) | 404 (text/plain) |
 | `GET /`<br>headers: `{"RSC":"1"}`<br>(リダイレクト追従) | RSC flight payload request (redirects followed) | 200 (text/x-component) | 404 (text/plain) |
 | `POST /`<br>headers: `{"Next-Action":"0000000000000000000000000000000000000000","Content-Type":"text/plain"}` | Server Action endpoint (bogus id) | 404 (text/plain) | 404 (text/plain) |
-| `POST /api/products/uji-sencha/reserve`<br>headers: `{"content-type":"application/json"}` | mutation endpoint (Next mutates via Server Action instead) | 404 (text/html) | 200 (application/json) |
+| `GET /api/products` | JSON API (Next: Route Handler; SPA: none, data lives in the browser) | 200 (application/json) | 404 (text/plain) |
 | `GET /__manifest?p=%2F&version=0` | React Router lazy route discovery manifest (neither app) | 404 (text/html) | 404 (text/plain) |
 | `GET /.well-known/appspecific/com.chrome.devtools.json` | Chrome DevTools workspace probe | 404 (text/html) | 404 (text/plain) |
 | `GET /_next/static/chunks/main.js` | Next.js static chunk dir | 404 (text/plain) | 404 (text/plain) |
 
 `/` のレスポンスヘッダ:
 
-| ヘッダ | Next.js | TanStack Router SPA + API |
+| ヘッダ | Next.js | TanStack Router SPA |
 | --- | --- | --- |
 | cache-control | private, no-cache, no-store, max-age=0, must-revalidate | - |
 | content-encoding | gzip | - |
 | content-type | text/html; charset=utf-8 | text/plain |
+| link | </_next/static/chunks/3prps37s8an8n.css>; rel=preload; as="style" | - |
 | transfer-encoding | chunked | chunked |
 | vary | rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, Accept-Encoding | - |
 | x-powered-by | Next.js | - |
@@ -142,7 +150,6 @@
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | Next.js | `next` | 67 | 5 | 26 | 28 | 8 | 0 |
 | TanStack Router (SPA 側) | `@tanstack/react-router` `@tanstack/router-core` `@tanstack/history` `@tanstack/router-plugin` | 5 | 1 | 0 | 0 | 0 | 5 |
-| Hono (API 側) | `hono` `@hono/node-server` | 57 | 0 | 9 | 44 | 4 | 0 |
 | React Server Components runtime (Next が同梱、SPA は未使用) | `react-server-dom-webpack` `react-server-dom-turbopack` `react-server-dom-parcel` | 8 | 1 | 6 | 1 | 0 | 0 |
 | React Router framework mode（参考値: 別の SSR 側の選択肢） | `react-router` `@react-router/dev` `@react-router/node` `@react-router/serve` | 21 | 1 | 11 | 8 | 1 | 0 |
 
@@ -152,7 +159,6 @@
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Next.js | 1 | 1 | 1 | 2 | 0 | 0 | 5 | 5 | 16 |
 | TanStack Router (SPA 側) | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 |
-| Hono (API 側) | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 2 | 6 |
 | React Server Components runtime (Next が同梱、SPA は未使用) | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 3 | 4 |
 | React Router framework mode（参考値: 別の SSR 側の選択肢） | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2 | 10 |
 
@@ -162,7 +168,6 @@
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Next.js | 1 | 2 | 3 | 3 | 3 | 1 | 6 | 14 | 34 |
 | TanStack Router (SPA 側) | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 5 |
-| Hono (API 側) | 0 | 0 | 0 | 0 | 0 | 1 | 5 | 4 | 47 |
 | React Server Components runtime (Next が同梱、SPA は未使用) | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 4 | 4 |
 | React Router framework mode（参考値: 別の SSR 側の選択肢） | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2 | 19 |
 
@@ -208,7 +213,6 @@
 | 2026-07-22 | Next.js | HIGH | [GHSA-p9j2-gv94-2wf4](https://osv.dev/vulnerability/GHSA-p9j2-gv94-2wf4) | Next.js: Server-Side Request Forgery in rewrites via attacker-controlled destination hostname |
 | 2026-07-22 | Next.js | HIGH | [GHSA-6gpp-xcg3-4w24](https://osv.dev/vulnerability/GHSA-6gpp-xcg3-4w24) | Next.js: Middleware / Proxy bypass in App Router applications using Turbopack and single locale |
 | 2026-07-22 | Next.js | HIGH | [GHSA-m99w-x7hq-7vfj](https://osv.dev/vulnerability/GHSA-m99w-x7hq-7vfj) | Next.js: Denial of Service in App Router using Server Actions |
-| 2026-06-16 | Hono | HIGH | [GHSA-88fw-hqm2-52qc](https://osv.dev/vulnerability/GHSA-88fw-hqm2-52qc) | hono: CORS Middleware reflects any Origin with credentials when `origin` defaults to the wildcard |
 | 2026-06-04 | React Router framework mode（参考値: 別の SSR 側の選択肢） | HIGH | [GHSA-rxv8-25v2-qmq8](https://osv.dev/vulnerability/GHSA-rxv8-25v2-qmq8) | React Router vulnerable to Denial of Service via reflected user input in single-fetch |
 | 2026-06-03 | React Router framework mode（参考値: 別の SSR 側の選択肢） | HIGH | [GHSA-8x6r-g9mw-2r78](https://osv.dev/vulnerability/GHSA-8x6r-g9mw-2r78) | React Router vulnerable to DoS via unbounded path expansion in __manifest endpoint |
 | 2026-06-03 | React Router framework mode（参考値: 別の SSR 側の選択肢） | HIGH | [GHSA-49rj-9fvp-4h2h](https://osv.dev/vulnerability/GHSA-49rj-9fvp-4h2h) | React Router's vendored turbo-stream v2 allows arbitrary constructor invocation via TYPE_ERROR deserialization leading to Unauth RCE |
@@ -224,13 +228,8 @@
 | 2026-05-11 | React Server Components runtime | HIGH | [GHSA-rv78-f8rc-xrxh](https://osv.dev/vulnerability/GHSA-rv78-f8rc-xrxh) | Facebook React has a Denial of Service Vulnerability in React Server Components |
 | 2026-04-10 | Next.js | HIGH | [GHSA-q4gf-8mx6-v5v3](https://osv.dev/vulnerability/GHSA-q4gf-8mx6-v5v3) | Next.js has a Denial of Service with Server Components |
 | 2026-04-10 | React Server Components runtime | HIGH | [GHSA-479c-33wc-g2pg](https://osv.dev/vulnerability/GHSA-479c-33wc-g2pg) | React Server Components have a Denial of Service Vulnerability |
-| 2026-03-04 | Hono | HIGH | [GHSA-wc8c-qw6v-h7f6](https://osv.dev/vulnerability/GHSA-wc8c-qw6v-h7f6) | @hono/node-server has authorization bypass for protected static paths via encoded slashes in Serve Static Middleware |
-| 2026-03-04 | Hono | HIGH | [GHSA-q5qw-h33p-qvwr](https://osv.dev/vulnerability/GHSA-q5qw-h33p-qvwr) | Hono vulnerable to arbitrary file access via serveStatic vulnerability  |
-| 2026-02-25 | Hono | HIGH | [GHSA-xh87-mx6m-69f3](https://osv.dev/vulnerability/GHSA-xh87-mx6m-69f3) | Hono is Vulnerable to Authentication Bypass by IP Spoofing in AWS Lambda ALB conninfo |
 | 2026-01-29 | React Server Components runtime | HIGH | [GHSA-83fc-fqcc-2hmg](https://osv.dev/vulnerability/GHSA-83fc-fqcc-2hmg) | React Server Components have multiple Denial of Service Vulnerabilities |
 | 2026-01-28 | Next.js | HIGH | [GHSA-h25m-26qc-wcjf](https://osv.dev/vulnerability/GHSA-h25m-26qc-wcjf) | Next.js HTTP request deserialization can lead to DoS when using insecure React Server Components |
-| 2026-01-13 | Hono | HIGH | [GHSA-3vhc-576x-3qv4](https://osv.dev/vulnerability/GHSA-3vhc-576x-3qv4) | Hono JWK Auth Middleware has JWT algorithm confusion when JWK lacks "alg" (untrusted header.alg fallback) |
-| 2026-01-13 | Hono | HIGH | [GHSA-f67f-6cw9-8mq4](https://osv.dev/vulnerability/GHSA-f67f-6cw9-8mq4) | Hono JWT Middleware's JWT Algorithm Confusion via Unsafe Default (HS256) Allows Token Forgery and Auth Bypass |
 | 2026-01-08 | React Router framework mode（参考値: 別の SSR 側の選択肢） | HIGH | [GHSA-2w69-qvjg-hvjx](https://osv.dev/vulnerability/GHSA-2w69-qvjg-hvjx) | React Router vulnerable to XSS via Open Redirects |
 | 2026-01-08 | React Router framework mode（参考値: 別の SSR 側の選択肢） | HIGH | [GHSA-8v8x-cx79-35w7](https://osv.dev/vulnerability/GHSA-8v8x-cx79-35w7) | React Router SSR XSS in ScrollRestoration |
 | 2026-01-08 | React Router framework mode（参考値: 別の SSR 側の選択肢） | CRITICAL | [GHSA-9583-h5hc-x8cw](https://osv.dev/vulnerability/GHSA-9583-h5hc-x8cw) | React Router has Path Traversal in File Session Storage |
@@ -241,5 +240,4 @@
 | 2025-12-11 | React Server Components runtime | HIGH | [GHSA-2m3v-v2m8-q956](https://osv.dev/vulnerability/GHSA-2m3v-v2m8-q956) | Denial of Service Vulnerability in React Server Components |
 | 2025-12-03 | React Server Components runtime | CRITICAL | [GHSA-fv66-9v8q-g76r](https://osv.dev/vulnerability/GHSA-fv66-9v8q-g76r) | React Server Components are Vulnerable to RCE |
 | 2025-12-03 | Next.js | CRITICAL | [GHSA-9qr9-h5gf-34mp](https://osv.dev/vulnerability/GHSA-9qr9-h5gf-34mp) | Next.js is vulnerable to RCE in React flight protocol |
-| 2025-10-22 | Hono | HIGH | [GHSA-m732-5p4w-x69g](https://osv.dev/vulnerability/GHSA-m732-5p4w-x69g) | Hono Improper Authorization vulnerability |
 

@@ -6,8 +6,4 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   resolve: { tsconfigPaths: true },
   plugins: [tailwindcss(), tanstackRouter({ target: "react", autoCodeSplitting: true }), viteReact()],
-  server: {
-    // dev only: the API lives in apps/api
-    proxy: { "/api": "http://localhost:3002" },
-  },
 });

@@ -38,7 +38,7 @@ const PROBES = [
   // Next 16 answers an RSC request with a 307 to a `_rsc=<hash>` URL first, so follow redirects here.
   { path: "/", headers: { RSC: "1" }, follow: true, note: "RSC flight payload request (redirects followed)" },
   { path: "/", method: "POST", headers: { "Next-Action": "0000000000000000000000000000000000000000", "Content-Type": "text/plain" }, body: "[]", note: "Server Action endpoint (bogus id)" },
-  { path: "/api/products/uji-sencha/reserve", method: "POST", headers: { "content-type": "application/json" }, body: "{\"quantity\":1}", note: "mutation endpoint (Next mutates via Server Action instead)" },
+  { path: "/api/products", note: "JSON API (Next: Route Handler; SPA: none, data lives in the browser)" },
   { path: "/__manifest?p=%2F&version=0", note: "React Router lazy route discovery manifest (neither app)" },
   { path: "/.well-known/appspecific/com.chrome.devtools.json", note: "Chrome DevTools workspace probe" },
   { path: "/_next/static/chunks/main.js", note: "Next.js static chunk dir" },
@@ -111,11 +111,6 @@ async function measureApp(key) {
     },
     { bytes: 0, files: 0 },
   );
-  if (key === "spa") {
-    // The API ships dist/ + its production node_modules; add the latter so the
-    // number is comparable with Next's self-contained standalone directory.
-    r.deployable = { bytes: r.deployable.bytes + listDeps(app.apiDir, { prod: true }).bytes, files: r.deployable.files };
-  }
   r.deployable.note = app.deployableNote;
 
   // ---- runtime ----
@@ -137,9 +132,23 @@ async function measureApp(key) {
       r.probes.push({ ...probe, status: res.status, contentType: ct.split(";")[0], finalUrl: res.url.replace(base, "") });
     }
 
-    // page weight via a real browser
+    // page weight + time to content via a real browser
     const browser = await chromium.launch({ executablePath });
     r.pages = {};
+    r.timeToContent = {};
+    for (const [path, selector] of [["/", '[data-testid="product-card"]'], ["/products/ethiopia-yirgacheffe", '[data-testid="product-name"]']]) {
+      const samples = [];
+      for (let i = 0; i < 7; i++) {
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        const t0 = performance.now();
+        await page.goto(base + path);
+        await page.waitForSelector(selector);
+        samples.push(performance.now() - t0);
+        await context.close();
+      }
+      r.timeToContent[path] = { n: samples.length, p50: +percentile(samples, 50).toFixed(0), min: +Math.min(...samples).toFixed(0) };
+    }
     for (const path of ["/", "/products/ethiopia-yirgacheffe", "/about"]) {
       const context = await browser.newContext();
       const page = await context.newPage();

@@ -10,7 +10,7 @@ export default async function HomePage({ searchParams }: PageProps<"/">) {
   const sp = await searchParams;
   const q = first(sp.q);
   const category = first(sp.category);
-  const products = listProducts({ q, category });
+  const products = await listProducts({ q, category });
 
   return (
     <div className="space-y-6">

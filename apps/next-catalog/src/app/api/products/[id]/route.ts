@@ -5,7 +5,7 @@ export async function GET(
   { params }: RouteContext<"/api/products/[id]">,
 ) {
   const { id } = await params;
-  const product = getProduct(id);
+  const product = await getProduct(id);
   if (!product) {
     return Response.json({ error: "not_found" }, { status: 404 });
   }

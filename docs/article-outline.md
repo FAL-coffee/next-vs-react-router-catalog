@@ -19,7 +19,7 @@
 
 - 煽りはタイトルまで。本文は時系列・実装・計測で淡々と
 - Next が合うケース（残った 4 つ）は明示する
-- SPA 側の傷も隠さない: TanStack の 2026/5 サプライチェーン事件、Hono の 2026 年 47 件（ほぼ opt-in ミドルウェア）
+- SPA 側の傷も隠さない: TanStack の 2026/5 サプライチェーン事件、状態をどこに置くかの問題
 
 ---
 
@@ -48,7 +48,8 @@
 
 - 商品カタログ。一覧・検索・クイックビュー（モーダル）・詳細・予約・JSON API・404・エラー境界
 - DB なし。インメモリ在庫
-- Next は create-next-app 既定、SPA は @tanstack/cli 既定 + Hono の API。設定はほぼ触らない
+- Next は create-next-app 既定、SPA は @tanstack/cli 既定。設定はほぼ触らない
+- データ層は共有のモック関数（固定 150 ms）。Next はサーバで、SPA はブラウザで同じ関数を呼ぶ。「データ取得のコストが同じ」状態で比べる
 - 画面・DOM・data-testid は同一
 
 ### 4.2 Next 側に「テクい機能」をわざと盛った
@@ -60,15 +61,15 @@
 
 ### 4.3 機能ごとに SPA で再現した結果（記事の本体。`docs/feature-matrix.md` の表）
 
-- 再現コスト 0〜低: SSR 不要なら消える / RSC → コード分割 / Server Actions → fetch / Route Handler → Hono / Parallel+Intercepting → search param + route masking / middleware → beforeLoad（本体の認可は API）/ prefetch / 型付きルート
+- 再現コスト 0〜低: SSR 不要なら消える / RSC → コード分割 / Server Actions → データ層呼び出し / Route Handler → 既存 BFF / Parallel+Intercepting → search param + route masking / middleware → beforeLoad（本体の認可は API）/ prefetch / 型付きルート
 - 再現コスト中〜高: Image Optimization（CDN の仕事）/ OG 画像（別サービス）
 - 不可: JS 無効フォーム / 正しい 404 ステータス
-- コード比較は 2 箇所だけ載せる: (a) クイックビュー（intercepting route vs route masking）、(b) 予約フォーム（Server Action vs fetch）
+- コード比較は 2 箇所だけ載せる: (a) クイックビュー（intercepting route vs route masking）、(b) 予約フォーム（Server Action vs ブラウザからの呼び出し）
 
 ### 4.4 抱え込むもの（計測）
 
 - 本番依存のサイズ、sharp/libvips と RSC ランタイムの同梱、デプロイ一式、ビルド時間（`COMPARISON.md` §3-4）
-- 「パッケージ数」は Hono の express 非依存で SPA 側が少ないはず。数ではなく中身で語る
+- SPA 側は本番依存が React + TanStack Router だけ。数ではなく中身で語る
 
 ### 4.5 露出している口（計測 §7）
 
@@ -76,9 +77,11 @@
 - `/products/:id/opengraph-image`（next/og。9 月に RCE が刺さった口）
 - `POST /` + `Next-Action`
 - `RSC: 1`
-- SPA 側で開いている口: `/api/*` だけ。それ以外は 404
+- SPA 側で開いている口: ゼロ。静的ファイル以外は 404
 
-### 4.6 ランタイム・ページ重量（誤差の範囲として短く）
+### 4.6 初期表示とページ重量
+
+- 「最初の商品カードが出るまで」を実ブラウザで計る。モックの 150 ms を両方含む。SSR の有無がここに出る（Next が速いはず）。正直に書く
 
 ### 4.7 地味に刺さった差
 
@@ -91,7 +94,7 @@
 ## 5. SPA 側の傷も並べる
 
 - TanStack: 2026/5 に `@tanstack/*` へ悪性コードが混入（供給網）。「薄いから安全」ではない
-- Hono: 2026 年 47 件、HIGH 9。ただし JWT / CORS / serveStatic / JSX / SSG など **opt-in ミドルウェア**がほぼ全部。今回の API は一つも使っていない。つまり「表面積 = 使っている機能」は API 側でも成り立つ。Next との違いは「既定で有効か」
+- 状態の置き場所: 在庫のような共有状態は SPA ではブラウザに閉じる。共有したければ結局 BFF が要る。「SPA で済む」は「BFF が既にある」とセット
 
 ## 6. 残ったもの: Next.js が本当に必要なとき
 
@@ -105,7 +108,7 @@
 ## 7. 判断手順（2 段）
 
 - ステップ 0: SSR が要るか（上の 4 つのどれかがあるか）
-- ステップ 1: 要らないなら SPA + API（TanStack Router / React Router SPA mode）。要るなら Next か React Router framework mode。Next を選ぶなら「画像最適化・og・middleware を使うか、使わないなら無効化するか、セキュリティリリースを誰が追従するか」を書き出す
+- ステップ 1: 要らないなら SPA + 既存 BFF（TanStack Router / React Router SPA mode）。要るなら Next か React Router framework mode。Next を選ぶなら「画像最適化・og・middleware を使うか、使わないなら無効化するか、セキュリティリリースを誰が追従するか」を書き出す
 
 ## 8. まとめ
 
@@ -117,40 +120,42 @@
 
 ## 実測値の要点（記事に載せる数字の候補。正確な値は `docs/results/COMPARISON.md`）
 
-| 観点 | Next.js 16.3 | TanStack Router SPA + Hono API | 読み方 |
+データ層は共有モック（固定 150 ms）。Next はサーバで、SPA はブラウザで同じ関数を呼ぶ。
+
+| 観点 | Next.js 16.3 | TanStack Router SPA | 読み方 |
 | --- | --- | --- | --- |
-| 書いたコード（非空行） | 473 行 / 22 ファイル | 659 行 / 22 ファイル | SPA の方が多い。API 本体と fetch 層の分。隠さない |
-| 本番依存パッケージ数 / サイズ | 59 / 428 MB | 15 / 13.5 MB | 32 倍。sharp/libvips、SWC、vendored React+RSC が主因 |
+| 書いたコード（非空行） | 473 行 / 22 ファイル | 582 行 / 19 ファイル | SPA の方が多い。検索の型、モーダル状態、データ層ラッパ、静的配信サーバの分。隠さない |
+| 本番依存パッケージ数 / サイズ | 59 / 428 MB | 13 / 12 MB | 35 倍。sharp/libvips、SWC、vendored React+RSC が主因 |
 | RSC ランタイム同梱 | あり | なし | React2Shell が刺さる口 |
 | sharp / libvips 同梱 | あり | なし | AVIF RCE が刺さる口 |
-| クリーンビルド | 12.6 秒 | 2.7 秒 | Next は tsc + eslint 内蔵。注記する |
-| デプロイ一式 | 205 MB (standalone) | 1.8 MB (静的 + API + その依存) | 100 倍超。S3 に置けるサイズ |
-| コールドスタート | 970 ms | 550 ms | 参考値 |
-| RSS | 292 MB | 72 MB | 参考値 |
-| `/` の HTML | 24.6 KB | 0.8 KB | SSR の有無そのもの |
-| `/` の JS (gzip) | 143 KB | 92 KB | RSC で減るどころか増えている |
+| クリーンビルド | 12.9 秒 | 1.4 秒 | Next は tsc + eslint 内蔵。注記する |
+| デプロイ一式 | 205 MB (standalone) | 0.4 MB (静的ファイルのみ) | 540 倍。S3 に置いて終わり |
+| コールドスタート | 1,170 ms | 530 ms | 参考値（SPA 側は静的サーバの起動） |
+| RSS | 222 MB | 66 MB | 参考値 |
+| `/` の HTML | 24.0 KB | 0.8 KB | SSR の有無そのもの |
+| `/` の JS (gzip) | 140 KB | 91 KB | RSC で減るどころか増えている |
 | `/` の画像 | 16 KB (webp) | 80 KB (PNG) | 画像最適化の恩恵は本物 |
-| p50 `/` | 8.6 ms | 0.8 ms | SSR と静的配信の差。公平に書く |
-| p50 `/api/products` | 2.4 ms | 0.9 ms | Hono 速い。主戦場にしない |
+| `/` で最初の商品カードが出るまで (p50) | 379 ms | 319 ms | 両方 150 ms のモックを含む。localhost では SPA が速い。遅い回線では JS 91 KB を落とすまで SPA は白紙。SSR の価値はそこ |
+| サーバの p50 `/` | 162 ms | 1 ms | Next は SSR でモックを待つ。SPA は静的ファイル。比べる意味は薄い |
 
 露出している口（アプリが定義していないのに 404 以外を返すパス）:
 
-| 口 | Next.js | SPA + API |
+| 口 | Next.js | SPA |
 | --- | --- | --- |
 | `/_next/image`（WebP 変換まで動く） | 200 | 404 |
 | `/products/:id/opengraph-image`（next/og） | 200 | 404 |
 | `POST /` + `Next-Action` | 受け付けて 404 | 404 |
 | `RSC: 1` ヘッダ | 200 text/x-component | 404 |
-| `POST /api/products/:id/reserve` | 404（Server Action 経由のみ） | 200 |
+| `/api/products` | 200（Route Handler） | 404（データはブラウザ内） |
 
 脆弱性履歴（osv.dev、2026-10-05）:
 
-| | Next.js | TanStack Router | Hono | RSC runtime |
-| --- | --- | --- | --- | --- |
-| 総数 | 67 | 5 | 57 | 8 |
-| CRITICAL / HIGH | 5 / 26 | 1 / 0 | 0 / 9 | 1 / 6 |
-| 2026 年 | 34 | 5（全部 5 月の供給網事件） | 47（ほぼ opt-in ミドルウェア） | 4 |
-| 未認証 RCE（直近 12 か月） | 4 | 0（供給網はコード脆弱性と別枠） | 0 | 1 |
+| | Next.js | TanStack Router | RSC runtime |
+| --- | --- | --- | --- |
+| 総数 | 67 | 5 | 8 |
+| CRITICAL / HIGH | 5 / 26 | 1 / 0 | 1 / 6 |
+| 2026 年 | 34 | 5（全部 5 月の供給網事件） | 4 |
+| 未認証 RCE（直近 12 か月） | 4 | 0（供給網はコード脆弱性と別枠） | 1 |
 
 ## 執筆メモ
 
@@ -164,7 +169,5 @@
   - https://osv.dev/vulnerability/GHSA-9qr9-h5gf-34mp (React2Shell / Next)
   - https://osv.dev/vulnerability/GHSA-fv66-9v8q-g76r (CVE-2025-55182 / react-server-dom)
   - https://osv.dev/vulnerability/GHSA-g7cv-rxg3-hmpx (@tanstack/* malware)
-  - https://osv.dev/vulnerability/GHSA-88fw-hqm2-52qc (Hono CORS)
-  - https://osv.dev/vulnerability/GHSA-q5qw-h33p-qvwr (Hono serveStatic)
 - 会社ブログとして避けること: Vercel への人格攻撃、「Next は終わり」系の断定。数字と機能の対応関係だけで語る
 - 想定文字数: 7,000〜9,000 字。表は 5 つまで

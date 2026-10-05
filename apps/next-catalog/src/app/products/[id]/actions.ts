@@ -11,7 +11,7 @@ export type ReserveState =
 export async function reserveAction(_prev: ReserveState, formData: FormData): Promise<ReserveState> {
   const id = String(formData.get("id") ?? "");
   const quantity = Number(formData.get("quantity") ?? 0);
-  const result = reserveProduct(id, quantity);
+  const result = await reserveProduct(id, quantity);
   if (!result.ok) return { status: "error", message: result.error };
   revalidatePath(`/products/${id}`);
   revalidatePath("/");

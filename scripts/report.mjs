@@ -25,25 +25,25 @@ lines.push("# Next.js vs TanStack Router SPA: 同一仕様カタログの計測�
 lines.push("");
 lines.push(`計測日時: ${m.measuredAt} / Node ${m.node} / pnpm ${m.pnpm}`);
 lines.push("");
-lines.push("両アプリは同じ `@catalog/data`（商品データ、インメモリ在庫）を使い、同じ画面・同じ振る舞い（一覧・検索・クイックビュー・詳細・予約・API・404・エラー境界）を持つ。SPA 側の数値は `apps/spa-catalog`（静的ファイル）と `apps/api`（Hono）の合算。");
+lines.push("両アプリは同じ `@catalog/data`（商品データ、インメモリ在庫）を使い、同じ画面・同じ振る舞い（一覧・検索・クイックビュー・詳細・予約・API・404・エラー境界）を持つ。データ層は共有のモック関数（固定 150 ms の擬似レイテンシ）で、Next はサーバ側、SPA はブラウザ側で同じ関数を呼ぶ。");
 lines.push("");
 lines.push("> 数値はこの環境（クラウドコンテナ）での1回の計測。絶対値よりも両者の比を見ること。`pnpm measure && pnpm report` で再現できる。");
 
 h("## 1. バージョン");
-table(["", "Next.js", "TanStack Router SPA + API"], [
+table(["", "Next.js", "TanStack Router SPA"], [
   ["フレームワーク", Object.entries(N.frameworkVersions).map(([k, v]) => `${k}@${v}`).join("<br>"), Object.entries(R.frameworkVersions).map(([k, v]) => `${k}@${v}`).join("<br>")],
   ["package.json の dependencies", N.declaredDeps.dependencies.join(", "), R.declaredDeps.dependencies.join(", ")],
   ["package.json の devDependencies", N.declaredDeps.devDependencies.join(", "), R.declaredDeps.devDependencies.join(", ")],
 ]);
 
 h("## 2. 書いたコード量（アプリ側ソース）");
-table(["", "Next.js", "TanStack Router SPA + API"], [
+table(["", "Next.js", "TanStack Router SPA"], [
   ["ファイル数", N.source.files, R.source.files],
   ["非空行数", N.source.lines, R.source.lines],
 ]);
 
 h("## 3. 依存パッケージ（node_modules に実際に解決されたユニークな package@version）");
-table(["", "Next.js", "TanStack Router SPA + API", "比"], [
+table(["", "Next.js", "TanStack Router SPA", "比"], [
   ["本番依存 パッケージ数", N.deps.prod.count, R.deps.prod.count, ratio(N.deps.prod.count, R.deps.prod.count)],
   ["本番依存 ディスクサイズ", fmtBytes(N.deps.prod.bytes), fmtBytes(R.deps.prod.bytes), ratio(N.deps.prod.bytes, R.deps.prod.bytes)],
   ["開発依存込み パッケージ数", N.deps.all.count, R.deps.all.count, ratio(N.deps.all.count, R.deps.all.count)],
@@ -53,7 +53,7 @@ table(["", "Next.js", "TanStack Router SPA + API", "比"], [
 ]);
 
 h("## 4. ビルド");
-table(["", "Next.js", "TanStack Router SPA + API", "比"], [
+table(["", "Next.js", "TanStack Router SPA", "比"], [
   [`本番ビルド時間（${N.build?.runsMs.length ?? 0}回中の最速、クリーンビルド）`, ms(N.build?.bestMs), ms(R.build?.bestMs), ratio(N.build?.bestMs, R.build?.bestMs)],
   ["ビルド時間 各回", N.build?.runsMs.map(ms).join(", "), R.build?.runsMs.map(ms).join(", "), ""],
   ["ビルド出力サイズ（キャッシュ除く）", `${fmtBytes(N.output.bytes)} / ${N.output.files} files`, `${fmtBytes(R.output.bytes)} / ${R.output.files} files`, ratio(N.output.bytes, R.output.bytes)],
@@ -61,13 +61,16 @@ table(["", "Next.js", "TanStack Router SPA + API", "比"], [
 ]);
 
 h("## 5. ランタイム");
-table(["", "Next.js", "TanStack Router SPA + API", "比"], [
+table(["", "Next.js", "TanStack Router SPA", "比"], [
   ["コールドスタート（`start` 実行から `/` が 200 を返すまで）", ms(N.coldStartMs), ms(R.coldStartMs), ratio(N.coldStartMs, R.coldStartMs)],
   ["常駐メモリ RSS（アイドル後、プロセスツリー合計）", fmtBytes((N.memoryRssKb ?? 0) * 1024), fmtBytes((R.memoryRssKb ?? 0) * 1024), ratio(N.memoryRssKb, R.memoryRssKb)],
 ]);
-lines.push("レイテンシ（ウォームアップ後、逐次 200 リクエスト、localhost）:");
+lines.push("初期表示までの時間（実ブラウザ、新規コンテキストで `goto` してから最初の商品カード / 商品名が DOM に現れるまで。モックの 150 ms を含む。7 回の中央値）:");
 lines.push("");
-table(["パス", "Next p50", "Next p95", "SPA+API p50", "SPA+API p95"], Object.keys(N.latency).map((p) => [`\`${p}\``, ms(N.latency[p].p50), ms(N.latency[p].p95), ms(R.latency[p].p50), ms(R.latency[p].p95)]));
+table(["パス", "Next p50", "Next min", "SPA p50", "SPA min"], Object.keys(N.timeToContent ?? {}).map((p) => [`\`${p}\``, ms(N.timeToContent[p].p50), ms(N.timeToContent[p].min), ms(R.timeToContent[p].p50), ms(R.timeToContent[p].min)]));
+lines.push("サーバのレイテンシ（HTTP 1 リクエストの往復。Next は SSR なのでモックの 150 ms を含む。SPA は静的ファイルを返すだけ。ウォームアップ後、逐次 200 リクエスト、localhost）:");
+lines.push("");
+table(["パス", "Next p50", "Next p95", "SPA p50", "SPA p95"], Object.keys(N.latency).map((p) => [`\`${p}\``, ms(N.latency[p].p50), ms(N.latency[p].p95), ms(R.latency[p].p50), ms(R.latency[p].p95)]));
 
 h("## 6. ページ重量（実ブラウザで networkidle まで読み込んだ転送内容）");
 for (const path of Object.keys(N.pages)) {
@@ -75,7 +78,7 @@ for (const path of Object.keys(N.pages)) {
   const b = R.pages[path];
   lines.push(`### \`${path}\``);
   lines.push("");
-  table(["", "Next.js", "TanStack Router SPA + API", "比"], [
+  table(["", "Next.js", "TanStack Router SPA", "比"], [
     ["HTML", fmtBytes(a.document.raw), fmtBytes(b.document.raw), ratio(a.document.raw, b.document.raw)],
     ["JS ファイル数", a.script.count, b.script.count, ""],
     ["JS 合計 (raw)", fmtBytes(a.script.raw), fmtBytes(b.script.raw), ratio(a.script.raw, b.script.raw)],
@@ -90,7 +93,7 @@ for (const path of Object.keys(N.pages)) {
 h("## 7. 露出しているエンドポイント（アプリが定義していないパスへの応答）");
 lines.push("同じリクエストを両サーバに投げたときのステータス。`404` 以外が返るものは、アプリのコードとは無関係にフレームワークが生やしている口。SPA 側は `Accept: text/html` のリクエストにだけ `index.html` を返す（CDN の 404 → index.html ルールと同じ）。");
 lines.push("");
-table(["リクエスト", "意味", "Next.js", "TanStack Router SPA + API"], N.probes.map((p, i) => [
+table(["リクエスト", "意味", "Next.js", "TanStack Router SPA"], N.probes.map((p, i) => [
   `\`${p.method ?? "GET"} ${p.path}\`${p.headers ? `<br>headers: \`${JSON.stringify(p.headers)}\`` : ""}${p.follow ? "<br>(リダイレクト追従)" : ""}`,
   p.note,
   `${p.status}${p.contentType ? ` (${p.contentType})` : ""}`,
@@ -98,7 +101,7 @@ table(["リクエスト", "意味", "Next.js", "TanStack Router SPA + API"], N.p
 ]));
 lines.push("`/` のレスポンスヘッダ:");
 lines.push("");
-table(["ヘッダ", "Next.js", "TanStack Router SPA + API"], [...new Set([...Object.keys(N.responseHeaders), ...Object.keys(R.responseHeaders)])].sort().map((k) => [k, N.responseHeaders[k] ?? "-", R.responseHeaders[k] ?? "-"]));
+table(["ヘッダ", "Next.js", "TanStack Router SPA"], [...new Set([...Object.keys(N.responseHeaders), ...Object.keys(R.responseHeaders)])].sort().map((k) => [k, N.responseHeaders[k] ?? "-", R.responseHeaders[k] ?? "-"]));
 
 h("## 8. 公開済み脆弱性の履歴（osv.dev, 取得日 " + adv.fetchedAt.slice(0, 10) + "）");
 lines.push("パッケージ単位で osv.dev に登録されている advisory を集計。severity は GitHub Advisory Database のラベル。");
