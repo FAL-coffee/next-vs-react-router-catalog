@@ -42,7 +42,7 @@ pnpm measure        # ビルド時間・依存・バンドル・起動・レイ�
 pnpm report         # docs/results/COMPARISON.md を生成
 ```
 
-Vercel には `apps/next-catalog` も `apps/spa-catalog` もそれぞれ Root Directory にしてそのまま載る（SPA 側は Vite の静的サイト。未知の URL を `index.html` に回したい場合は Vercel 側の rewrite 設定を足す）。
+Vercel には `apps/next-catalog` も `apps/spa-catalog` もそれぞれ Root Directory にしてそのまま載る。SPA 側は静的サイトなので、`/products/:id` を直接開いたりリロードしたりすると CDN は本物の 404 を返す。`apps/spa-catalog/vercel.json` の rewrite で未知の URL を `index.html` に回している（`serve.mjs` がローカルで再現しているのと同じルール）。
 
 開発時は `pnpm --filter spa-catalog dev`（5173）と `pnpm --filter next-catalog dev`（3000）。
 
