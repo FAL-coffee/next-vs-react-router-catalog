@@ -76,7 +76,7 @@ Next.js を選んだ時点で、SSR + RSC + Server Actions が既定になりま
 プロダクトの要件を見る前に、レンダリング方式が決まってしまう。
 そして一度決まると、「SSR 前提で同梱されている機能」が全部ついてきます。使っても使わなくても。
 
-なので今回は、**Next.js の機能を一つずつ「SPA + 薄い API で再現するとどうなるか」を実際に作って確かめる**ことにしました。
+なので今回は、**Next.js の機能を一つずつ「SPA で再現するとどうなるか」を実際に作って確かめる**ことにしました。
 再現できたものは「SSR フレームワークでなくてもよかったもの」。再現できなかったものが「Next.js が本当に必要なとき」の定義になるはずです。
 
 # 実験: 同じカタログを Next.js と TanStack Router の SPA で作る
@@ -84,7 +84,7 @@ Next.js を選んだ時点で、SSR + RSC + Server Actions が既定になりま
 ## 題材
 
 商品カタログです。DB は使わず、JSON とインメモリの在庫で動きます。
-一覧・検索・クイックビュー（モーダル）・詳細・予約フォーム・JSON API・404・エラー境界。
+一覧・検索・クイックビュー（モーダル）・詳細・予約フォーム・404・エラー境界。Next.js 側には Route Handler の JSON API も付けました。
 
 データ層は共有のモック関数で、どの呼び出しも固定で 150 ms 待ってから返します。Next.js はそれをサーバで、SPA はブラウザで呼びます。SPA 側に本物の API を立てると「Next.js vs SPA + API サーバ」の 2 対 1 になって数字の帰属が曖昧になるので、**データ取得のコストが完全に同じ**状態で比べることにしました。
 
@@ -121,7 +121,7 @@ https://github.com/FAL-coffee/next-vs-react-router-catalog
 | Server Actions | `useState` + データ層呼び出し | 低 | **JS 無効で動かすのは無理**。それ以外は不要 |
 | Route Handlers | なし。実運用では既存の BFF | 低 | 不要。BFF が既にある会社は最初からこれ |
 | Parallel + Intercepting Routes | search param + route masking | 低。むしろ短い | 不要 |
-| Middleware（proxy） | `beforeLoad` + API 側の検査 | 低 | 不要。むしろバイパス系の口が消える |
+| Middleware（proxy） | 今回は認証を外したので未実装。やるなら `beforeLoad` + API 側の検査が同じ位置づけ | 低 | 不要。むしろバイパス系の口が消える |
 | Image Optimization | `<img>`。最適化は CDN の仕事 | 中 | **外部画像を大量に扱うなら足りない** |
 | Metadata / OG 画像 | title のみ。OG 画像は作れない | 高 | **SNS に貼られる公開ページがあるなら足りない** |
 | Link prefetch | `defaultPreload: "intent"` | 0 | 不要 |
@@ -140,11 +140,10 @@ Next.js 側。`app/@modal/(.)products/[id]/page.tsx` に、こう書きます。
 ```tsx
 export default async function QuickViewModal({ params }: PageProps<"/products/[id]">) {
   const { id } = await params;
-  const product = getProduct(id);
-  const user = await getSession();
+  const product = await getProduct(id);
   return (
     <Modal>
-      {product ? <ProductDetail product={product} user={user} /> : <p>商品が見つかりません。</p>}
+      {product ? <ProductDetail product={product} /> : <p>商品が見つかりません。</p>}
     </Modal>
   );
 }
@@ -180,7 +179,8 @@ Next.js 側。`"use server"` の関数を `useActionState` に渡します。
 ```ts
 "use server";
 export async function reserveAction(_prev: ReserveState, formData: FormData): Promise<ReserveState> {
-  const result = reserveProduct(String(formData.get("id")), Number(formData.get("quantity")));
+  const id = String(formData.get("id"));
+  const result = await reserveProduct(id, Number(formData.get("quantity")));
   if (!result.ok) return { status: "error", message: result.error };
   revalidatePath(`/products/${id}`);
   return { status: "ok", message: `${result.product.name} を ${result.quantity} 点予約しました` };
@@ -199,14 +199,14 @@ Server Action の方が「API を書いた覚えがないのにサーバで動�
 ただし `POST /` に `Next-Action` ヘッダを付ければ外から叩ける口が生えています（後述）。
 SPA 側は BFF を自分で持つ前提なので、何が公開されているかは BFF を見ればわかります。
 
-そして一つ、はっきりした差があります。**Server Action は JavaScript が無効でも動きます。** SPA の `fetch` は動きません。
+そして一つ、はっきりした差があります。**Server Action は JavaScript が無効でも動きます。** SPA は JS が無ければ何も動きません。
 これは SPA が「足りない」側に残る項目です。
 
 ## 抱え込むものは全然違う
 
 ここからが本題です。
 
-| | Next.js | SPA + API | 比 |
+| | Next.js | SPA | 比 |
 | --- | --- | --- | --- |
 | 書いたコード（非空行） | 473 行 | 582 行 | SPA の方が多い |
 | 本番依存パッケージ | 59 個 / 428 MB | 13 個 / 12 MB | 35x |
@@ -241,6 +241,7 @@ Next.js の 428 MB の正体は、sharp + libvips（linux-x64 と linuxmusl の2
 | `GET /products/x/opengraph-image` | `next/og` の OG 画像生成 | **200** (image/png) | 404 |
 | `GET /` + `RSC: 1` ヘッダ | RSC flight payload | **200** (text/x-component) | 404 |
 | `POST /` + `Next-Action` ヘッダ | Server Action の受け口 | **受け付けて id 不一致で 404** | 404 |
+| `GET /api/products` | JSON API | **200**（Route Handler） | 404（データはブラウザ内） |
 
 Next.js 側を見てください。
 `/_next/image` に外から任意の `url` と `w` と `q` を渡せて、しかも `Accept` ヘッダ次第で webp への変換まで走ります。
@@ -274,16 +275,15 @@ SPA 側で開いている口はゼロです。静的ファイル以外は全部 
 
 最後の行が、ユーザーが体感する差です。両方ともデータ層の 150 ms を含んでいます。
 localhost では SPA の方が 60 ms ほど速く出ました。Next.js はサーバで 150 ms 待ってから HTML を作り始めるのに対し、SPA は空の HTML と JS を先に出してブラウザで 150 ms 待つので、待ち時間の置き場所が違うだけで総量は同じです。
-ただしこれは JS の転送がタダの localhost の話です。遅い回線では、SPA は 91 KB の JS を落とし終えるまで何も出せません。SSR の価値はそこにあります。
-HTML の差は SSR の有無そのもので、SPA は初期表示に JS の実行が要ります。
-JS は Next.js の方が 50 KB 多く、この規模の画面では RSC による「クライアント JS 削減」の恩恵は出ませんでした。
+ただしこれは JS の転送がタダの localhost の話です。遅い回線では、SPA は 91 KB の JS を落とし終えるまで何も出せません。HTML が 24 KB と 0.8 KB で違うのは SSR の有無そのもので、SSR の価値はそこにあります。
+一方で JS は Next.js の方が 50 KB 多く、この規模の画面では RSC による「クライアント JS 削減」の恩恵は出ませんでした。
 
 そして画像。Next.js の画像最適化は本物です。16 KB と 80 KB は大きな差です。
 だからこそ「使うなら使う、使わないなら切る」と選定時に決めるべきで、「とりあえず入っているから有効」が一番良くないんです。
 
 ## 地味に刺さった差
 
-作っている最中に踏んだ小ネタを4つ。
+作っている最中に踏んだ小ネタを5つ。
 
 - **Next.js はサーバコードをルート単位で分割する**ので、モジュールスコープのシングルトンがルート間で複製されます。`.next/server` を覗くと共有データのモジュールが4チャンクに現れました。結局 `globalThis` に逃がしました。Prisma のドキュメントに `globalThis` の例が載っている理由を、身をもって理解しました
 - **Intercepting Route のモーダルから「本物の詳細ページ」には `<Link>` で行けません。** 横取りはソフトナビゲーションにしか効かないので、同じ URL への `<Link>` はモーダルのまま何も起きません。素の `<a href>` でフルリロードするしかなく、Next.js のドキュメントにも「横取りを解除する」API はありません。SPA 側は route masking の実体が別ルートなので、普通の `<Link>` で出られます
@@ -353,7 +353,7 @@ Next.js を選ぶなら、選定時に以下を書き出してください。
 鉄槌を下したかったのは Next.js ではなく、「とりあえず」という選び方でした。
 
 Next.js の機能を一つずつ SPA で再現してみて、本当に足りないものは4つしか残りませんでした。
-その4つが無いプロダクトは、デプロイ一式で 100 倍、本番依存で 30 倍のものを抱えていて、しかもその中に、この1年の Critical が刺さった部品がそのまま入っています。
+その4つが無いプロダクトは、デプロイ一式で 500 倍、本番依存で 35 倍のものを抱えていて、しかもその中に、この1年の Critical が刺さった部品がそのまま入っています。
 
 SPA にも傷はあります。供給網の事件も、API 側の責務も。
 それを把握した上で選ぶのと、把握せずに「とりあえず」で選ぶのとでは、`npm audit` が赤くなった朝の気持ちが全然違います。
