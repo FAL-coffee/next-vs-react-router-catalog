@@ -1,0 +1,10 @@
+[
+  { "id": "ethiopia-yirgacheffe", "name": "エチオピア イルガチェフェ", "category": "coffee", "price": 1480, "unit": "200g", "stock": 12, "origin": "Ethiopia", "description": "柑橘系の酸味とフローラルな香り。浅煎り。" },
+  { "id": "colombia-huila", "name": "コロンビア ウイラ", "category": "coffee", "price": 1280, "unit": "200g", "stock": 20, "origin": "Colombia", "description": "キャラメルのような甘さとバランスの良いボディ。中煎り。" },
+  { "id": "brazil-cerrado", "name": "ブラジル セラード", "category": "coffee", "price": 980, "unit": "200g", "stock": 35, "origin": "Brazil", "description": "ナッツとチョコレートの風味。深煎り。毎日の一杯に。" },
+  { "id": "guatemala-antigua", "name": "グアテマラ アンティグア", "category": "coffee", "price": 1380, "unit": "200g", "stock": 0, "origin": "Guatemala", "description": "スモーキーでコクのある味わい。中深煎り。" },
+  { "id": "uji-sencha", "name": "宇治 煎茶", "category": "tea", "price": 1100, "unit": "100g", "stock": 18, "origin": "Japan", "description": "旨味と渋みのバランスが良い定番の煎茶。" },
+  { "id": "assam-ctc", "name": "アッサム CTC", "category": "tea", "price": 760, "unit": "150g", "stock": 40, "origin": "India", "description": "ミルクティー向きの力強い紅茶。" },
+  { "id": "hario-v60", "name": "HARIO V60 ドリッパー 02", "category": "equipment", "price": 1650, "unit": "1個", "stock": 7, "origin": "Japan", "description": "円すい形の定番ドリッパー。1〜4杯用。" },
+  { "id": "paper-filter-02", "name": "ペーパーフィルター 02 (100枚)", "category": "equipment", "price": 480, "unit": "100枚", "stock": 120, "origin": "Japan", "description": "V60 02用の酸素漂白ペーパーフィルター。" }
+]

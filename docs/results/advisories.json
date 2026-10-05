@@ -1,0 +1,2340 @@
+{
+  "fetchedAt": "2026-10-05T07:57:03.296Z",
+  "source": "https://api.osv.dev/v1/query",
+  "groups": {
+    "next": {
+      "label": "Next.js",
+      "packages": [
+        "next"
+      ],
+      "total": 67,
+      "bySeverity": {
+        "CRITICAL": 5,
+        "HIGH": 26,
+        "MODERATE": 28,
+        "LOW": 8
+      },
+      "byYear": {
+        "2017": 1,
+        "2018": 2,
+        "2020": 3,
+        "2021": 3,
+        "2022": 3,
+        "2023": 1,
+        "2024": 6,
+        "2025": 14,
+        "2026": 34
+      },
+      "criticalOrHighByYear": {
+        "2017": 1,
+        "2018": 1,
+        "2020": 1,
+        "2021": 2,
+        "2024": 5,
+        "2025": 5,
+        "2026": 16
+      },
+      "rceCount": 5,
+      "advisories": [
+        {
+          "id": "GHSA-vcvr-r3jv-pc5j",
+          "aliases": [],
+          "summary": "Next.js: Remote Code Execution in next/og ImageResponse",
+          "published": "2026-09-30T14:48:30Z",
+          "year": "2026",
+          "severity": "CRITICAL",
+          "cvss": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "16.3.6"
+            ]
+          },
+          "rce": true
+        },
+        {
+          "id": "GHSA-2xp9-vwfh-vxw4",
+          "aliases": [],
+          "summary": "Next.js: Unauthenticated Remote Code Execution in Image Optimization API when AVIF files are used",
+          "published": "2026-09-08T21:21:12Z",
+          "year": "2026",
+          "severity": "CRITICAL",
+          "cvss": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.5.24",
+              "16.3.3"
+            ]
+          },
+          "rce": true
+        },
+        {
+          "id": "GHSA-p293-qw3h-jr36",
+          "aliases": [
+            "CVE-2026-75604"
+          ],
+          "summary": "Next.js: Unauthenticated Remote Code Execution on windows-hosted servers",
+          "published": "2026-09-08T20:51:40Z",
+          "year": "2026",
+          "severity": "CRITICAL",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:H",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.5.24",
+              "16.3.3"
+            ]
+          },
+          "rce": true
+        },
+        {
+          "id": "GHSA-89xv-2m56-2m9x",
+          "aliases": [
+            "CVE-2026-64649"
+          ],
+          "summary": "Next.js: Server-Side Request Forgery in Server Actions on custom servers",
+          "published": "2026-07-22T23:09:48Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:L/VA:N/SC:N/SI:N/SA:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.5.21",
+              "16.2.11"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-68g3-v927-f742",
+          "aliases": [
+            "CVE-2026-64648"
+          ],
+          "summary": "Next.js: Cache confusion of response bodies for requests with bodies",
+          "published": "2026-07-22T23:08:17Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:H/VI:L/VA:N/SC:N/SI:N/SA:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.5.21",
+              "16.2.11"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-4633-3j49-mh5q",
+          "aliases": [
+            "CVE-2026-64647"
+          ],
+          "summary": "Next.js: Cache confusion of response bodies for requests with bodies containing invalid UTF-8 byte sequences",
+          "published": "2026-07-22T23:06:12Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:4.0/AV:N/AC:H/AT:P/PR:N/UI:N/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.5.21",
+              "16.2.11"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-4c39-4ccg-62r3",
+          "aliases": [
+            "CVE-2026-64646"
+          ],
+          "summary": "Next.js: Unbounded Server Action payload in Edge runtime",
+          "published": "2026-07-22T23:02:43Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.5.21",
+              "16.2.11"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-p9j2-gv94-2wf4",
+          "aliases": [
+            "CVE-2026-64645"
+          ],
+          "summary": "Next.js: Server-Side Request Forgery in rewrites via attacker-controlled destination hostname",
+          "published": "2026-07-22T23:02:23Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:L/VA:N/SC:L/SI:L/SA:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.5.21",
+              "16.2.11"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-q8wf-6r8g-63ch",
+          "aliases": [
+            "CVE-2026-64644"
+          ],
+          "summary": "Next.js: Denial of Service in the Image Optimization API using SVGs",
+          "published": "2026-07-22T23:02:05Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.5.21",
+              "16.2.11"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-955p-x3mx-jcvp",
+          "aliases": [
+            "CVE-2026-64643"
+          ],
+          "summary": "Next.js: Unauthenticated disclosure of internal Server Function endpoints",
+          "published": "2026-07-22T23:00:34Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.5.21",
+              "16.2.11"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-6gpp-xcg3-4w24",
+          "aliases": [
+            "CVE-2026-64642"
+          ],
+          "summary": "Next.js: Middleware / Proxy bypass in App Router applications using Turbopack and single locale",
+          "published": "2026-07-22T22:59:38Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:L/VA:N/SC:N/SI:N/SA:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "16.2.11"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-m99w-x7hq-7vfj",
+          "aliases": [
+            "CVE-2026-64641"
+          ],
+          "summary": "Next.js: Denial of Service in App Router using Server Actions",
+          "published": "2026-07-22T22:59:01Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.5.21",
+              "16.2.11"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-26hh-7cqf-hhc6",
+          "aliases": [
+            "CVE-2026-45109"
+          ],
+          "summary": "Next.js has a Middleware / Proxy bypass in App Router applications via segment-prefetch routes - Incomplete Fix Follow-Up",
+          "published": "2026-05-11T16:21:19Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.5.18",
+              "16.2.6"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-3g8h-86w9-wvmq",
+          "aliases": [
+            "CVE-2026-44572"
+          ],
+          "summary": "Next.js's Middleware / Proxy redirects can be cache-poisoned",
+          "published": "2026-05-11T16:12:07Z",
+          "year": "2026",
+          "severity": "LOW",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.5.16",
+              "16.2.5"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-ffhc-5mcf-pf4q",
+          "aliases": [
+            "CVE-2026-44581"
+          ],
+          "summary": "Next.js vulnerable to cross-site scripting in App Router applications using CSP nonces",
+          "published": "2026-05-11T15:57:12Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:L/I:L/A:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.5.16",
+              "16.2.5"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-vfv6-92ff-j949",
+          "aliases": [
+            "CVE-2026-44582"
+          ],
+          "summary": "Next.js vulnerable to cache poisoning via collisions in React Server Component cache-busting",
+          "published": "2026-05-11T15:56:48Z",
+          "year": "2026",
+          "severity": "LOW",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.5.16",
+              "16.2.5"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-gx5p-jg67-6x7h",
+          "aliases": [
+            "CVE-2026-44580"
+          ],
+          "summary": "Next.js has cross-site scripting in beforeInteractive scripts with untrusted input",
+          "published": "2026-05-11T15:56:38Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.5.16",
+              "16.2.5"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-mg66-mrh9-m8jx",
+          "aliases": [
+            "CVE-2026-44579"
+          ],
+          "summary": "Next.js vulnerable to Denial of Service via connection exhaustion in applications using Cache Components",
+          "published": "2026-05-11T15:56:24Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.5.16",
+              "16.2.5"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-h64f-5h5j-jqjh",
+          "aliases": [
+            "CVE-2026-44577"
+          ],
+          "summary": "Next.js has a Denial of Service in the Image Optimization API",
+          "published": "2026-05-11T15:56:05Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.5.16",
+              "16.2.5"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-c4j6-fc7j-m34r",
+          "aliases": [
+            "CVE-2026-44578"
+          ],
+          "summary": "Next.js vulnerable to server-side request forgery in applications using WebSocket upgrades",
+          "published": "2026-05-11T15:55:15Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:N/A:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.5.16",
+              "16.2.5"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-wfc6-r584-vfw7",
+          "aliases": [
+            "CVE-2026-44576"
+          ],
+          "summary": "Next.js vulnerable to cache poisoning in React Server Component responses",
+          "published": "2026-05-11T15:54:46Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:N/I:L/A:L",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.5.16",
+              "16.2.5"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-267c-6grr-h53f",
+          "aliases": [
+            "CVE-2026-44575"
+          ],
+          "summary": "Next.js has a Middleware / Proxy bypass in App Router applications via segment-prefetch routes",
+          "published": "2026-05-11T15:54:24Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.5.16",
+              "16.2.5"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-492v-c6pp-mqqv",
+          "aliases": [
+            "CVE-2026-44574"
+          ],
+          "summary": "Next.js has a Middleware / Proxy bypass through dynamic route parameter injection",
+          "published": "2026-05-11T15:54:08Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.5.16",
+              "16.2.5"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-36qx-fr4f-26g5",
+          "aliases": [
+            "CVE-2026-44573"
+          ],
+          "summary": "Next.js has a Middleware / Proxy bypass in Pages Router applications using i18n",
+          "published": "2026-05-11T15:53:51Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.5.16",
+              "16.2.5"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-8h8q-6873-q5fj",
+          "aliases": [],
+          "summary": "Next.js Vulnerable to Denial of Service with Server Components",
+          "published": "2026-05-11T14:50:27Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.5.16",
+              "16.2.5"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-q4gf-8mx6-v5v3",
+          "aliases": [],
+          "summary": "Next.js has a Denial of Service with Server Components",
+          "published": "2026-04-10T15:35:47Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.5.15",
+              "16.2.3"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-ggv3-7p47-pfv8",
+          "aliases": [
+            "CVE-2026-29057"
+          ],
+          "summary": "Next.js: HTTP request smuggling in rewrites",
+          "published": "2026-03-17T16:17:15Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "16.1.7",
+              "15.5.13"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-3x4c-7xq6-9pq8",
+          "aliases": [
+            "CVE-2026-27980"
+          ],
+          "summary": "Next.js: Unbounded next/image disk cache growth can exhaust storage",
+          "published": "2026-03-17T16:17:06Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "16.1.7",
+              "15.5.14"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-h27x-g6w4-24gq",
+          "aliases": [
+            "CVE-2026-27979"
+          ],
+          "summary": "Next.js: Unbounded postponed resume buffering can lead to DoS",
+          "published": "2026-03-17T16:16:49Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "16.1.7"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-mq59-m269-xvcx",
+          "aliases": [
+            "CVE-2026-27978"
+          ],
+          "summary": "Next.js: null origin can bypass Server Actions CSRF checks",
+          "published": "2026-03-17T15:30:14Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "16.1.7"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-jcc7-9wpm-mj36",
+          "aliases": [
+            "CVE-2026-27977"
+          ],
+          "summary": "Next.js: null origin can bypass dev HMR websocket CSRF checks",
+          "published": "2026-03-17T15:29:48Z",
+          "year": "2026",
+          "severity": "LOW",
+          "cvss": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "16.1.7"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-h25m-26qc-wcjf",
+          "aliases": [],
+          "summary": "Next.js HTTP request deserialization can lead to DoS when using insecure React Server Components",
+          "published": "2026-01-28T15:38:01Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.0.8",
+              "15.1.12",
+              "15.2.9",
+              "15.3.9",
+              "15.4.11",
+              "15.5.10",
+              "15.6.0-canary.61",
+              "16.0.11",
+              "16.1.5"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-5f7q-jpqc-wp7h",
+          "aliases": [
+            "CVE-2025-59472"
+          ],
+          "summary": "Next.js has Unbounded Memory Consumption via PPR Resume Endpoint ",
+          "published": "2026-01-28T15:20:55Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "16.1.5",
+              "15.6.0-canary.61"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-9g9p-9gw9-jx7f",
+          "aliases": [
+            "CVE-2025-59471"
+          ],
+          "summary": "Next.js self-hosted applications vulnerable to DoS via Image Optimizer remotePatterns configuration",
+          "published": "2026-01-27T19:18:25Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.5.10",
+              "16.1.5"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-5j59-xgg2-r9c4",
+          "aliases": [],
+          "summary": "Next has a Denial of Service with Server Components - Incomplete Fix Follow-Up",
+          "published": "2025-12-12T17:21:57Z",
+          "year": "2025",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "14.2.35",
+              "15.0.7",
+              "15.1.11",
+              "15.2.8",
+              "15.3.8",
+              "15.4.10",
+              "15.5.9",
+              "15.6.0-canary.60",
+              "16.0.10",
+              "16.1.0-canary.19"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-w37m-7fhw-fmv9",
+          "aliases": [],
+          "summary": "Next Server Actions Source Code Exposure ",
+          "published": "2025-12-11T22:49:56Z",
+          "year": "2025",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.0.6",
+              "15.1.10",
+              "15.2.7",
+              "15.3.7",
+              "15.4.9",
+              "15.5.8",
+              "15.6.0-canary.59",
+              "16.0.9",
+              "16.1.0-canary.17"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-mwv6-3258-q52c",
+          "aliases": [],
+          "summary": "Next Vulnerable to Denial of Service with Server Components",
+          "published": "2025-12-11T22:49:27Z",
+          "year": "2025",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "14.2.34",
+              "15.0.6",
+              "15.1.10",
+              "15.2.7",
+              "15.3.7",
+              "15.4.9",
+              "15.5.8",
+              "15.6.0-canary.59",
+              "16.0.9",
+              "16.1.0-canary.17"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-9qr9-h5gf-34mp",
+          "aliases": [],
+          "summary": "Next.js is vulnerable to RCE in React flight protocol",
+          "published": "2025-12-03T19:07:11Z",
+          "year": "2025",
+          "severity": "CRITICAL",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.0.5",
+              "15.1.9",
+              "15.2.6",
+              "15.3.6",
+              "15.4.8",
+              "15.5.7",
+              "16.0.7"
+            ]
+          },
+          "rce": true
+        },
+        {
+          "id": "GHSA-g5qg-72qw-gw5v",
+          "aliases": [
+            "CVE-2025-57752"
+          ],
+          "summary": "Next.js Affected by Cache Key Confusion for Image Optimization API Routes",
+          "published": "2025-08-29T22:06:22Z",
+          "year": "2025",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "14.2.31",
+              "15.4.5"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-xv57-4mr9-wg8v",
+          "aliases": [
+            "CVE-2025-55173"
+          ],
+          "summary": "Next.js Content Injection Vulnerability for Image Optimization",
+          "published": "2025-08-29T21:59:55Z",
+          "year": "2025",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "14.2.31",
+              "15.4.5"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-4342-x723-ch2f",
+          "aliases": [
+            "CVE-2025-57822"
+          ],
+          "summary": "Next.js Improper Middleware Redirect Handling Leads to SSRF",
+          "published": "2025-08-29T21:33:09Z",
+          "year": "2025",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:L/A:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "14.2.32",
+              "15.4.7"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-67rr-84xm-4c7r",
+          "aliases": [
+            "CVE-2025-49826"
+          ],
+          "summary": "Next.JS vulnerability can lead to DoS via cache poisoning ",
+          "published": "2025-07-03T21:14:48Z",
+          "year": "2025",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.1.8"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-r2fc-ccr8-96c4",
+          "aliases": [
+            "CVE-2025-49005"
+          ],
+          "summary": "Next.js has a Cache poisoning vulnerability due to omission of the Vary header",
+          "published": "2025-07-03T20:30:18Z",
+          "year": "2025",
+          "severity": "LOW",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.3.3"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-3h52-269p-cp9r",
+          "aliases": [
+            "CVE-2025-48068"
+          ],
+          "summary": "Information exposure in Next.js dev server due to lack of origin verification",
+          "published": "2025-05-28T21:52:13Z",
+          "year": "2025",
+          "severity": "LOW",
+          "cvss": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:L/VI:N/VA:N/SC:L/SI:N/SA:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "15.2.2",
+              "14.2.30"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-qpjv-v59x-3qc4",
+          "aliases": [
+            "CVE-2025-32421"
+          ],
+          "summary": "Next.js Race Condition to Cache Poisoning",
+          "published": "2025-05-15T14:12:26Z",
+          "year": "2025",
+          "severity": "LOW",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "14.2.24",
+              "15.1.6"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-223j-4rm8-mrmf",
+          "aliases": [
+            "CVE-2025-30218"
+          ],
+          "summary": "Next.js may leak x-middleware-subrequest-id to external hosts",
+          "published": "2025-04-02T22:35:37Z",
+          "year": "2025",
+          "severity": "LOW",
+          "cvss": "CVSS:4.0/AV:N/AC:H/AT:P/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N/E:U",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "12.3.6",
+              "13.5.10",
+              "14.2.26",
+              "15.2.4"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-f82v-jwr5-mffw",
+          "aliases": [
+            "CVE-2025-29927"
+          ],
+          "summary": "Authorization Bypass in Next.js Middleware",
+          "published": "2025-03-21T15:20:12Z",
+          "year": "2025",
+          "severity": "CRITICAL",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "13.5.9",
+              "14.2.25",
+              "15.2.3",
+              "12.3.5"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-7m27-7ghc-44w9",
+          "aliases": [
+            "CVE-2024-56332"
+          ],
+          "summary": "Next.js Allows a Denial of Service (DoS) with Server Actions",
+          "published": "2025-01-03T20:19:29Z",
+          "year": "2025",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "13.5.8",
+              "14.2.21",
+              "15.1.2"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-7gfc-8cq8-jh5f",
+          "aliases": [
+            "CVE-2024-51479"
+          ],
+          "summary": "Next.js authorization bypass vulnerability",
+          "published": "2024-12-17T15:09:06Z",
+          "year": "2024",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "14.2.15"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-g77x-44xx-532m",
+          "aliases": [
+            "CVE-2024-47831"
+          ],
+          "summary": "Denial of Service condition in Next.js image optimization",
+          "published": "2024-10-14T19:45:21Z",
+          "year": "2024",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "14.2.7"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-gp8f-8m3g-qvj9",
+          "aliases": [
+            "CVE-2024-46982"
+          ],
+          "summary": "Next.js Cache Poisoning",
+          "published": "2024-09-17T21:58:09Z",
+          "year": "2024",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "13.5.7",
+              "14.2.10"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-fq54-2j52-jc42",
+          "aliases": [
+            "CVE-2024-39693"
+          ],
+          "summary": "Next.js Denial of Service (DoS) condition",
+          "published": "2024-07-10T16:03:06Z",
+          "year": "2024",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "13.5.0"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-fr5h-rqp8-mj6g",
+          "aliases": [
+            "CVE-2024-34351"
+          ],
+          "summary": "Next.js Server-Side Request Forgery in Server Actions",
+          "published": "2024-05-09T21:18:57Z",
+          "year": "2024",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "14.1.1"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-77r5-gw3j-2mpf",
+          "aliases": [
+            "CVE-2024-34350"
+          ],
+          "summary": "Next.js Vulnerable to HTTP Request Smuggling",
+          "published": "2024-05-09T21:07:00Z",
+          "year": "2024",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:L/I:H/A:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "13.5.1"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-c59h-r6p8-q9wc",
+          "aliases": [
+            "CVE-2023-46298"
+          ],
+          "summary": "Next.js missing cache-control header may lead to CDN caching empty reply",
+          "published": "2023-10-22T03:30:23Z",
+          "year": "2023",
+          "severity": "LOW",
+          "cvss": null,
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "13.4.20-canary.13"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-wff4-fpwg-qqv3",
+          "aliases": [
+            "CVE-2022-36046",
+            "PYSEC-2022-43188"
+          ],
+          "summary": "Unexpected server crash in Next.js",
+          "published": "2022-08-30T20:38:34Z",
+          "year": "2022",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:N/I:N/A:H",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "12.2.4"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-fmvm-x8mv-47mj",
+          "aliases": [
+            "CVE-2022-23646"
+          ],
+          "summary": "Improper CSP in Image Optimization API for Next.js versions between 10.0.0 and 12.1.0",
+          "published": "2022-02-17T17:19:18Z",
+          "year": "2022",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "12.1.0"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-wr66-vrwm-5g5x",
+          "aliases": [
+            "CVE-2022-21721"
+          ],
+          "summary": "Denial of Service Vulnerability in next.js",
+          "published": "2022-01-28T23:09:22Z",
+          "year": "2022",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "12.0.9"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-25mp-g6fv-mqxx",
+          "aliases": [
+            "CVE-2021-43803"
+          ],
+          "summary": "Unexpected server crash in Next.js.",
+          "published": "2021-12-07T21:12:09Z",
+          "year": "2021",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "12.0.5",
+              "11.1.3"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-9gr3-7897-pp7m",
+          "aliases": [
+            "CVE-2021-39178"
+          ],
+          "summary": "XSS in Image Optimization API for Next.js",
+          "published": "2021-09-01T18:24:22Z",
+          "year": "2021",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:H",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "11.1.1"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-vxf5-wxwp-m7g9",
+          "aliases": [
+            "CVE-2021-37699"
+          ],
+          "summary": "Open Redirect in Next.js",
+          "published": "2021-08-12T14:51:14Z",
+          "year": "2021",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:H/I:L/A:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "11.1.0"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-x56p-c8cg-q435",
+          "aliases": [
+            "CVE-2020-15242"
+          ],
+          "summary": "Open Redirect in Next.js versions",
+          "published": "2020-10-08T19:28:07Z",
+          "year": "2020",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:N/A:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "9.5.4"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-5vj8-3v2h-h38v",
+          "aliases": [],
+          "summary": "Remote Code Execution in next",
+          "published": "2020-09-04T18:04:08Z",
+          "year": "2020",
+          "severity": "HIGH",
+          "cvss": null,
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "5.1.0"
+            ]
+          },
+          "rce": true
+        },
+        {
+          "id": "GHSA-fq77-7p7r-83rj",
+          "aliases": [
+            "CVE-2020-5284"
+          ],
+          "summary": "Directory Traversal in Next.js",
+          "published": "2020-03-30T20:40:50Z",
+          "year": "2020",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:L/UI:R/S:C/C:L/I:L/A:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "9.3.2"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-qw96-mm2g-c8m7",
+          "aliases": [
+            "CVE-2018-18282"
+          ],
+          "summary": "Next.js has cross site scripting (XSS) vulnerability via the 404 or 500 /_error page",
+          "published": "2018-10-15T21:43:12Z",
+          "year": "2018",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "7.0.2"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-m34x-wgrh-g897",
+          "aliases": [
+            "CVE-2018-6184"
+          ],
+          "summary": "Directory traversal vulnerability in Next.js",
+          "published": "2018-01-24T19:38:52Z",
+          "year": "2018",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "4.2.3"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-3f5c-4qxj-vmpf",
+          "aliases": [
+            "CVE-2017-16877"
+          ],
+          "summary": "Next.js Directory Traversal Vulnerability",
+          "published": "2017-12-05T02:04:14Z",
+          "year": "2017",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+          "packages": [
+            "next"
+          ],
+          "fixed": {
+            "next": [
+              "2.4.1"
+            ]
+          },
+          "rce": false
+        }
+      ]
+    },
+    "rr": {
+      "label": "React Router",
+      "packages": [
+        "react-router",
+        "react-router-dom",
+        "@react-router/dev",
+        "@react-router/node",
+        "@react-router/serve"
+      ],
+      "total": 21,
+      "bySeverity": {
+        "HIGH": 11,
+        "MODERATE": 8,
+        "LOW": 1,
+        "CRITICAL": 1
+      },
+      "byYear": {
+        "2025": 2,
+        "2026": 19
+      },
+      "criticalOrHighByYear": {
+        "2025": 2,
+        "2026": 10
+      },
+      "rceCount": 1,
+      "advisories": [
+        {
+          "id": "GHSA-qwww-vcr4-c8h2",
+          "aliases": [],
+          "summary": "React Router: RSC Mode CSRF Bypass Allows Action Execution Before 400 Response",
+          "published": "2026-07-24T16:44:43Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.18.2",
+              "8.3.0"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-chx6-hx7r-mcp5",
+          "aliases": [
+            "CVE-2026-55685"
+          ],
+          "summary": "React Router: Unauthenticated Denial of Service via Inefficient Route Matching",
+          "published": "2026-07-24T14:06:57Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.18.0"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-wrjc-x8rr-h8h6",
+          "aliases": [
+            "CVE-2026-53669"
+          ],
+          "summary": "React Router: Open redirect via backslash in <Link> and useNavigate (CVE-2025-68470 bypass)",
+          "published": "2026-07-23T19:38:28Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:A/VC:N/VI:L/VA:N/SC:L/SI:L/SA:N",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.18.0"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-jjmj-jmhj-qwj2",
+          "aliases": [
+            "CVE-2026-53668"
+          ],
+          "summary": "React Router: Open redirect leading to XSS",
+          "published": "2026-07-23T19:36:31Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:H/I:L/A:N",
+          "packages": [
+            "react-router",
+            "react-router-dom"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.13.0"
+            ],
+            "react-router-dom": [
+              "6.30.6"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-h8fp-f39c-q6mh",
+          "aliases": [
+            "CVE-2026-53667"
+          ],
+          "summary": "React Router: RSCErrorHandler Missing Protocol Validation (XSS)",
+          "published": "2026-07-23T19:35:57Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:H/I:L/A:N",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.18.0"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-337j-9hxr-rhxg",
+          "aliases": [
+            "CVE-2026-53666"
+          ],
+          "summary": "React Router: Arbitrary Constructor Injection via deserializeErrors() in React Router SSR Hydration",
+          "published": "2026-07-23T19:34:14Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.18.0"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-84g9-w2xq-vcv6",
+          "aliases": [
+            "CVE-2026-53663"
+          ],
+          "summary": "React Router: Potential CSRF via PUT/PATCH/DELETE document requests",
+          "published": "2026-06-15T20:06:15Z",
+          "year": "2026",
+          "severity": "LOW",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:N/I:L/A:N",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.15.1"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-rxv8-25v2-qmq8",
+          "aliases": [
+            "CVE-2026-34077"
+          ],
+          "summary": "React Router vulnerable to Denial of Service via reflected user input in single-fetch",
+          "published": "2026-06-04T15:23:51Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.14.0"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-8x6r-g9mw-2r78",
+          "aliases": [
+            "CVE-2026-42342"
+          ],
+          "summary": "React Router vulnerable to DoS via unbounded path expansion in __manifest endpoint",
+          "published": "2026-06-03T21:05:17Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.15.0"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-49rj-9fvp-4h2h",
+          "aliases": [
+            "CVE-2026-42211"
+          ],
+          "summary": "React Router's vendored turbo-stream v2 allows arbitrary constructor invocation via TYPE_ERROR deserialization leading to Unauth RCE",
+          "published": "2026-06-03T21:03:32Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.14.2"
+            ]
+          },
+          "rce": true
+        },
+        {
+          "id": "GHSA-2j2x-hqr9-3h42",
+          "aliases": [
+            "CVE-2026-40181"
+          ],
+          "summary": "React Router's same-origin redirect with path starting // causes open redirect via protocol-relative URL reinterpretation",
+          "published": "2026-06-03T20:58:01Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N/E:U",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.14.1",
+              "6.30.4"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-8646-j5j9-6r62",
+          "aliases": [
+            "CVE-2026-33245"
+          ],
+          "summary": "React Router vulnerable to XSS in unstable RSC redirect handling via javascript: redirect targets",
+          "published": "2026-06-03T20:33:32Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:H/I:H/A:N",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.13.2"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-f22v-gfqf-p8f3",
+          "aliases": [
+            "CVE-2026-33244"
+          ],
+          "summary": "React Router has stored XSS via unescaped Location header in prerendered redirect HTML",
+          "published": "2026-06-03T20:33:01Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:L/I:L/A:N",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.13.2"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-h5cw-625j-3rxh",
+          "aliases": [
+            "CVE-2026-22030"
+          ],
+          "summary": "React Router has CSRF issue in Action/Server Action Request Processing",
+          "published": "2026-01-08T20:57:09Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.12.0"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-2w69-qvjg-hvjx",
+          "aliases": [
+            "CVE-2026-22029"
+          ],
+          "summary": "React Router vulnerable to XSS via Open Redirects",
+          "published": "2026-01-08T20:54:18Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:H/I:H/A:N",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.12.0"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-8v8x-cx79-35w7",
+          "aliases": [
+            "CVE-2026-21884"
+          ],
+          "summary": "React Router SSR XSS in ScrollRestoration",
+          "published": "2026-01-08T20:50:05Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:L/A:N",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.12.0"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-9jcx-v3wj-wh4m",
+          "aliases": [
+            "CVE-2025-68470"
+          ],
+          "summary": "React Router has unexpected external redirect via untrusted paths",
+          "published": "2026-01-08T20:48:21Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "6.30.2",
+              "7.9.6"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-9583-h5hc-x8cw",
+          "aliases": [
+            "CVE-2025-61686"
+          ],
+          "summary": "React Router has Path Traversal in File Session Storage",
+          "published": "2026-01-08T20:45:07Z",
+          "year": "2026",
+          "severity": "CRITICAL",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:H",
+          "packages": [
+            "@react-router/node"
+          ],
+          "fixed": {
+            "@react-router/node": [
+              "7.9.4"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-3cgp-3xvw-98x8",
+          "aliases": [
+            "CVE-2025-59057"
+          ],
+          "summary": "React Router has XSS Vulnerability",
+          "published": "2026-01-08T20:42:20Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:H/I:L/A:N",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.9.0"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-cpj6-fhp6-mr6j",
+          "aliases": [
+            "CVE-2025-43865"
+          ],
+          "summary": "React Router allows pre-render data spoofing on React-Router framework mode",
+          "published": "2025-04-24T16:31:32Z",
+          "year": "2025",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:H",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.5.2"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-f46r-rw29-r322",
+          "aliases": [
+            "CVE-2025-43864"
+          ],
+          "summary": "React Router allows a DoS via cache poisoning by forcing SPA mode",
+          "published": "2025-04-24T16:31:16Z",
+          "year": "2025",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "packages": [
+            "react-router"
+          ],
+          "fixed": {
+            "react-router": [
+              "7.5.2"
+            ]
+          },
+          "rce": false
+        }
+      ]
+    },
+    "remixLineage": {
+      "label": "Remix v2 (React Router v7 の前身。参考値)",
+      "packages": [
+        "@remix-run/react",
+        "@remix-run/node",
+        "@remix-run/server-runtime",
+        "@remix-run/dev"
+      ],
+      "total": 6,
+      "bySeverity": {
+        "LOW": 1,
+        "HIGH": 3,
+        "MODERATE": 1,
+        "CRITICAL": 1
+      },
+      "byYear": {
+        "2026": 6
+      },
+      "criticalOrHighByYear": {
+        "2026": 4
+      },
+      "rceCount": 0,
+      "advisories": [
+        {
+          "id": "GHSA-84g9-w2xq-vcv6",
+          "aliases": [
+            "CVE-2026-53663"
+          ],
+          "summary": "React Router: Potential CSRF via PUT/PATCH/DELETE document requests",
+          "published": "2026-06-15T20:06:15Z",
+          "year": "2026",
+          "severity": "LOW",
+          "cvss": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:N/I:L/A:N",
+          "packages": [
+            "@remix-run/server-runtime"
+          ],
+          "fixed": {
+            "@remix-run/server-runtime": [
+              "2.17.5"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-8x6r-g9mw-2r78",
+          "aliases": [
+            "CVE-2026-42342"
+          ],
+          "summary": "React Router vulnerable to DoS via unbounded path expansion in __manifest endpoint",
+          "published": "2026-06-03T21:05:17Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "packages": [
+            "@remix-run/server-runtime"
+          ],
+          "fixed": {
+            "@remix-run/server-runtime": [
+              "2.17.5"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-h5cw-625j-3rxh",
+          "aliases": [
+            "CVE-2026-22030"
+          ],
+          "summary": "React Router has CSRF issue in Action/Server Action Request Processing",
+          "published": "2026-01-08T20:57:09Z",
+          "year": "2026",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N",
+          "packages": [
+            "@remix-run/server-runtime"
+          ],
+          "fixed": {
+            "@remix-run/server-runtime": [
+              "2.17.3"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-8v8x-cx79-35w7",
+          "aliases": [
+            "CVE-2026-21884"
+          ],
+          "summary": "React Router SSR XSS in ScrollRestoration",
+          "published": "2026-01-08T20:50:05Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:L/A:N",
+          "packages": [
+            "@remix-run/react"
+          ],
+          "fixed": {
+            "@remix-run/react": [
+              "2.17.3"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-9583-h5hc-x8cw",
+          "aliases": [
+            "CVE-2025-61686"
+          ],
+          "summary": "React Router has Path Traversal in File Session Storage",
+          "published": "2026-01-08T20:45:07Z",
+          "year": "2026",
+          "severity": "CRITICAL",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:H",
+          "packages": [
+            "@remix-run/node"
+          ],
+          "fixed": {
+            "@remix-run/node": [
+              "2.17.2"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-3cgp-3xvw-98x8",
+          "aliases": [
+            "CVE-2025-59057"
+          ],
+          "summary": "React Router has XSS Vulnerability",
+          "published": "2026-01-08T20:42:20Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:H/I:L/A:N",
+          "packages": [
+            "@remix-run/react"
+          ],
+          "fixed": {
+            "@remix-run/react": [
+              "2.17.1"
+            ]
+          },
+          "rce": false
+        }
+      ]
+    },
+    "rsc": {
+      "label": "React Server Components runtime (Next が同梱、React Router は未使用)",
+      "packages": [
+        "react-server-dom-webpack",
+        "react-server-dom-turbopack",
+        "react-server-dom-parcel"
+      ],
+      "total": 8,
+      "bySeverity": {
+        "HIGH": 6,
+        "MODERATE": 1,
+        "CRITICAL": 1
+      },
+      "byYear": {
+        "2025": 4,
+        "2026": 4
+      },
+      "criticalOrHighByYear": {
+        "2025": 3,
+        "2026": 4
+      },
+      "rceCount": 1,
+      "advisories": [
+        {
+          "id": "GHSA-wx67-qw84-cm4g",
+          "aliases": [
+            "CVE-2026-44907"
+          ],
+          "summary": "react-server-dom: Denial of Service in Server Functions",
+          "published": "2026-07-24T21:12:02Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "packages": [
+            "react-server-dom-webpack",
+            "react-server-dom-turbopack",
+            "react-server-dom-parcel"
+          ],
+          "fixed": {
+            "react-server-dom-webpack": [
+              "19.0.8",
+              "19.1.9",
+              "19.2.8"
+            ],
+            "react-server-dom-turbopack": [
+              "19.0.8",
+              "19.1.9",
+              "19.2.8"
+            ],
+            "react-server-dom-parcel": [
+              "19.1.9",
+              "19.2.8"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-rv78-f8rc-xrxh",
+          "aliases": [
+            "CVE-2026-23870"
+          ],
+          "summary": "Facebook React has a Denial of Service Vulnerability in React Server Components",
+          "published": "2026-05-11T14:50:07Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "packages": [
+            "react-server-dom-webpack",
+            "react-server-dom-turbopack",
+            "react-server-dom-parcel"
+          ],
+          "fixed": {
+            "react-server-dom-webpack": [
+              "19.0.6",
+              "19.1.7",
+              "19.2.6"
+            ],
+            "react-server-dom-turbopack": [
+              "19.0.6",
+              "19.1.7",
+              "19.2.6"
+            ],
+            "react-server-dom-parcel": [
+              "19.0.6",
+              "19.1.7",
+              "19.2.6"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-479c-33wc-g2pg",
+          "aliases": [
+            "CVE-2026-23869"
+          ],
+          "summary": "React Server Components have a Denial of Service Vulnerability",
+          "published": "2026-04-10T15:35:37Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "packages": [
+            "react-server-dom-webpack",
+            "react-server-dom-turbopack",
+            "react-server-dom-parcel"
+          ],
+          "fixed": {
+            "react-server-dom-webpack": [
+              "19.0.5",
+              "19.1.6",
+              "19.2.5"
+            ],
+            "react-server-dom-turbopack": [
+              "19.0.5",
+              "19.1.6",
+              "19.2.5"
+            ],
+            "react-server-dom-parcel": [
+              "19.0.5",
+              "19.1.6",
+              "19.2.5"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-83fc-fqcc-2hmg",
+          "aliases": [
+            "CVE-2026-23864"
+          ],
+          "summary": "React Server Components have multiple Denial of Service Vulnerabilities",
+          "published": "2026-01-29T15:00:30Z",
+          "year": "2026",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "packages": [
+            "react-server-dom-webpack",
+            "react-server-dom-turbopack",
+            "react-server-dom-parcel"
+          ],
+          "fixed": {
+            "react-server-dom-webpack": [
+              "19.2.4",
+              "19.1.5",
+              "19.0.4"
+            ],
+            "react-server-dom-turbopack": [
+              "19.1.5",
+              "19.0.4",
+              "19.2.4"
+            ],
+            "react-server-dom-parcel": [
+              "19.0.4",
+              "19.1.5",
+              "19.2.4"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-7gmr-mq3h-m5h9",
+          "aliases": [
+            "CVE-2025-67779"
+          ],
+          "summary": "Denial of Service Vulnerability in React Server Components",
+          "published": "2025-12-12T16:32:43Z",
+          "year": "2025",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "packages": [
+            "react-server-dom-webpack",
+            "react-server-dom-turbopack",
+            "react-server-dom-parcel"
+          ],
+          "fixed": {
+            "react-server-dom-webpack": [
+              "19.0.3",
+              "19.1.4",
+              "19.2.3"
+            ],
+            "react-server-dom-turbopack": [
+              "19.0.3",
+              "19.1.4",
+              "19.2.3"
+            ],
+            "react-server-dom-parcel": [
+              "19.0.3",
+              "19.1.4",
+              "19.2.3"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-2m3v-v2m8-q956",
+          "aliases": [
+            "CVE-2025-55184"
+          ],
+          "summary": "Denial of Service Vulnerability in React Server Components",
+          "published": "2025-12-11T22:36:44Z",
+          "year": "2025",
+          "severity": "HIGH",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "packages": [
+            "react-server-dom-webpack",
+            "react-server-dom-turbopack",
+            "react-server-dom-parcel"
+          ],
+          "fixed": {
+            "react-server-dom-webpack": [
+              "19.0.2",
+              "19.1.3",
+              "19.2.2"
+            ],
+            "react-server-dom-turbopack": [
+              "19.0.2",
+              "19.1.3",
+              "19.2.2"
+            ],
+            "react-server-dom-parcel": [
+              "19.0.2",
+              "19.1.3",
+              "19.2.2"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-925w-6v3x-g4j4",
+          "aliases": [
+            "CVE-2025-55183"
+          ],
+          "summary": "Source Code Exposure Vulnerability in React Server Components",
+          "published": "2025-12-11T22:36:08Z",
+          "year": "2025",
+          "severity": "MODERATE",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+          "packages": [
+            "react-server-dom-webpack",
+            "react-server-dom-turbopack",
+            "react-server-dom-parcel"
+          ],
+          "fixed": {
+            "react-server-dom-webpack": [
+              "19.0.2",
+              "19.1.3",
+              "19.2.2"
+            ],
+            "react-server-dom-turbopack": [
+              "19.0.2",
+              "19.1.3",
+              "19.2.2"
+            ],
+            "react-server-dom-parcel": [
+              "19.0.2",
+              "19.1.3",
+              "19.2.2"
+            ]
+          },
+          "rce": false
+        },
+        {
+          "id": "GHSA-fv66-9v8q-g76r",
+          "aliases": [
+            "CVE-2025-55182"
+          ],
+          "summary": "React Server Components are Vulnerable to RCE",
+          "published": "2025-12-03T19:07:39Z",
+          "year": "2025",
+          "severity": "CRITICAL",
+          "cvss": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+          "packages": [
+            "react-server-dom-webpack",
+            "react-server-dom-turbopack",
+            "react-server-dom-parcel"
+          ],
+          "fixed": {
+            "react-server-dom-webpack": [
+              "19.0.1",
+              "19.1.2",
+              "19.2.1"
+            ],
+            "react-server-dom-turbopack": [
+              "19.0.1",
+              "19.1.2",
+              "19.2.1"
+            ],
+            "react-server-dom-parcel": [
+              "19.0.1",
+              "19.1.2",
+              "19.2.1"
+            ]
+          },
+          "rce": true
+        }
+      ]
+    }
+  }
+}

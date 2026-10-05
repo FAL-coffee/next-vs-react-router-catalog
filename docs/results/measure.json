@@ -1,0 +1,1732 @@
+{
+  "measuredAt": "2026-10-05T08:03:45.026Z",
+  "node": "v22.22.0",
+  "pnpm": "10.28.0",
+  "apps": {
+    "next": {
+      "key": "next",
+      "label": "Next.js",
+      "frameworkVersions": {
+        "next": "16.3.8"
+      },
+      "declaredDeps": {
+        "dependencies": [
+          "next",
+          "react",
+          "react-dom"
+        ],
+        "devDependencies": [
+          "@tailwindcss/postcss",
+          "@types/node",
+          "@types/react",
+          "@types/react-dom",
+          "eslint",
+          "eslint-config-next",
+          "tailwindcss",
+          "typescript"
+        ]
+      },
+      "source": {
+        "lines": 394,
+        "files": 17
+      },
+      "deps": {
+        "prod": {
+          "count": 59,
+          "bytes": 449022917,
+          "packages": [
+            "@emnapi/runtime@1.11.3",
+            "@img/colour@1.1.0",
+            "@img/sharp-darwin-arm64@0.35.5",
+            "@img/sharp-darwin-x64@0.35.5",
+            "@img/sharp-freebsd-wasm32@0.35.5",
+            "@img/sharp-libvips-darwin-arm64@1.3.4",
+            "@img/sharp-libvips-darwin-x64@1.3.4",
+            "@img/sharp-libvips-linux-arm64@1.3.4",
+            "@img/sharp-libvips-linux-arm@1.3.4",
+            "@img/sharp-libvips-linux-ppc64@1.3.4",
+            "@img/sharp-libvips-linux-riscv64@1.3.4",
+            "@img/sharp-libvips-linux-s390x@1.3.4",
+            "@img/sharp-libvips-linux-x64@1.3.4",
+            "@img/sharp-libvips-linuxmusl-arm64@1.3.4",
+            "@img/sharp-libvips-linuxmusl-x64@1.3.4",
+            "@img/sharp-linux-arm64@0.35.5",
+            "@img/sharp-linux-arm@0.35.5",
+            "@img/sharp-linux-ppc64@0.35.5",
+            "@img/sharp-linux-riscv64@0.35.5",
+            "@img/sharp-linux-s390x@0.35.5",
+            "@img/sharp-linux-x64@0.35.5",
+            "@img/sharp-linuxmusl-arm64@0.35.5",
+            "@img/sharp-linuxmusl-x64@0.35.5",
+            "@img/sharp-wasm32@0.35.5",
+            "@img/sharp-webcontainers-wasm32@0.35.5",
+            "@img/sharp-win32-arm64@0.35.5",
+            "@img/sharp-win32-ia32@0.35.5",
+            "@img/sharp-win32-x64@0.35.5",
+            "@next/env@16.3.8",
+            "@next/swc-darwin-arm64@16.3.8",
+            "@next/swc-darwin-x64@16.3.8",
+            "@next/swc-linux-arm64-gnu@16.3.8",
+            "@next/swc-linux-arm64-musl@16.3.8",
+            "@next/swc-linux-x64-gnu@16.3.8",
+            "@next/swc-linux-x64-musl@16.3.8",
+            "@next/swc-win32-arm64-msvc@16.3.8",
+            "@next/swc-win32-x64-msvc@16.3.8",
+            "@playwright/test@1.63.0",
+            "@swc/helpers@0.5.23",
+            "@types/node@20.19.43",
+            "baseline-browser-mapping@2.11.27",
+            "caniuse-lite@1.0.30001814",
+            "client-only@0.0.1",
+            "detect-libc@2.1.2",
+            "nanoid@3.3.19",
+            "next@16.3.8",
+            "picocolors@1.1.1",
+            "playwright-core@1.63.0",
+            "playwright@1.63.0",
+            "postcss@8.5.23",
+            "react-dom@19.2.8",
+            "react@19.2.8",
+            "scheduler@0.27.0",
+            "semver@7.8.5",
+            "sharp@0.35.5",
+            "source-map-js@1.2.2",
+            "styled-jsx@5.1.6",
+            "tslib@2.8.1",
+            "undici-types@6.21.0"
+          ]
+        },
+        "all": {
+          "count": 436,
+          "bytes": 563970155,
+          "packages": [
+            "@alloc/quick-lru@5.3.0",
+            "@babel/code-frame@7.29.7",
+            "@babel/compat-data@7.29.7",
+            "@babel/core@7.29.7",
+            "@babel/generator@7.29.8",
+            "@babel/helper-compilation-targets@7.29.7",
+            "@babel/helper-globals@7.29.7",
+            "@babel/helper-module-imports@7.29.7",
+            "@babel/helper-module-transforms@7.29.7",
+            "@babel/helper-string-parser@7.29.7",
+            "@babel/helper-validator-identifier@7.29.7",
+            "@babel/helper-validator-option@7.29.7",
+            "@babel/helpers@7.29.7",
+            "@babel/parser@7.29.9",
+            "@babel/template@7.29.7",
+            "@babel/traverse@7.29.8",
+            "@babel/types@7.29.8",
+            "@emnapi/core@1.10.0",
+            "@emnapi/runtime@1.10.0",
+            "@emnapi/runtime@1.11.3",
+            "@emnapi/wasi-threads@1.2.1",
+            "@eslint-community/eslint-utils@4.10.1",
+            "@eslint-community/eslint-utils@4.9.1",
+            "@eslint-community/regexpp@4.12.2",
+            "@eslint/config-array@0.21.2",
+            "@eslint/config-helpers@0.4.2",
+            "@eslint/core@0.17.0",
+            "@eslint/eslintrc@3.3.7",
+            "@eslint/js@9.39.5",
+            "@eslint/object-schema@2.1.7",
+            "@eslint/plugin-kit@0.4.1",
+            "@humanfs/core@0.19.2",
+            "@humanfs/node@0.16.8",
+            "@humanfs/types@0.15.0",
+            "@humanwhocodes/module-importer@1.0.1",
+            "@humanwhocodes/retry@0.4.3",
+            "@img/colour@1.1.0",
+            "@img/sharp-darwin-arm64@0.35.5",
+            "@img/sharp-darwin-x64@0.35.5",
+            "@img/sharp-freebsd-wasm32@0.35.5",
+            "@img/sharp-libvips-darwin-arm64@1.3.4",
+            "@img/sharp-libvips-darwin-x64@1.3.4",
+            "@img/sharp-libvips-linux-arm64@1.3.4",
+            "@img/sharp-libvips-linux-arm@1.3.4",
+            "@img/sharp-libvips-linux-ppc64@1.3.4",
+            "@img/sharp-libvips-linux-riscv64@1.3.4",
+            "@img/sharp-libvips-linux-s390x@1.3.4",
+            "@img/sharp-libvips-linux-x64@1.3.4",
+            "@img/sharp-libvips-linuxmusl-arm64@1.3.4",
+            "@img/sharp-libvips-linuxmusl-x64@1.3.4",
+            "@img/sharp-linux-arm64@0.35.5",
+            "@img/sharp-linux-arm@0.35.5",
+            "@img/sharp-linux-ppc64@0.35.5",
+            "@img/sharp-linux-riscv64@0.35.5",
+            "@img/sharp-linux-s390x@0.35.5",
+            "@img/sharp-linux-x64@0.35.5",
+            "@img/sharp-linuxmusl-arm64@0.35.5",
+            "@img/sharp-linuxmusl-x64@0.35.5",
+            "@img/sharp-wasm32@0.35.5",
+            "@img/sharp-webcontainers-wasm32@0.35.5",
+            "@img/sharp-win32-arm64@0.35.5",
+            "@img/sharp-win32-ia32@0.35.5",
+            "@img/sharp-win32-x64@0.35.5",
+            "@jridgewell/gen-mapping@0.3.13",
+            "@jridgewell/remapping@2.3.5",
+            "@jridgewell/resolve-uri@3.1.2",
+            "@jridgewell/sourcemap-codec@1.6.0",
+            "@jridgewell/trace-mapping@0.3.31",
+            "@napi-rs/wasm-runtime@1.2.4",
+            "@next/env@16.3.8",
+            "@next/eslint-plugin-next@16.3.8",
+            "@next/swc-darwin-arm64@16.3.8",
+            "@next/swc-darwin-x64@16.3.8",
+            "@next/swc-linux-arm64-gnu@16.3.8",
+            "@next/swc-linux-arm64-musl@16.3.8",
+            "@next/swc-linux-x64-gnu@16.3.8",
+            "@next/swc-linux-x64-musl@16.3.8",
+            "@next/swc-win32-arm64-msvc@16.3.8",
+            "@next/swc-win32-x64-msvc@16.3.8",
+            "@nodelib/fs.scandir@2.1.5",
+            "@nodelib/fs.stat@2.0.5",
+            "@nodelib/fs.walk@1.2.8",
+            "@nolyfill/is-core-module@1.0.39",
+            "@playwright/test@1.63.0",
+            "@rtsao/scc@1.1.0",
+            "@swc/helpers@0.5.23",
+            "@tailwindcss/node@4.3.3",
+            "@tailwindcss/oxide-android-arm64@4.3.3",
+            "@tailwindcss/oxide-darwin-arm64@4.3.3",
+            "@tailwindcss/oxide-darwin-x64@4.3.3",
+            "@tailwindcss/oxide-freebsd-x64@4.3.3",
+            "@tailwindcss/oxide-linux-arm-gnueabihf@4.3.3",
+            "@tailwindcss/oxide-linux-arm64-gnu@4.3.3",
+            "@tailwindcss/oxide-linux-arm64-musl@4.3.3",
+            "@tailwindcss/oxide-linux-x64-gnu@4.3.3",
+            "@tailwindcss/oxide-linux-x64-musl@4.3.3",
+            "@tailwindcss/oxide-wasm32-wasi@4.3.3",
+            "@tailwindcss/oxide-win32-arm64-msvc@4.3.3",
+            "@tailwindcss/oxide-win32-x64-msvc@4.3.3",
+            "@tailwindcss/oxide@4.3.3",
+            "@tailwindcss/postcss@4.3.3",
+            "@tybys/wasm-util@0.10.4",
+            "@types/estree@1.0.9",
+            "@types/json-schema@7.0.15",
+            "@types/json5@0.0.29",
+            "@types/node@20.19.43",
+            "@types/react-dom@19.3.0",
+            "@types/react@19.3.0",
+            "@typescript-eslint/eslint-plugin@8.71.0",
+            "@typescript-eslint/parser@8.71.0",
+            "@typescript-eslint/project-service@8.71.0",
+            "@typescript-eslint/scope-manager@8.71.0",
+            "@typescript-eslint/tsconfig-utils@8.71.0",
+            "@typescript-eslint/type-utils@8.71.0",
+            "@typescript-eslint/types@8.71.0",
+            "@typescript-eslint/typescript-estree@8.71.0",
+            "@typescript-eslint/utils@8.71.0",
+            "@typescript-eslint/visitor-keys@8.71.0",
+            "@unrs/resolver-binding-android-arm-eabi@1.12.2",
+            "@unrs/resolver-binding-android-arm64@1.12.2",
+            "@unrs/resolver-binding-darwin-arm64@1.12.2",
+            "@unrs/resolver-binding-darwin-x64@1.12.2",
+            "@unrs/resolver-binding-freebsd-x64@1.12.2",
+            "@unrs/resolver-binding-linux-arm-gnueabihf@1.12.2",
+            "@unrs/resolver-binding-linux-arm-musleabihf@1.12.2",
+            "@unrs/resolver-binding-linux-arm64-gnu@1.12.2",
+            "@unrs/resolver-binding-linux-arm64-musl@1.12.2",
+            "@unrs/resolver-binding-linux-loong64-gnu@1.12.2",
+            "@unrs/resolver-binding-linux-loong64-musl@1.12.2",
+            "@unrs/resolver-binding-linux-ppc64-gnu@1.12.2",
+            "@unrs/resolver-binding-linux-riscv64-gnu@1.12.2",
+            "@unrs/resolver-binding-linux-riscv64-musl@1.12.2",
+            "@unrs/resolver-binding-linux-s390x-gnu@1.12.2",
+            "@unrs/resolver-binding-linux-x64-gnu@1.12.2",
+            "@unrs/resolver-binding-linux-x64-musl@1.12.2",
+            "@unrs/resolver-binding-openharmony-arm64@1.12.2",
+            "@unrs/resolver-binding-wasm32-wasi@1.12.2",
+            "@unrs/resolver-binding-win32-arm64-msvc@1.12.2",
+            "@unrs/resolver-binding-win32-ia32-msvc@1.12.2",
+            "@unrs/resolver-binding-win32-x64-msvc@1.12.2",
+            "acorn-jsx@5.3.2",
+            "acorn@8.18.0",
+            "ajv@6.15.0",
+            "ansi-styles@4.3.0",
+            "argparse@2.0.1",
+            "aria-query@5.3.2",
+            "array-buffer-byte-length@1.0.2",
+            "array-includes@3.2.0",
+            "array.prototype.findlast@1.2.5",
+            "array.prototype.findlastindex@1.2.6",
+            "array.prototype.flat@1.3.3",
+            "array.prototype.flatmap@1.3.3",
+            "array.prototype.tosorted@1.1.4",
+            "arraybuffer.prototype.slice@1.0.4",
+            "ast-types-flow@0.0.8",
+            "async-function@1.0.0",
+            "available-typed-arrays@1.0.7",
+            "axe-core@4.13.0",
+            "axobject-query@4.1.0",
+            "balanced-match@1.0.2",
+            "balanced-match@4.0.4",
+            "baseline-browser-mapping@2.11.27",
+            "brace-expansion@1.1.21",
+            "brace-expansion@5.0.12",
+            "braces@3.0.3",
+            "browserslist@4.29.3",
+            "call-bind-apply-helpers@1.0.2",
+            "call-bind@1.0.9",
+            "call-bound@1.0.4",
+            "callsites@3.1.0",
+            "caniuse-lite@1.0.30001814",
+            "chalk@4.1.2",
+            "client-only@0.0.1",
+            "color-convert@2.0.1",
+            "color-name@1.1.4",
+            "concat-map@0.0.1",
+            "convert-source-map@2.0.0",
+            "cross-spawn@7.0.6",
+            "csstype@3.2.3",
+            "damerau-levenshtein@1.0.8",
+            "data-view-buffer@1.0.2",
+            "data-view-byte-length@1.0.2",
+            "data-view-byte-offset@1.0.1",
+            "debug@3.2.7",
+            "debug@4.4.3",
+            "deep-is@0.1.4",
+            "define-data-property@1.1.4",
+            "define-properties@1.2.1",
+            "detect-libc@2.1.2",
+            "doctrine@2.1.0",
+            "dunder-proto@1.0.1",
+            "electron-to-chromium@1.5.444",
+            "emoji-regex@9.2.2",
+            "enhanced-resolve@5.26.0",
+            "es-abstract-get@1.0.0",
+            "es-abstract@1.24.2",
+            "es-define-property@1.0.1",
+            "es-errors@1.3.0",
+            "es-iterator-helpers@1.4.0",
+            "es-object-atoms@1.1.2",
+            "es-set-tostringtag@2.1.0",
+            "es-shim-unscopables@1.1.0",
+            "es-to-primitive@1.3.4",
+            "escalade@3.2.0",
+            "escape-string-regexp@4.0.0",
+            "eslint-config-next@16.3.8",
+            "eslint-import-resolver-node@0.3.10",
+            "eslint-import-resolver-typescript@3.10.1",
+            "eslint-module-utils@2.14.0",
+            "eslint-plugin-import@2.32.0",
+            "eslint-plugin-jsx-a11y@6.10.2",
+            "eslint-plugin-react-hooks@7.1.1",
+            "eslint-plugin-react@7.37.5",
+            "eslint-scope@8.4.0",
+            "eslint-visitor-keys@3.4.3",
+            "eslint-visitor-keys@4.2.1",
+            "eslint-visitor-keys@5.0.1",
+            "eslint@9.39.5",
+            "espree@10.4.0",
+            "esquery@1.7.0",
+            "esrecurse@4.3.0",
+            "estraverse@5.3.0",
+            "esutils@2.0.3",
+            "fast-deep-equal@3.1.3",
+            "fast-glob@3.3.1",
+            "fast-json-stable-stringify@2.1.0",
+            "fast-levenshtein@2.0.6",
+            "fastq@1.20.3",
+            "fdir@6.5.0",
+            "file-entry-cache@8.0.0",
+            "fill-range@7.1.1",
+            "find-up@5.0.0",
+            "flat-cache@4.0.1",
+            "flatted@3.4.4",
+            "for-each@0.3.5",
+            "function-bind@1.1.2",
+            "function.prototype.name@1.2.0",
+            "functions-have-names@1.2.3",
+            "generator-function@2.0.1",
+            "gensync@1.0.0-beta.2",
+            "get-intrinsic@1.3.0",
+            "get-proto@1.0.1",
+            "get-symbol-description@1.1.0",
+            "get-tsconfig@4.14.3",
+            "glob-parent@5.1.2",
+            "glob-parent@6.0.2",
+            "globals@14.0.0",
+            "globals@16.4.0",
+            "globalthis@1.0.4",
+            "gopd@1.2.0",
+            "graceful-fs@4.2.11",
+            "has-bigints@1.1.0",
+            "has-flag@4.0.0",
+            "has-property-descriptors@1.0.2",
+            "has-proto@1.2.0",
+            "has-symbols@1.1.0",
+            "has-tostringtag@1.0.2",
+            "hasown@2.0.4",
+            "hermes-estree@0.25.1",
+            "hermes-parser@0.25.1",
+            "ignore@5.3.2",
+            "ignore@7.0.12",
+            "import-fresh@3.3.1",
+            "imurmurhash@0.1.4",
+            "internal-slot@1.1.0",
+            "is-array-buffer@3.0.5",
+            "is-async-function@2.1.1",
+            "is-bigint@1.1.0",
+            "is-boolean-object@1.2.2",
+            "is-bun-module@2.0.0",
+            "is-callable@1.2.7",
+            "is-core-module@2.17.0",
+            "is-data-view@1.0.2",
+            "is-date-object@1.1.0",
+            "is-document.all@1.0.0",
+            "is-extglob@2.1.1",
+            "is-finalizationregistry@1.1.1",
+            "is-generator-function@1.1.2",
+            "is-glob@4.0.3",
+            "is-map@2.0.3",
+            "is-negative-zero@2.0.3",
+            "is-number-object@1.1.1",
+            "is-number@7.0.0",
+            "is-regex@1.2.1",
+            "is-set@2.0.3",
+            "is-shared-array-buffer@1.0.4",
+            "is-string@1.1.1",
+            "is-symbol@1.1.1",
+            "is-typed-array@1.1.15",
+            "is-weakmap@2.0.2",
+            "is-weakref@1.1.1",
+            "is-weakset@2.0.4",
+            "isarray@2.0.5",
+            "isexe@2.0.0",
+            "iterator.prototype@1.1.5",
+            "jiti@2.7.0",
+            "js-tokens@4.0.0",
+            "js-yaml@4.3.2",
+            "jsesc@3.1.0",
+            "json-buffer@3.0.1",
+            "json-schema-traverse@0.4.1",
+            "json-stable-stringify-without-jsonify@1.0.1",
+            "json5@1.0.2",
+            "json5@2.2.3",
+            "jsx-ast-utils@3.3.5",
+            "keyv@4.5.4",
+            "language-subtag-registry@0.3.23",
+            "language-tags@1.0.9",
+            "levn@0.4.1",
+            "lightningcss-android-arm64@1.32.0",
+            "lightningcss-darwin-arm64@1.32.0",
+            "lightningcss-darwin-x64@1.32.0",
+            "lightningcss-freebsd-x64@1.32.0",
+            "lightningcss-linux-arm-gnueabihf@1.32.0",
+            "lightningcss-linux-arm64-gnu@1.32.0",
+            "lightningcss-linux-arm64-musl@1.32.0",
+            "lightningcss-linux-x64-gnu@1.32.0",
+            "lightningcss-linux-x64-musl@1.32.0",
+            "lightningcss-win32-arm64-msvc@1.32.0",
+            "lightningcss-win32-x64-msvc@1.32.0",
+            "lightningcss@1.32.0",
+            "locate-path@6.0.0",
+            "lodash.merge@4.6.2",
+            "loose-envify@1.4.0",
+            "lru-cache@5.1.1",
+            "magic-string@0.30.21",
+            "math-intrinsics@1.1.0",
+            "merge2@1.4.1",
+            "micromatch@4.0.8",
+            "minimatch@10.2.6",
+            "minimatch@3.1.5",
+            "minimist@1.2.8",
+            "ms@2.1.3",
+            "nanoid@3.3.19",
+            "napi-postinstall@0.3.4",
+            "natural-compare@1.4.0",
+            "next@16.3.8",
+            "node-exports-info@1.6.2",
+            "node-releases@2.0.57",
+            "object-assign@4.1.1",
+            "object-inspect@1.13.4",
+            "object-keys@1.1.1",
+            "object.assign@4.1.7",
+            "object.entries@1.1.9",
+            "object.fromentries@2.0.8",
+            "object.groupby@1.0.3",
+            "object.values@1.2.1",
+            "optionator@0.9.4",
+            "own-keys@1.0.2",
+            "p-limit@3.1.0",
+            "p-locate@5.0.0",
+            "parent-module@1.0.1",
+            "path-exists@4.0.0",
+            "path-key@3.1.1",
+            "path-parse@1.0.7",
+            "picocolors@1.1.1",
+            "picomatch@2.3.2",
+            "picomatch@4.0.7",
+            "playwright-core@1.63.0",
+            "playwright@1.63.0",
+            "possible-typed-array-names@1.1.0",
+            "postcss@8.5.23",
+            "postcss@8.5.28",
+            "prelude-ls@1.2.1",
+            "prop-types@15.8.1",
+            "punycode@2.3.1",
+            "queue-microtask@1.2.3",
+            "react-dom@19.2.8",
+            "react-is@16.13.1",
+            "react@19.2.8",
+            "reflect.getprototypeof@1.0.10",
+            "regexp.prototype.flags@1.5.4",
+            "resolve-from@4.0.0",
+            "resolve-pkg-maps@1.0.0",
+            "resolve@2.0.0-next.7",
+            "reusify@1.1.0",
+            "run-parallel@1.2.0",
+            "safe-array-concat@1.1.4",
+            "safe-push-apply@1.0.0",
+            "safe-regex-test@1.1.0",
+            "scheduler@0.27.0",
+            "semver@6.3.1",
+            "semver@7.8.5",
+            "set-function-length@1.2.2",
+            "set-function-name@2.0.2",
+            "set-proto@1.0.0",
+            "sharp@0.35.5",
+            "shebang-command@2.0.0",
+            "shebang-regex@3.0.0",
+            "side-channel-list@1.0.1",
+            "side-channel-map@1.0.1",
+            "side-channel-weakmap@1.0.2",
+            "side-channel@1.1.1",
+            "source-map-js@1.2.2",
+            "stable-hash@0.0.5",
+            "stop-iteration-iterator@1.1.0",
+            "string.prototype.includes@2.0.1",
+            "string.prototype.matchall@4.1.0",
+            "string.prototype.repeat@1.0.0",
+            "string.prototype.trim@1.2.11",
+            "string.prototype.trimend@1.0.10",
+            "string.prototype.trimstart@1.0.8",
+            "strip-bom@3.0.0",
+            "strip-json-comments@3.1.1",
+            "styled-jsx@5.1.6",
+            "supports-color@7.2.0",
+            "supports-preserve-symlinks-flag@1.0.0",
+            "tailwindcss@4.3.3",
+            "tapable@2.3.3",
+            "tinyglobby@0.2.17",
+            "to-regex-range@5.0.1",
+            "ts-api-utils@2.5.0",
+            "tsconfig-paths@3.15.0",
+            "tslib@2.8.1",
+            "type-check@0.4.0",
+            "typed-array-buffer@1.0.3",
+            "typed-array-byte-length@1.0.3",
+            "typed-array-byte-offset@1.0.5",
+            "typed-array-length@1.0.8",
+            "typescript-eslint@8.71.0",
+            "typescript@5.9.3",
+            "unbox-primitive@1.1.0",
+            "undici-types@6.21.0",
+            "unrs-resolver@1.12.2",
+            "update-browserslist-db@1.3.3",
+            "uri-js@4.4.1",
+            "which-boxed-primitive@1.1.1",
+            "which-builtin-type@1.2.1",
+            "which-collection@1.0.2",
+            "which-typed-array@1.1.24",
+            "which@2.0.2",
+            "word-wrap@1.2.5",
+            "yallist@3.1.1",
+            "yocto-queue@0.1.0",
+            "zod-validation-error@4.0.2",
+            "zod@4.6.5"
+          ]
+        },
+        "hasRscRuntime": true,
+        "hasImageLib": true
+      },
+      "build": {
+        "runsMs": [
+          10831,
+          11162
+        ],
+        "bestMs": 10831
+      },
+      "output": {
+        "bytes": 8965615,
+        "files": 235
+      },
+      "deployable": {
+        "bytes": 205155269,
+        "files": 3526,
+        "note": ".next/standalone (traced node_modules included) + .next/static"
+      },
+      "coldStartMs": 950,
+      "responseHeaders": {
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+        "content-encoding": "gzip",
+        "content-type": "text/html; charset=utf-8",
+        "transfer-encoding": "chunked",
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, Accept-Encoding",
+        "x-powered-by": "Next.js"
+      },
+      "probes": [
+        {
+          "path": "/",
+          "note": "app route",
+          "status": 200,
+          "contentType": "text/html",
+          "finalUrl": "/"
+        },
+        {
+          "path": "/robots.txt",
+          "note": "not defined by either app",
+          "status": 404,
+          "contentType": "text/html",
+          "finalUrl": "/robots.txt"
+        },
+        {
+          "path": "/_next/image?url=%2Fimages%2Fuji-sencha.png&w=640&q=75",
+          "note": "Next.js image optimizer (local src)",
+          "status": 200,
+          "contentType": "image/png",
+          "finalUrl": "/_next/image?url=%2Fimages%2Fuji-sencha.png&w=640&q=75"
+        },
+        {
+          "path": "/_next/image?url=https%3A%2F%2Fexample.com%2Fx.png&w=640&q=75",
+          "note": "Next.js image optimizer (remote src)",
+          "status": 400,
+          "contentType": "",
+          "finalUrl": "/_next/image?url=https%3A%2F%2Fexample.com%2Fx.png&w=640&q=75"
+        },
+        {
+          "path": "/_next/image?url=%2Fimages%2Fuji-sencha.png&w=640&q=75",
+          "headers": {
+            "accept": "image/avif,image/webp"
+          },
+          "note": "image optimizer, AVIF negotiated",
+          "status": 200,
+          "contentType": "image/webp",
+          "finalUrl": "/_next/image?url=%2Fimages%2Fuji-sencha.png&w=640&q=75"
+        },
+        {
+          "path": "/",
+          "headers": {
+            "RSC": "1"
+          },
+          "follow": true,
+          "note": "RSC flight payload request (redirects followed)",
+          "status": 200,
+          "contentType": "text/x-component",
+          "finalUrl": "/?_rsc"
+        },
+        {
+          "path": "/",
+          "method": "POST",
+          "headers": {
+            "Next-Action": "0000000000000000000000000000000000000000",
+            "Content-Type": "text/plain"
+          },
+          "body": "[]",
+          "note": "Server Action endpoint (bogus id)",
+          "status": 404,
+          "contentType": "text/plain",
+          "finalUrl": "/"
+        },
+        {
+          "path": "/__manifest?p=%2F&version=0",
+          "note": "React Router lazy route discovery manifest",
+          "status": 404,
+          "contentType": "text/html",
+          "finalUrl": "/__manifest?p=%2F&version=0"
+        },
+        {
+          "path": "/_root.data",
+          "note": "React Router single-fetch data request (root)",
+          "status": 404,
+          "contentType": "text/html",
+          "finalUrl": "/_root.data"
+        },
+        {
+          "path": "/products/uji-sencha.data",
+          "note": "React Router single-fetch data request",
+          "status": 404,
+          "contentType": "text/html",
+          "finalUrl": "/products/uji-sencha.data"
+        },
+        {
+          "path": "/.well-known/appspecific/com.chrome.devtools.json",
+          "note": "Chrome DevTools workspace probe",
+          "status": 404,
+          "contentType": "text/html",
+          "finalUrl": "/.well-known/appspecific/com.chrome.devtools.json"
+        },
+        {
+          "path": "/__nextjs_original-stack-frames",
+          "note": "Next.js dev-only overlay endpoint",
+          "status": 404,
+          "contentType": "text/html",
+          "finalUrl": "/__nextjs_original-stack-frames"
+        },
+        {
+          "path": "/_next/static/chunks/main.js",
+          "note": "Next.js static chunk dir",
+          "status": 404,
+          "contentType": "text/plain",
+          "finalUrl": "/_next/static/chunks/main.js"
+        }
+      ],
+      "pages": {
+        "/": {
+          "document": {
+            "raw": 22502,
+            "gzip": 3937,
+            "brotli": 3231,
+            "count": 1
+          },
+          "script": {
+            "raw": 477765,
+            "gzip": 142777,
+            "brotli": 122615,
+            "count": 8
+          },
+          "stylesheet": {
+            "raw": 11301,
+            "gzip": 3064,
+            "brotli": 2651,
+            "count": 1
+          },
+          "image": {
+            "raw": 16376,
+            "gzip": 14017,
+            "brotli": 13661,
+            "count": 8
+          },
+          "total": {
+            "raw": 563075,
+            "gzip": 177266,
+            "brotli": 154398,
+            "count": 33
+          },
+          "scripts": [
+            {
+              "url": "/_next/static/chunks/34xk4hkpuviwv.js",
+              "raw": 5598,
+              "gzip": 2026
+            },
+            {
+              "url": "/_next/static/chunks/00e6wkxplygc2.js",
+              "raw": 29023,
+              "gzip": 7667
+            },
+            {
+              "url": "/_next/static/chunks/turbopack-3n9iyd_nn2eje.js",
+              "raw": 9720,
+              "gzip": 3845
+            },
+            {
+              "url": "/_next/static/chunks/0aovqvcnny5ax.js",
+              "raw": 23133,
+              "gzip": 6750
+            },
+            {
+              "url": "/_next/static/chunks/3cdwhhyfv_clq.js",
+              "raw": 609,
+              "gzip": 446
+            },
+            {
+              "url": "/_next/static/chunks/39-yoepc35gu7.js",
+              "raw": 14789,
+              "gzip": 5585
+            },
+            {
+              "url": "/_next/static/chunks/0a1hgbkcaukaa.js",
+              "raw": 165989,
+              "gzip": 45054
+            },
+            {
+              "url": "/_next/static/chunks/2emb-lzrwwsim.js",
+              "raw": 228904,
+              "gzip": 71404
+            }
+          ],
+          "images": [
+            {
+              "url": "/_next/image?url=%2Fimages%2Fuji-sencha.png&w=640&q=75",
+              "raw": 1584
+            },
+            {
+              "url": "/_next/image?url=%2Fimages%2Fethiopia-yirgacheffe.png&w=640&q=75",
+              "raw": 2980
+            },
+            {
+              "url": "/_next/image?url=%2Fimages%2Fbrazil-cerrado.png&w=640&q=75",
+              "raw": 1820
+            },
+            {
+              "url": "/_next/image?url=%2Fimages%2Fguatemala-antigua.png&w=640&q=75",
+              "raw": 2594
+            },
+            {
+              "url": "/_next/image?url=%2Fimages%2Fassam-ctc.png&w=640&q=75",
+              "raw": 1740
+            },
+            {
+              "url": "/_next/image?url=%2Fimages%2Fcolombia-huila.png&w=640&q=75",
+              "raw": 1840
+            },
+            {
+              "url": "/_next/image?url=%2Fimages%2Fhario-v60.png&w=640&q=75",
+              "raw": 1656
+            },
+            {
+              "url": "/_next/image?url=%2Fimages%2Fpaper-filter-02.png&w=640&q=75",
+              "raw": 2162
+            }
+          ]
+        },
+        "/products/ethiopia-yirgacheffe": {
+          "document": {
+            "raw": 11642,
+            "gzip": 3164,
+            "brotli": 2599,
+            "count": 1
+          },
+          "script": {
+            "raw": 479157,
+            "gzip": 143407,
+            "brotli": 123157,
+            "count": 8
+          },
+          "stylesheet": {
+            "raw": 11301,
+            "gzip": 3064,
+            "brotli": 2651,
+            "count": 1
+          },
+          "image": {
+            "raw": 2980,
+            "gzip": 2678,
+            "brotli": 2639,
+            "count": 1
+          },
+          "total": {
+            "raw": 537658,
+            "gzip": 164408,
+            "brotli": 142244,
+            "count": 18
+          },
+          "scripts": [
+            {
+              "url": "/_next/static/chunks/34xk4hkpuviwv.js",
+              "raw": 5598,
+              "gzip": 2026
+            },
+            {
+              "url": "/_next/static/chunks/turbopack-3n9iyd_nn2eje.js",
+              "raw": 9720,
+              "gzip": 3845
+            },
+            {
+              "url": "/_next/static/chunks/00e6wkxplygc2.js",
+              "raw": 29023,
+              "gzip": 7667
+            },
+            {
+              "url": "/_next/static/chunks/3cdwhhyfv_clq.js",
+              "raw": 609,
+              "gzip": 446
+            },
+            {
+              "url": "/_next/static/chunks/1wb60vw3esny2.js",
+              "raw": 16181,
+              "gzip": 6215
+            },
+            {
+              "url": "/_next/static/chunks/0aovqvcnny5ax.js",
+              "raw": 23133,
+              "gzip": 6750
+            },
+            {
+              "url": "/_next/static/chunks/0a1hgbkcaukaa.js",
+              "raw": 165989,
+              "gzip": 45054
+            },
+            {
+              "url": "/_next/static/chunks/2emb-lzrwwsim.js",
+              "raw": 228904,
+              "gzip": 71404
+            }
+          ],
+          "images": [
+            {
+              "url": "/_next/image?url=%2Fimages%2Fethiopia-yirgacheffe.png&w=640&q=75",
+              "raw": 2980
+            }
+          ]
+        },
+        "/about": {
+          "document": {
+            "raw": 8550,
+            "gzip": 2474,
+            "brotli": 2009,
+            "count": 1
+          },
+          "script": {
+            "raw": 462976,
+            "gzip": 137192,
+            "brotli": 117663,
+            "count": 7
+          },
+          "stylesheet": {
+            "raw": 11301,
+            "gzip": 3064,
+            "brotli": 2651,
+            "count": 1
+          },
+          "image": {
+            "raw": 0,
+            "gzip": 0,
+            "brotli": 0,
+            "count": 0
+          },
+          "total": {
+            "raw": 514028,
+            "gzip": 154052,
+            "brotli": 132874,
+            "count": 14
+          },
+          "scripts": [
+            {
+              "url": "/_next/static/chunks/34xk4hkpuviwv.js",
+              "raw": 5598,
+              "gzip": 2026
+            },
+            {
+              "url": "/_next/static/chunks/00e6wkxplygc2.js",
+              "raw": 29023,
+              "gzip": 7667
+            },
+            {
+              "url": "/_next/static/chunks/turbopack-3n9iyd_nn2eje.js",
+              "raw": 9720,
+              "gzip": 3845
+            },
+            {
+              "url": "/_next/static/chunks/0a1hgbkcaukaa.js",
+              "raw": 165989,
+              "gzip": 45054
+            },
+            {
+              "url": "/_next/static/chunks/0aovqvcnny5ax.js",
+              "raw": 23133,
+              "gzip": 6750
+            },
+            {
+              "url": "/_next/static/chunks/3cdwhhyfv_clq.js",
+              "raw": 609,
+              "gzip": 446
+            },
+            {
+              "url": "/_next/static/chunks/2emb-lzrwwsim.js",
+              "raw": 228904,
+              "gzip": 71404
+            }
+          ],
+          "images": []
+        }
+      },
+      "latency": {
+        "/": {
+          "n": 200,
+          "p50": 8.03,
+          "p95": 14.66,
+          "p99": 25.64
+        },
+        "/products/ethiopia-yirgacheffe": {
+          "n": 200,
+          "p50": 6.58,
+          "p95": 11.3,
+          "p99": 22.01
+        },
+        "/api/products": {
+          "n": 200,
+          "p50": 2.22,
+          "p95": 4.3,
+          "p99": 6.78
+        }
+      },
+      "memoryRssKb": 249152
+    },
+    "rr": {
+      "key": "rr",
+      "label": "React Router",
+      "frameworkVersions": {
+        "react-router": "8.4.0",
+        "@react-router/dev": "8.4.0",
+        "@react-router/node": "8.4.0",
+        "@react-router/serve": "8.4.0"
+      },
+      "declaredDeps": {
+        "dependencies": [
+          "@react-router/node",
+          "@react-router/serve",
+          "isbot",
+          "react",
+          "react-dom",
+          "react-router"
+        ],
+        "devDependencies": [
+          "@react-router/dev",
+          "@tailwindcss/vite",
+          "@types/node",
+          "@types/react",
+          "@types/react-dom",
+          "tailwindcss",
+          "typescript",
+          "vite"
+        ]
+      },
+      "source": {
+        "lines": 380,
+        "files": 14
+      },
+      "deps": {
+        "prod": {
+          "count": 92,
+          "bytes": 37831255,
+          "packages": [
+            "@react-router/express@8.4.0",
+            "@react-router/node@8.4.0",
+            "@react-router/serve@8.4.0",
+            "@remix-run/node-fetch-server@0.14.2",
+            "@remix-run/route-pattern@0.22.1",
+            "accepts@2.0.0",
+            "basic-auth@2.0.1",
+            "body-parser@2.3.0",
+            "buffer-from@1.1.2",
+            "bytes@3.1.2",
+            "call-bind-apply-helpers@1.0.2",
+            "call-bound@1.0.4",
+            "compressible@2.0.18",
+            "compression@1.8.2",
+            "content-disposition@1.1.0",
+            "content-type@1.0.5",
+            "content-type@2.1.0",
+            "cookie-es@3.1.1",
+            "cookie-signature@1.2.2",
+            "cookie@0.7.2",
+            "debug@2.6.9",
+            "debug@4.4.3",
+            "depd@2.0.0",
+            "destroy@1.2.0",
+            "dunder-proto@1.0.1",
+            "ee-first@1.1.1",
+            "encodeurl@2.0.0",
+            "es-define-property@1.0.1",
+            "es-errors@1.3.0",
+            "es-object-atoms@1.1.2",
+            "escape-html@1.0.3",
+            "etag@1.8.1",
+            "express@5.2.1",
+            "finalhandler@2.1.1",
+            "forwarded@0.2.0",
+            "fresh@2.0.0",
+            "function-bind@1.1.2",
+            "get-intrinsic@1.3.0",
+            "get-proto@1.0.1",
+            "gopd@1.2.0",
+            "has-symbols@1.1.0",
+            "hasown@2.0.4",
+            "http-errors@2.0.1",
+            "iconv-lite@0.7.3",
+            "inherits@2.0.4",
+            "ipaddr.js@1.9.1",
+            "is-promise@4.0.0",
+            "isbot@5.2.2",
+            "math-intrinsics@1.1.0",
+            "media-typer@1.1.1",
+            "merge-descriptors@2.0.0",
+            "mime-db@1.54.0",
+            "mime-types@3.0.2",
+            "morgan@1.12.1",
+            "ms@2.0.0",
+            "ms@2.1.3",
+            "negotiator@0.6.4",
+            "negotiator@1.1.0",
+            "object-inspect@1.13.4",
+            "on-finished@2.4.1",
+            "on-headers@1.1.0",
+            "once@1.4.0",
+            "parseurl@1.3.3",
+            "path-to-regexp@8.4.2",
+            "proxy-addr@2.0.8",
+            "qs@6.16.0",
+            "range-parser@1.3.0",
+            "raw-body@3.0.2",
+            "react-dom@19.2.8",
+            "react-router@8.4.0",
+            "react@19.2.8",
+            "router@2.2.0",
+            "safe-buffer@5.1.2",
+            "safe-buffer@5.2.1",
+            "safer-buffer@2.1.2",
+            "scheduler@0.27.0",
+            "send@1.2.1",
+            "serve-static@2.2.1",
+            "setprototypeof@1.2.0",
+            "side-channel-list@1.0.1",
+            "side-channel-map@1.0.1",
+            "side-channel-weakmap@1.0.2",
+            "side-channel@1.1.1",
+            "source-map-support@0.5.21",
+            "source-map@0.6.1",
+            "statuses@2.0.2",
+            "toidentifier@1.0.1",
+            "type-is@2.1.0",
+            "typescript@5.9.3",
+            "unpipe@1.0.0",
+            "vary@1.1.2",
+            "wrappy@1.0.2"
+          ]
+        },
+        "all": {
+          "count": 222,
+          "bytes": 151689507,
+          "packages": [
+            "@babel/code-frame@7.29.7",
+            "@babel/compat-data@7.29.7",
+            "@babel/core@7.29.7",
+            "@babel/generator@7.29.8",
+            "@babel/helper-compilation-targets@7.29.7",
+            "@babel/helper-globals@7.29.7",
+            "@babel/helper-module-imports@7.29.7",
+            "@babel/helper-module-transforms@7.29.7",
+            "@babel/helper-string-parser@7.29.7",
+            "@babel/helper-validator-identifier@7.29.7",
+            "@babel/helper-validator-option@7.29.7",
+            "@babel/helpers@7.29.7",
+            "@babel/parser@7.29.9",
+            "@babel/template@7.29.7",
+            "@babel/traverse@7.29.8",
+            "@babel/types@7.29.8",
+            "@jridgewell/gen-mapping@0.3.13",
+            "@jridgewell/remapping@2.3.5",
+            "@jridgewell/resolve-uri@3.1.2",
+            "@jridgewell/sourcemap-codec@1.6.0",
+            "@jridgewell/trace-mapping@0.3.31",
+            "@oxc-project/types@0.152.0",
+            "@react-router/dev@8.4.0",
+            "@react-router/express@8.4.0",
+            "@react-router/node@8.4.0",
+            "@react-router/serve@8.4.0",
+            "@remix-run/node-fetch-server@0.14.2",
+            "@remix-run/route-pattern@0.22.1",
+            "@rolldown/binding-android-arm-eabi@1.2.12",
+            "@rolldown/binding-android-arm64@1.2.12",
+            "@rolldown/binding-darwin-arm64@1.2.12",
+            "@rolldown/binding-darwin-x64@1.2.12",
+            "@rolldown/binding-freebsd-x64@1.2.12",
+            "@rolldown/binding-linux-arm-gnueabihf@1.2.12",
+            "@rolldown/binding-linux-arm64-gnu@1.2.12",
+            "@rolldown/binding-linux-arm64-musl@1.2.12",
+            "@rolldown/binding-linux-ppc64-gnu@1.2.12",
+            "@rolldown/binding-linux-s390x-gnu@1.2.12",
+            "@rolldown/binding-linux-x64-gnu@1.2.12",
+            "@rolldown/binding-linux-x64-musl@1.2.12",
+            "@rolldown/binding-openharmony-arm64@1.2.12",
+            "@rolldown/binding-win32-arm64-msvc@1.2.12",
+            "@rolldown/binding-win32-x64-msvc@1.2.12",
+            "@rolldown/pluginutils@1.0.1",
+            "@tailwindcss/node@4.3.3",
+            "@tailwindcss/oxide-android-arm64@4.3.3",
+            "@tailwindcss/oxide-darwin-arm64@4.3.3",
+            "@tailwindcss/oxide-darwin-x64@4.3.3",
+            "@tailwindcss/oxide-freebsd-x64@4.3.3",
+            "@tailwindcss/oxide-linux-arm-gnueabihf@4.3.3",
+            "@tailwindcss/oxide-linux-arm64-gnu@4.3.3",
+            "@tailwindcss/oxide-linux-arm64-musl@4.3.3",
+            "@tailwindcss/oxide-linux-x64-gnu@4.3.3",
+            "@tailwindcss/oxide-linux-x64-musl@4.3.3",
+            "@tailwindcss/oxide-wasm32-wasi@4.3.3",
+            "@tailwindcss/oxide-win32-arm64-msvc@4.3.3",
+            "@tailwindcss/oxide-win32-x64-msvc@4.3.3",
+            "@tailwindcss/oxide@4.3.3",
+            "@tailwindcss/vite@4.3.3",
+            "@types/node@22.20.5",
+            "@types/react-dom@19.3.0",
+            "@types/react@19.3.0",
+            "accepts@2.0.0",
+            "babel-dead-code-elimination@1.0.12",
+            "baseline-browser-mapping@2.11.27",
+            "basic-auth@2.0.1",
+            "body-parser@2.3.0",
+            "browserslist@4.29.3",
+            "buffer-from@1.1.2",
+            "bytes@3.1.2",
+            "call-bind-apply-helpers@1.0.2",
+            "call-bound@1.0.4",
+            "caniuse-lite@1.0.30001814",
+            "chokidar@5.0.0",
+            "compressible@2.0.18",
+            "compression@1.8.2",
+            "confbox@0.3.1",
+            "content-disposition@1.1.0",
+            "content-type@1.0.5",
+            "content-type@2.1.0",
+            "convert-source-map@2.0.0",
+            "cookie-es@3.1.1",
+            "cookie-signature@1.2.2",
+            "cookie@0.7.2",
+            "csstype@3.2.3",
+            "debug@2.6.9",
+            "debug@4.4.3",
+            "dedent@1.7.2",
+            "depd@2.0.0",
+            "destroy@1.2.0",
+            "detect-libc@2.1.2",
+            "dunder-proto@1.0.1",
+            "ee-first@1.1.1",
+            "electron-to-chromium@1.5.444",
+            "encodeurl@2.0.0",
+            "enhanced-resolve@5.26.0",
+            "es-define-property@1.0.1",
+            "es-errors@1.3.0",
+            "es-module-lexer@2.3.2",
+            "es-object-atoms@1.1.2",
+            "escalade@3.2.0",
+            "escape-html@1.0.3",
+            "etag@1.8.1",
+            "exit-hook@5.1.0",
+            "express@5.2.1",
+            "exsolve@1.1.3",
+            "fdir@6.5.0",
+            "finalhandler@2.1.1",
+            "forwarded@0.2.0",
+            "fresh@2.0.0",
+            "fsevents@2.3.3",
+            "function-bind@1.1.2",
+            "gensync@1.0.0-beta.2",
+            "get-intrinsic@1.3.0",
+            "get-proto@1.0.1",
+            "gopd@1.2.0",
+            "graceful-fs@4.2.11",
+            "has-symbols@1.1.0",
+            "hasown@2.0.4",
+            "http-errors@2.0.1",
+            "iconv-lite@0.7.3",
+            "inherits@2.0.4",
+            "ipaddr.js@1.9.1",
+            "is-promise@4.0.0",
+            "isbot@5.2.2",
+            "jiti@2.7.0",
+            "js-tokens@4.0.0",
+            "jsesc@3.1.0",
+            "json5@2.2.3",
+            "lightningcss-android-arm64@1.32.0",
+            "lightningcss-android-arm64@1.33.0",
+            "lightningcss-darwin-arm64@1.32.0",
+            "lightningcss-darwin-arm64@1.33.0",
+            "lightningcss-darwin-x64@1.32.0",
+            "lightningcss-darwin-x64@1.33.0",
+            "lightningcss-freebsd-x64@1.32.0",
+            "lightningcss-freebsd-x64@1.33.0",
+            "lightningcss-linux-arm-gnueabihf@1.32.0",
+            "lightningcss-linux-arm-gnueabihf@1.33.0",
+            "lightningcss-linux-arm64-gnu@1.32.0",
+            "lightningcss-linux-arm64-gnu@1.33.0",
+            "lightningcss-linux-arm64-musl@1.32.0",
+            "lightningcss-linux-arm64-musl@1.33.0",
+            "lightningcss-linux-x64-gnu@1.32.0",
+            "lightningcss-linux-x64-gnu@1.33.0",
+            "lightningcss-linux-x64-musl@1.32.0",
+            "lightningcss-linux-x64-musl@1.33.0",
+            "lightningcss-win32-arm64-msvc@1.32.0",
+            "lightningcss-win32-arm64-msvc@1.33.0",
+            "lightningcss-win32-x64-msvc@1.32.0",
+            "lightningcss-win32-x64-msvc@1.33.0",
+            "lightningcss@1.32.0",
+            "lightningcss@1.33.0",
+            "lodash@4.18.1",
+            "lru-cache@5.1.1",
+            "magic-string@0.30.21",
+            "math-intrinsics@1.1.0",
+            "media-typer@1.1.1",
+            "merge-descriptors@2.0.0",
+            "mime-db@1.54.0",
+            "mime-types@3.0.2",
+            "morgan@1.12.1",
+            "ms@2.0.0",
+            "ms@2.1.3",
+            "nanoid@3.3.19",
+            "negotiator@0.6.4",
+            "negotiator@1.1.0",
+            "node-releases@2.0.57",
+            "object-inspect@1.13.4",
+            "on-finished@2.4.1",
+            "on-headers@1.1.0",
+            "once@1.4.0",
+            "p-map@7.0.8",
+            "parseurl@1.3.3",
+            "path-to-regexp@8.4.2",
+            "pathe@2.0.3",
+            "picocolors@1.1.1",
+            "picomatch@4.0.7",
+            "pkg-types@2.3.3",
+            "postcss@8.5.28",
+            "proxy-addr@2.0.8",
+            "qs@6.16.0",
+            "range-parser@1.3.0",
+            "raw-body@3.0.2",
+            "react-dom@19.2.8",
+            "react-refresh@0.18.0",
+            "react-router@8.4.0",
+            "react@19.2.8",
+            "readdirp@5.1.1",
+            "rolldown@1.2.12",
+            "router@2.2.0",
+            "safe-buffer@5.1.2",
+            "safe-buffer@5.2.1",
+            "safer-buffer@2.1.2",
+            "scheduler@0.27.0",
+            "semver@6.3.1",
+            "semver@7.8.5",
+            "send@1.2.1",
+            "serve-static@2.2.1",
+            "setprototypeof@1.2.0",
+            "side-channel-list@1.0.1",
+            "side-channel-map@1.0.1",
+            "side-channel-weakmap@1.0.2",
+            "side-channel@1.1.1",
+            "source-map-js@1.2.2",
+            "source-map-support@0.5.21",
+            "source-map@0.6.1",
+            "statuses@2.0.2",
+            "tailwindcss@4.3.3",
+            "tapable@2.3.3",
+            "tinyglobby@0.2.17",
+            "toidentifier@1.0.1",
+            "type-is@2.1.0",
+            "typescript@5.9.3",
+            "undici-types@6.21.0",
+            "unpipe@1.0.0",
+            "update-browserslist-db@1.3.3",
+            "valibot@1.5.0",
+            "vary@1.1.2",
+            "vite@8.3.2",
+            "wrappy@1.0.2",
+            "yallist@3.1.1"
+          ]
+        },
+        "hasRscRuntime": false,
+        "hasImageLib": false
+      },
+      "build": {
+        "runsMs": [
+          1870,
+          1526
+        ],
+        "bestMs": 1526
+      },
+      "output": {
+        "bytes": 461246,
+        "files": 25
+      },
+      "deployable": {
+        "bytes": 38292501,
+        "files": 25,
+        "note": "build/ + production node_modules"
+      },
+      "coldStartMs": 658,
+      "responseHeaders": {
+        "content-encoding": "gzip",
+        "content-type": "text/html; charset=utf-8",
+        "transfer-encoding": "chunked",
+        "vary": "Accept-Encoding"
+      },
+      "probes": [
+        {
+          "path": "/",
+          "note": "app route",
+          "status": 200,
+          "contentType": "text/html",
+          "finalUrl": "/"
+        },
+        {
+          "path": "/robots.txt",
+          "note": "not defined by either app",
+          "status": 404,
+          "contentType": "text/html",
+          "finalUrl": "/robots.txt"
+        },
+        {
+          "path": "/_next/image?url=%2Fimages%2Fuji-sencha.png&w=640&q=75",
+          "note": "Next.js image optimizer (local src)",
+          "status": 404,
+          "contentType": "text/html",
+          "finalUrl": "/_next/image?url=%2Fimages%2Fuji-sencha.png&w=640&q=75"
+        },
+        {
+          "path": "/_next/image?url=https%3A%2F%2Fexample.com%2Fx.png&w=640&q=75",
+          "note": "Next.js image optimizer (remote src)",
+          "status": 404,
+          "contentType": "text/html",
+          "finalUrl": "/_next/image?url=https%3A%2F%2Fexample.com%2Fx.png&w=640&q=75"
+        },
+        {
+          "path": "/_next/image?url=%2Fimages%2Fuji-sencha.png&w=640&q=75",
+          "headers": {
+            "accept": "image/avif,image/webp"
+          },
+          "note": "image optimizer, AVIF negotiated",
+          "status": 404,
+          "contentType": "text/html",
+          "finalUrl": "/_next/image?url=%2Fimages%2Fuji-sencha.png&w=640&q=75"
+        },
+        {
+          "path": "/",
+          "headers": {
+            "RSC": "1"
+          },
+          "follow": true,
+          "note": "RSC flight payload request (redirects followed)",
+          "status": 200,
+          "contentType": "text/html",
+          "finalUrl": "/"
+        },
+        {
+          "path": "/",
+          "method": "POST",
+          "headers": {
+            "Next-Action": "0000000000000000000000000000000000000000",
+            "Content-Type": "text/plain"
+          },
+          "body": "[]",
+          "note": "Server Action endpoint (bogus id)",
+          "status": 405,
+          "contentType": "text/html",
+          "finalUrl": "/"
+        },
+        {
+          "path": "/__manifest?p=%2F&version=0",
+          "note": "React Router lazy route discovery manifest",
+          "status": 204,
+          "contentType": "",
+          "finalUrl": "/__manifest?p=%2F&version=0"
+        },
+        {
+          "path": "/_root.data",
+          "note": "React Router single-fetch data request (root)",
+          "status": 404,
+          "contentType": "text/x-script",
+          "finalUrl": "/_root.data"
+        },
+        {
+          "path": "/products/uji-sencha.data",
+          "note": "React Router single-fetch data request",
+          "status": 200,
+          "contentType": "text/x-script",
+          "finalUrl": "/products/uji-sencha.data"
+        },
+        {
+          "path": "/.well-known/appspecific/com.chrome.devtools.json",
+          "note": "Chrome DevTools workspace probe",
+          "status": 404,
+          "contentType": "text/html",
+          "finalUrl": "/.well-known/appspecific/com.chrome.devtools.json"
+        },
+        {
+          "path": "/__nextjs_original-stack-frames",
+          "note": "Next.js dev-only overlay endpoint",
+          "status": 404,
+          "contentType": "text/html",
+          "finalUrl": "/__nextjs_original-stack-frames"
+        },
+        {
+          "path": "/_next/static/chunks/main.js",
+          "note": "Next.js static chunk dir",
+          "status": 404,
+          "contentType": "text/html",
+          "finalUrl": "/_next/static/chunks/main.js"
+        }
+      ],
+      "pages": {
+        "/": {
+          "document": {
+            "raw": 12083,
+            "gzip": 3498,
+            "brotli": 2781,
+            "count": 1
+          },
+          "script": {
+            "raw": 321158,
+            "gzip": 104377,
+            "brotli": 91582,
+            "count": 8
+          },
+          "stylesheet": {
+            "raw": 11363,
+            "gzip": 3024,
+            "brotli": 2603,
+            "count": 1
+          },
+          "image": {
+            "raw": 81560,
+            "gzip": 63106,
+            "brotli": 62799,
+            "count": 8
+          },
+          "total": {
+            "raw": 428153,
+            "gzip": 174438,
+            "brotli": 160150,
+            "count": 19
+          },
+          "scripts": [
+            {
+              "url": "/assets/root-L-PWVYoe.js",
+              "raw": 2269,
+              "gzip": 987
+            },
+            {
+              "url": "/assets/jsx-runtime-Bd2qf42M.js",
+              "raw": 385,
+              "gzip": 286
+            },
+            {
+              "url": "/assets/errorBoundaries-BDhMd_I7.js",
+              "raw": 33522,
+              "gzip": 11672
+            },
+            {
+              "url": "/assets/src-Citlp9c9.js",
+              "raw": 227,
+              "gzip": 217
+            },
+            {
+              "url": "/assets/components-3YPZmLiv.js",
+              "raw": 86500,
+              "gzip": 28287
+            },
+            {
+              "url": "/assets/lib-DZr6Xr7C.js",
+              "raw": 9977,
+              "gzip": 3957
+            },
+            {
+              "url": "/assets/home-_60qF9Aq.js",
+              "raw": 2322,
+              "gzip": 1104
+            },
+            {
+              "url": "/assets/entry.client-BwWDXGDV.js",
+              "raw": 185956,
+              "gzip": 57867
+            }
+          ],
+          "images": [
+            {
+              "url": "/images/ethiopia-yirgacheffe.png",
+              "raw": 13129
+            },
+            {
+              "url": "/images/colombia-huila.png",
+              "raw": 9666
+            },
+            {
+              "url": "/images/brazil-cerrado.png",
+              "raw": 10706
+            },
+            {
+              "url": "/images/guatemala-antigua.png",
+              "raw": 10005
+            },
+            {
+              "url": "/images/uji-sencha.png",
+              "raw": 9284
+            },
+            {
+              "url": "/images/assam-ctc.png",
+              "raw": 7921
+            },
+            {
+              "url": "/images/hario-v60.png",
+              "raw": 10245
+            },
+            {
+              "url": "/images/paper-filter-02.png",
+              "raw": 10604
+            }
+          ]
+        },
+        "/products/ethiopia-yirgacheffe": {
+          "document": {
+            "raw": 7334,
+            "gzip": 2401,
+            "brotli": 1928,
+            "count": 1
+          },
+          "script": {
+            "raw": 320943,
+            "gzip": 104299,
+            "brotli": 91527,
+            "count": 8
+          },
+          "stylesheet": {
+            "raw": 11363,
+            "gzip": 3024,
+            "brotli": 2603,
+            "count": 1
+          },
+          "image": {
+            "raw": 13129,
+            "gzip": 10752,
+            "brotli": 10702,
+            "count": 1
+          },
+          "total": {
+            "raw": 354758,
+            "gzip": 120909,
+            "brotli": 107145,
+            "count": 12
+          },
+          "scripts": [
+            {
+              "url": "/assets/jsx-runtime-Bd2qf42M.js",
+              "raw": 385,
+              "gzip": 286
+            },
+            {
+              "url": "/assets/components-3YPZmLiv.js",
+              "raw": 86500,
+              "gzip": 28287
+            },
+            {
+              "url": "/assets/errorBoundaries-BDhMd_I7.js",
+              "raw": 33522,
+              "gzip": 11672
+            },
+            {
+              "url": "/assets/root-L-PWVYoe.js",
+              "raw": 2269,
+              "gzip": 987
+            },
+            {
+              "url": "/assets/lib-DZr6Xr7C.js",
+              "raw": 9977,
+              "gzip": 3957
+            },
+            {
+              "url": "/assets/src-Citlp9c9.js",
+              "raw": 227,
+              "gzip": 217
+            },
+            {
+              "url": "/assets/product-CYPLHHM-.js",
+              "raw": 2107,
+              "gzip": 1026
+            },
+            {
+              "url": "/assets/entry.client-BwWDXGDV.js",
+              "raw": 185956,
+              "gzip": 57867
+            }
+          ],
+          "images": [
+            {
+              "url": "/images/ethiopia-yirgacheffe.png",
+              "raw": 13129
+            }
+          ]
+        },
+        "/about": {
+          "document": {
+            "raw": 5495,
+            "gzip": 2035,
+            "brotli": 1617,
+            "count": 1
+          },
+          "script": {
+            "raw": 319588,
+            "gzip": 103673,
+            "brotli": 90983,
+            "count": 7
+          },
+          "stylesheet": {
+            "raw": 11363,
+            "gzip": 3024,
+            "brotli": 2603,
+            "count": 1
+          },
+          "image": {
+            "raw": 0,
+            "gzip": 0,
+            "brotli": 0,
+            "count": 0
+          },
+          "total": {
+            "raw": 337649,
+            "gzip": 109095,
+            "brotli": 95521,
+            "count": 10
+          },
+          "scripts": [
+            {
+              "url": "/assets/jsx-runtime-Bd2qf42M.js",
+              "raw": 385,
+              "gzip": 286
+            },
+            {
+              "url": "/assets/root-L-PWVYoe.js",
+              "raw": 2269,
+              "gzip": 987
+            },
+            {
+              "url": "/assets/errorBoundaries-BDhMd_I7.js",
+              "raw": 33522,
+              "gzip": 11672
+            },
+            {
+              "url": "/assets/components-3YPZmLiv.js",
+              "raw": 86500,
+              "gzip": 28287
+            },
+            {
+              "url": "/assets/about-WJzMfpW1.js",
+              "raw": 979,
+              "gzip": 617
+            },
+            {
+              "url": "/assets/lib-DZr6Xr7C.js",
+              "raw": 9977,
+              "gzip": 3957
+            },
+            {
+              "url": "/assets/entry.client-BwWDXGDV.js",
+              "raw": 185956,
+              "gzip": 57867
+            }
+          ],
+          "images": []
+        }
+      },
+      "latency": {
+        "/": {
+          "n": 200,
+          "p50": 5.02,
+          "p95": 8.71,
+          "p99": 16.76
+        },
+        "/products/ethiopia-yirgacheffe": {
+          "n": 200,
+          "p50": 3.96,
+          "p95": 6.92,
+          "p99": 9.61
+        },
+        "/api/products": {
+          "n": 200,
+          "p50": 2.74,
+          "p95": 4.92,
+          "p99": 13.95
+        }
+      },
+      "memoryRssKb": 162028
+    }
+  }
+}
