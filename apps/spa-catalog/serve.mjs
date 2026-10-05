@@ -1,5 +1,7 @@
-// Minimal static host for the built SPA: what a CDN with a "404 -> index.html"
-// rule does. Used by `pnpm start` and by scripts/measure.mjs.
+// Minimal static host for the built SPA, behaving like a plain CDN: a file is
+// served if it exists (`/products/<id>/` resolves to the index.html generated
+// at build time by static-paths.ts), anything else is a real 404.
+// Used by `pnpm start` and by scripts/measure.mjs.
 import { createServer } from "node:http";
 import { existsSync, readFileSync, statSync } from "node:fs";
 import { extname, join, normalize } from "node:path";
@@ -19,17 +21,14 @@ const MIME = {
 createServer((req, res) => {
   const url = new URL(req.url ?? "/", "http://localhost");
   const rel = normalize(decodeURIComponent(url.pathname)).replace(/^(\.\.[/\\])+/, "");
-  const file = join(DIST, rel);
+  let file = join(DIST, rel);
+  if (existsSync(file) && statSync(file).isDirectory()) file = join(file, "index.html");
   if (file.startsWith(DIST) && existsSync(file) && statSync(file).isFile()) {
     res.writeHead(200, {
       "content-type": MIME[extname(file)] ?? "application/octet-stream",
       "cache-control": rel.startsWith("/assets/") ? "public, max-age=31536000, immutable" : "no-cache",
     });
     return res.end(readFileSync(file));
-  }
-  if ((req.headers.accept ?? "").includes("text/html")) {
-    res.writeHead(200, { "content-type": MIME[".html"], "cache-control": "no-cache" });
-    return res.end(readFileSync(join(DIST, "index.html")));
   }
   res.writeHead(404, { "content-type": "text/plain" });
   res.end("not found");

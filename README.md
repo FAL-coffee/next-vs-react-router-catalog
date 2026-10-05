@@ -26,7 +26,7 @@ docs/                 記事骨子・下書き・計測結果・機能対応表
 | OG 画像 | `next/og` の `ImageResponse`（`/products/:id/opengraph-image`） | なし（SPA では作れない。CDN 側や別サービスの仕事） |
 | 予約（在庫を減らす） | Server Action + `useActionState` | モック関数をブラウザで呼ぶ（実運用なら BFF へ `fetch`） |
 | JSON API | Route Handler | なし（データはブラウザ内） |
-| 404 / エラー境界 | `not-found.tsx` / `error.tsx` | `notFoundComponent` / `defaultErrorComponent` |
+| 404 / エラー境界 | `not-found.tsx` / `error.tsx` | `notFoundComponent` / `defaultErrorComponent`。既知ルートはビルド時に静的生成、未知の URL はホストの 404 |
 | 画像 | `next/image`（既定の最適化を有効のまま） | 素の `<img>` |
 
 ## 使い方
@@ -35,14 +35,14 @@ docs/                 記事骨子・下書き・計測結果・機能対応表
 pnpm install
 pnpm build          # 両アプリをビルド
 pnpm --filter next-catalog start   # http://localhost:3001
-pnpm --filter spa-catalog start    # http://localhost:3002 （静的配信、404 -> index.html）
+pnpm --filter spa-catalog start    # http://localhost:3002 （素の静的配信。存在しないパスは 404）
 
 pnpm advisories     # osv.dev から脆弱性履歴を取得 -> docs/results/advisories.json
 pnpm measure        # ビルド時間・依存・バンドル・起動・レイテンシ・露出エンドポイント -> docs/results/measure.json
 pnpm report         # docs/results/COMPARISON.md を生成
 ```
 
-Vercel には `apps/next-catalog` も `apps/spa-catalog` もそれぞれ Root Directory にしてそのまま載る。SPA 側は静的サイトなので、`/products/:id` を直接開いたりリロードしたりすると CDN は本物の 404 を返す。`apps/spa-catalog/vercel.json` の rewrite で未知の URL を `index.html` に回している（`serve.mjs` がローカルで再現しているのと同じルール）。
+Vercel には `apps/next-catalog` も `apps/spa-catalog` もそれぞれ Root Directory にしてそのまま載る。ホスティング側の rewrite には頼らない。SPA 側は `static-paths.ts`（Vite プラグイン）がビルド時に既知のルート（`/about`、`/products/<id>`）ごとに `index.html` を生成するので、直接アクセスやリロードでもファイルが存在する。Next の `generateStaticParams` に相当。未知の ID は CDN が本物の 404 を返す。
 
 開発時は `pnpm --filter spa-catalog dev`（5173）と `pnpm --filter next-catalog dev`（3000）。
 

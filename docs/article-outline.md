@@ -63,7 +63,7 @@
 
 - 再現コスト 0〜低: SSR 不要なら消える / RSC → コード分割 / Server Actions → データ層呼び出し / Route Handler → 既存 BFF / Parallel+Intercepting → search param + route masking / middleware → beforeLoad（本体の認可は API）/ prefetch / 型付きルート
 - 再現コスト中〜高: Image Optimization（CDN の仕事）/ OG 画像（別サービス）
-- 不可: JS 無効フォーム / 正しい 404 ステータス
+- 不可: JS 無効フォーム / ビルド時に列挙できない動的ルートの直接アクセス（列挙できるものは静的生成で解決。generateStaticParams 相当の Vite プラグイン）
 - コード比較は 2 箇所だけ載せる: (a) クイックビュー（intercepting route vs route masking）、(b) 予約フォーム（Server Action vs ブラウザからの呼び出し）
 
 ### 4.4 抱え込むもの（計測）
@@ -89,7 +89,7 @@
 - React 19 は Server Action 完了後にフォームをリセットする（予約エラー後に数量が初期値に戻る）
 - TanStack は search を JSON として読む（`?fail=1` が数値になる）
 - TanStack の `errorComponent` はルートに伝播しない（`defaultErrorComponent` を使う）
-- 404 の HTTP ステータスは SPA では返せない
+- 静的 SPA は「存在しないファイル = 404」なので、動的ルートはビルド時に列挙して生成する。rewrite で逃げるとホスティングの話になって比較が壊れる（Vercel で最初に踏んだ）
 
 ## 5. SPA 側の傷も並べる
 
@@ -101,7 +101,7 @@
 1. 未ログインで見られる公開ページの初期 HTML（SEO、初期表示）
 2. SNS シェア用の OG 画像
 3. JS 無効でも動くフォーム
-4. クローラに返す正しい 404
+4. ビルド時に列挙できない動的ルート（UGC など）の直接アクセスと正しい 404
 
 これが無いプロダクトは、Next の機能を全部「過剰」として抱えている。クロスオーダーの発注画面は 4 つとも無い
 
